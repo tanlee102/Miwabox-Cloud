@@ -1,0 +1,33 @@
+@media only screen and (min-width: 1050px) {
+    .modal-content{
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 925px)  and (max-width: 1050px) {
+    .modal-content{
+        width: 60%;
+    }
+}
+
+
+@media only screen and (min-width: 820px)  and (max-width: 925px) {    
+    .modal-content{
+        width: 70%;
+    }
+}
+
+
+@media only screen and (min-width: 650px)  and (max-width: 820px) {
+    .modal-content{
+        width: 99%;
+    }
+}
+
+
+@media only screen and (max-width: 650px){ 
+    .modal-content{
+        width: 99%;
+    }
+
+}
