@@ -1,0 +1,99 @@
+.vertical-menu{
+    position: relative;
+    float: left;
+    background-color:white;
+    width: 200px;
+    height: 100%;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.content[dark-mode="true"]  .vertical-menu{
+    background-color: #414141;
+}
+
+.content[dark-mode="true"]  .vertical-menu p{
+    color: rgb(174, 174, 174);
+}
+
+
+.vertical-menu p{
+    position: relative;
+    float: left;
+    margin-top: 13px;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: rgb(136, 136, 136);
+}
+
+
+
+#expand-vertical-menu{
+    position: relative;
+    float: left;
+    border: none;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+
+.content[dark-mode="true"]  #expand-vertical-menu{
+    background-color: #414141;
+    fill: white;
+}
+.content[dark-mode="true"]  #expand-vertical-menu svg{
+    fill: white;
+}
+
+
+
+.item-vertical-menu{
+    position: relative;
+    float: left;
+    background-color:white;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-top: 1pt solid rgba(140, 140, 140, 0.228);
+}
+.content[dark-mode="true"]  .item-vertical-menu{
+    border-top: 1pt solid rgb(0, 0, 0);
+}
+
+.content[dark-mode="true"]  .item-vertical-menu li{
+    background-color: #414141;
+    color: white;
+}
+
+.item-vertical-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: auto;
+}
+.item-vertical-menu li{
+    position: relative;
+    float: left;
+    /* background-color: rgb(0, 255, 179); */
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    background-color: white;
+    padding: 10px 10px;
+    cursor: pointer;
+    font-size: 16px !important;
+}
+
+
+
+@media only screen and (max-width: 800px){ 
+    .vertical-menu{
+        width: 100%;
+    }
+    .item-vertical-menu{
+        display: none;
+    }
+}

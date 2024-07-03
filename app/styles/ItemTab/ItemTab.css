@@ -1,0 +1,148 @@
+.item-hub{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.item-tab{
+    position: relative;
+    float: left;
+    display: flex;
+    justify-content: left;
+    width: calc(100% - 20px);
+    padding: 7px 10px;
+}
+
+
+.item-tab-sug{
+    width: calc(100% - 0.5px) !important;
+    float: left;
+    margin-top: 1px;
+    background-color:  white;
+    position: relative;
+    display: block;
+    border-radius: 2px;
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.3);
+}
+.item-tab-sug .item-tab{
+    width: calc(100% - 8px) !important;
+    padding: 7px 4px !important;
+}
+
+.content[dark-mode="true"] .item-tab-sug{
+    position: relative;
+    background-color:  #444444;
+}
+
+
+
+.fill-item-tab{
+    height: calc(100% - 14px);
+}
+
+.item-tab_{
+    position: relative;
+    float: left;
+    width: calc(33.3% - 1px);
+    margin: 0.5px;
+}
+
+
+.ava-item-tab{
+    position: relative;
+    float: left;
+    width: 35px;
+    height: 35px;
+    background-color: black;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.content[dark-mode="true"] .ava-item-tab{
+    background-color: white;
+}
+
+.ava-item-tab img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+.content-item-tab{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 40px);
+    padding-left: 5px;
+
+    height: auto;
+}
+
+
+
+.title-item-tab{
+    position: relative;
+    
+    width: auto;
+    font-size: 15px;  /*change*/
+    line-height: 19px;
+
+    padding: 0px;
+    margin: 0px;
+
+    height: auto;
+    max-height: 200px; 
+    overflow: hidden;
+
+    display: inline;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: black;
+
+    cursor: pointer;
+}
+
+.content[dark-mode="true"] .title-item-tab{
+    color: white;
+}
+
+.title-item-tab span:first-child{
+    display: inline-block;
+    padding: 0px 5px;
+
+    background-color: brown;
+    margin: 0 4px 0 0 !important;
+    font-size: 12px;
+    border-radius: 3px;
+    line-height: auto;
+    color: white;
+}
+
+
+.extra-item-tab{
+    position: relative;
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.extra-item-tab{
+    color: brown;
+}
+
+.content[dark-mode="true"] .extra-item-tab{
+    color: rgb(231, 105, 59);
+}
+
+.extra-item-tab-blue{
+    color: rgb(72, 110, 181) !important;
+}
+
+.content[dark-mode="true"] .extra-item-tab-blue{
+    color: rgb(92, 135, 214) !important;
+}

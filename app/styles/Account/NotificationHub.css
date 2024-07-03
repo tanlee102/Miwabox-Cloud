@@ -1,0 +1,81 @@
+.notification-hub{
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+}
+
+.notification-tab{
+    padding: 10px ;
+}
+
+
+
+.ava-notification-tab{
+    position: relative;
+    float: left;
+    width: 33px;
+    height: 33px;
+    cursor: pointer;
+}
+
+.ava-notification-tab span{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;    
+}
+
+
+.ava-notification-tab span img{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+
+
+.content-notification-tab{
+    position: relative;
+    float: left;
+    width: auto;
+    height: auto;
+    padding-left: 5px;
+    width: calc(100% - 40px);
+    cursor: pointer;
+}
+
+
+.text-notification-tab{
+    position: relative;
+    float: left;
+    height: auto;
+    font-size: 15px;
+    width: 100%;
+    color: black;
+}
+
+.content[dark-mode="true"] .text-notification-tab{
+    color: rgb(238, 238, 238);
+}
+
+.text-notification-tab a{
+    color: rgb(24, 24, 24);
+    font-weight: bold;
+}
+.content[dark-mode="true"] .text-notification-tab a{
+    color: white;
+}
+
+.time-notification-tab{
+    float: left;
+    width: 100%;
+    margin-top: 3px;
+    font-size: 12px;
+    color: rgb(102, 102, 102);
+}
+.content[dark-mode="true"] .time-notification-tab{
+    color: rgb(189, 189, 189);
+}

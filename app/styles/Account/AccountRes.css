@@ -1,0 +1,28 @@
+/* Extra Small Devices (phones) */
+@media only screen and (max-width: 480px) {
+ 
+}
+
+/* Small Devices (tablets) */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+}
+
+/* Medium Devices (small laptops) */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+}
+
+/* Large Devices (desktops) */
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+    .fr-account{
+        width: 900px !important;
+    }
+}
+
+/* Extra Large Devices (large desktops) */
+@media only screen and (min-width: 1441px) {
+    .fr-account{
+        width: 900px !important;
+    }
+}

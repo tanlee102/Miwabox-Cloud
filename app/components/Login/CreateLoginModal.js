@@ -1,3 +1,5 @@
+'use client'
+
 import { useContext, useState } from "react";
 import { env_variable } from "../../env"
 import Link from "next/link";

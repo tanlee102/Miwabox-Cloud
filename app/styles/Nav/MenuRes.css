@@ -85,6 +85,10 @@
         margin: 0;
         width: 100%;
     }
+
+    .fr-content{
+        width: 750px;
+    }
 }
 
 /* Large Devices (desktops) */
@@ -106,6 +110,10 @@
         margin: 0;
         width: 100%;
     }
+
+    .fr-content{
+        width: calc(100% - 240px);
+    }
 }
 
 /* Extra Large Devices (large desktops) */
@@ -126,5 +134,9 @@
     .search-wall{
         margin: 0;
         width: 100%;
+    }
+
+    .fr-content{
+        width: 1200px;
     }
 }

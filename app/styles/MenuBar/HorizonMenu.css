@@ -1,0 +1,105 @@
+/* --------------------------------------------------------- */
+.horizon-menu{
+    position: relative;
+    float: left;
+    width: auto;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    border-radius: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+.content[dark-mode="true"] .horizon-menu{
+    background-color: #312f2f;
+}
+
+.horizon-menu > div{
+    display: flex;
+    justify-content: center;
+    color: rgb(43, 43, 43);
+    background-color: white;
+    border: 1px solid rgb(222, 222, 222);
+    /* background-color: rgb(136, 186, 255); */
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-weight: 400;
+    width: calc(25% - 32px);
+    margin: 5px 5px 4px 5px;
+    cursor: pointer;
+}
+.horizon-menu li{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+.content[dark-mode="true"] .horizon-menu > div{
+    /* background-color: #414141; */
+    border: 1px solid rgb(90, 90, 90);
+}
+
+
+.content[dark-mode="true"] .horizon-menu > div{
+    background-color: #312f2f;
+}
+.content[dark-mode="true"] .horizon-menu li{
+    color: white;
+}
+
+.content[dark-mode="true"] .horizon-menu svg{
+    fill: white;
+}
+
+
+
+.horizon-menu > div > li > svg{
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    fill: black;
+}
+/* .horizon-menu > li > svg > path{
+    fill:black
+} */
+.horizon-menu > div > li > span{
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    margin-left: 5px;
+    font-size: 17px;
+    margin-right: 2px;
+}
+
+
+
+.chosen-item-horizon-menu{
+    background-color: rgb(89, 131, 205) !important;
+}
+.content[dark-mode="true"] .chosen-item-horizon-menu{
+    background-color: cornflowerblue !important;
+}
+
+.chosen-item-horizon-menu svg{
+    fill: white !important;
+}
+
+.chosen-item-horizon-menu span{
+    color: white !important;
+}
+
+
+
+
+@media only screen and (max-width: 700px){ 
+    .horizon-menu > div > li > span{
+        display: none;
+    }
+}

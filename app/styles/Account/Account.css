@@ -1,0 +1,28 @@
+.fr-account{
+    padding-top: 10px;
+}
+
+.setting-account{
+    position: relative;
+    float: left;
+    height: auto;
+    margin-left: 10px;
+    width: calc(100% - 210px);
+    border-radius: 2px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.content[dark-mode="true"] .setting-account{
+    background-color: #414141;
+}
+
+
+@media only screen and (max-width: 800px){ 
+    .setting-account{
+        width: calc(100%) !important;
+        margin-left: 0px !important;
+        margin-top: 10px !important;
+    }
+}

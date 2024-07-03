@@ -1,0 +1,315 @@
+.form-account{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+}
+
+
+
+.content[dark-mode="true"]  .form-account  > div > input, .content[dark-mode="true"]  .form-account > div  > span > input{
+    background-color: #5c5c5c;
+    border: 1px solid rgb(155, 155, 155);
+    color: white;
+}
+.content[dark-mode="true"]  .form-account > div > input::placeholder , .content[dark-mode="true"]  .form-account  > div  > span > input::placeholder{
+    color: rgb(214, 214, 214);
+}
+
+.content[dark-mode="true"]  .form-account select{ /* Internet Explorer 10-11 */
+    background-color: #5c5c5c;
+    color: white;
+}
+
+
+.form-account > div{
+    float: left;
+    height: auto;
+    width: calc(100% - 20px);
+    padding: 7px 10px;
+}
+
+.form-account > div:first-child{
+    margin-top: 5px;
+}
+
+.form-account > div > span{
+    position: relative;
+    float: left;
+    width: calc(100%);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.content[dark-mode="true"]  .form-account > div > span{
+    color: white;
+}
+
+.form-account > div > span > p{
+    position: relative;
+    float: left;
+    font-size: 11px;
+    width: 100%;
+    margin-top: 2px;
+}
+
+
+.form-account input{
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 3px;
+    padding: 6px 7px;
+    font-size: 15px;
+}
+.long-text-input-form-account{
+    position: relative;
+    float: left;
+    padding: 4px 5px;
+    width: calc(100% - 16px);
+}
+
+
+
+#icon-btn-image-form-account{
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1pt solid black;;
+}
+ 
+
+#date-input-form-account input{
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    padding: 4px 5px;
+    margin-top: 0px;
+    border: 1px solid rgb(139, 139, 139);
+    font-size: 14px;
+    border-radius: 2px;
+    width: 70px;
+}
+#date-input-form-account input:first-child{
+    margin-left: 0px;
+}
+
+
+
+
+
+.submit-form-account{
+    position: relative;
+    float: left;
+    width: 100%;
+    /* border-top: 1px solid rgb(211, 211, 211); */
+}
+
+/* .content[dark-mode="true"] .submit-form-account{
+    border-top: 1px solid rgb(0, 0, 0);
+} */
+
+.submit-form-account span{
+    position: relative;
+    float: left;
+    padding: 7px 10px;
+    background-color: coral;
+    color: white;
+    width: auto !important;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* 
+.................................. */
+
+
+.item-select-form-account{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: auto;
+    /* box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 1px; */
+    border-bottom: 1px solid rgb(224, 224, 224);
+
+    display: flex;
+    justify-items: left;
+    justify-content: center;
+}
+
+.content[dark-mode="true"]  .item-select-form-account{
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+
+
+.item-select-form-account dt{ 
+    position: relative;
+    float: left;
+    width: calc(50% - 20px);
+    padding: 10px;
+    font-size: 15px;
+
+    margin: auto;
+}
+
+.content[dark-mode="true"]  dt{
+    color: white;
+}
+
+
+
+.item-select-form-account dd{ 
+    position: relative;
+    float: left;
+    width: calc(50% - 20px);
+    padding: 10px;
+    
+    margin: auto;
+}
+
+.item-select-form-account dd select{ 
+    float: right;
+    padding: 7px 10px;
+    border: none;
+    width: 170px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    background-color: rgb(228, 228, 228);
+}
+
+
+
+/* 
+.................................. */
+
+.dialog-user-name span{
+    display: block;
+    font-size: 12px;
+    color: coral;
+    margin-top: 10px;
+}
+
+.dialog-user-name input{
+    width: calc(100% - 7px - 6px);
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 4px 5px;
+    display: flex;
+    font-size: 16px;
+}
+
+.dialog-user-name input:focus{
+    border-color: cornflowerblue;
+}
+
+.content[dark-mode="true"] .dialog-user-name input{
+    background-color: #444444;
+    color: white;
+}
+
+/* 
+.................................. */
+
+
+
+
+
+.open-edit-dialog-form-account:not(:first-child){
+    padding-top: 10px;
+}
+
+.open-edit-dialog-form-account:not(:last-child){
+    border-bottom: 1px solid rgba(138, 138, 138, 0.266);
+}
+
+.open-edit-dialog-form-account > span:first-child{
+    display: block !important;
+    font-size: 15.5px;
+    font-weight: bold;
+    color: #575757;
+}
+
+.label-open-edit-dialog-form-account {
+    display: inline-flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 7px;
+}
+.label-open-edit-dialog-form-account p{
+    font-size: 14px !important;
+    color: black;
+}
+.content[dark-mode="true"] .label-open-edit-dialog-form-account p{
+    color: white;
+}
+
+.label-open-edit-dialog-form-account svg{
+    width: 15px;
+    height: 15px;
+    fill: black;
+    margin-right: 4px;
+}
+.content[dark-mode="true"] .label-open-edit-dialog-form-account svg{
+    fill: white;
+}
+
+.open-edit-dialog-form-account > span:not(:first-child){
+    font-size: 13px;
+    margin-top: 1px !important;
+    margin-bottom: 5px !important;
+    cursor: pointer;
+    color: coral !important;
+    width: auto;
+    margin-right: 20px;
+}
+
+.open-edit-dialog-form-account > span:not(:first-child):hover{
+    text-decoration: underline;
+}
+
+
+.input-open-edit-dialog-form-account{
+    display: inline-block;
+    width: 100%;
+}
+.input-open-edit-dialog-form-account input{
+    position: relative;
+    display: block ;
+    margin: 5px 0px;
+    width: 300px;
+}
+.content[dark-mode="true"] .input-open-edit-dialog-form-account input{
+    background-color: #646464;
+    color: white;
+}
+.content[dark-mode="true"] .input-open-edit-dialog-form-account input:focus{
+    border: 1px solid rgb(129, 167, 238);
+}
+.content[dark-mode="true"] .input-open-edit-dialog-form-account input::placeholder{
+    color: rgb(195, 195, 195);
+}
+
+.input-open-edit-dialog-form-account input:focus{
+    border: 1px solid cornflowerblue;
+}
+
+
+.button-open-edit-dialog-form-account{
+    display: inline-block;
+    width: auto !important;
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    background-color: cornflowerblue;
+    color: white !important;
+    cursor: pointer;
+}

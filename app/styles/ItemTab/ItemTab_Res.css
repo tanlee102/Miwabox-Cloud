@@ -1,0 +1,38 @@
+@media only screen and (min-width: 1050px) {
+
+}
+
+@media only screen and (min-width: 925px)  and (max-width: 1050px) {
+
+}
+
+
+@media only screen and (min-width: 820px)  and (max-width: 925px) {
+    
+}
+
+
+@media only screen and (min-width: 650px)  and (max-width: 820px) {
+
+    .item-tab_{
+        width: calc(50% - 1px);
+        margin: 0.5px;
+    }
+
+    .remove-9th-item .item-tab_:nth-child(9){
+        display: none;
+    }
+    
+}
+
+
+@media only screen and (max-width: 650px){     
+    .item-tab_{
+        width: calc(100% - 1px);
+        margin: 0px;
+        margin-top: 0.5px;
+    }
+}
+
+
+

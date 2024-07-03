@@ -17,6 +17,12 @@ body{
 
     font-size: 100%;
 }
+body.light-mode{
+    background: rgb(241, 241, 241);
+}
+body.dark-mode{
+    background-color: black;
+}
 
 ::-webkit-scrollbar {
     background: #fff;
@@ -37,36 +43,45 @@ a{
     color: inherit; 
 }
 
+input{
+    outline: none;
+}
+
 /*--------------------------------------------------*/
 .content{
     position: relative;
+    display: block;
+    float: left;
+    padding: 0;
+    border: 0;
+
+    width: 100%;
+    height: auto;
+
     overflow: visible;
     margin: auto;
-    height: auto;
-    padding: none;
-    border: none;
 }
 
-
-.content .fr-content{
-    position: relative;
-    float: left;
-    overflow: visible;
-    padding: 0;
-    margin-top: 55px;
-    width: 100%;
-    height: 1000px;
-    background: rgb(241, 241, 241);
-}
-.content[dark-mode="true"] .fr-content{
+.content[dark-mode="true"]{
     background-color: black;
 }
-.content[dark-mode="false"] .fr-content{
+.content[dark-mode="false"]{
     background: rgb(241, 241, 241);
 }
 
+.fr-content{
+    width: 100%;
+    margin: auto;
+    margin-top: 55px;
+    height: auto;
+}
 
-
+/* .content[dark-mode="true"] .fr-content{
+    background-color: rgb(53, 53, 53);
+}
+.content[dark-mode="false"] .fr-content{
+    background: white;
+} */
 
 /*--------------------------------------------------*/
 .wrap-bar{
@@ -151,8 +166,8 @@ a{
     margin-right: 10px;
     width: auto;
     font-size: 16px;
-    padding: 6px 13px;
-    background-color: cornflowerblue;
+    /* padding: 6px 13px; */
+    /* background-color: cornflowerblue; */
     border: none;
     border-radius: 30px;
     color: white;
@@ -187,8 +202,8 @@ a{
     height: auto;
     width: auto;
     margin-left: 10px;
-    padding: 6px 13px 5px 13px;
-    background-color: cornflowerblue;
+    /* padding: 6px 13px 5px 13px; */
+    /* background-color: cornflowerblue; */
     border: none;
     border-radius: 7px;
     color: white;
@@ -324,8 +339,8 @@ a{
     top: 50%;
     transform: translateY(-50%);
     width: 39px;
-    height: 34px;
-    border-radius: 3px;
+    height: 38px;
+    border-radius: 50%;
     border: 1pt solid black;
     /* border: 0px solid rgba(182, 0, 0, 0.714); */
     overflow: hidden;
@@ -360,6 +375,7 @@ a{
     border-top: 1px solid rgb(227, 227, 227);
     cursor: pointer;
     font-size: 16px;
+    color: black;
 }
 .content[dark-mode="true"] .wrap-profile .menu-profile div{
     background-color: rgb(92, 92, 92) !important;
@@ -536,17 +552,43 @@ a{
 } */
 
 
-.light-bulb{
-    padding: 0px !important;
+.icon-nav-item{
+    padding: 0px;
     display: flex;    
-    background-color: transparent !important;
+    background-color: transparent;
+    color: black;
+    justify-content: center;
+    align-items: center;
 }
-.content[dark-mode="true"] .nav-bar .light-bulb svg{
-    fill: white;
-}
-.light-bulb svg{
+.icon-nav-item svg{
     padding: 0px;
     margin: auto;
     width: 25px;
     height: 25px;
 }
+.text-nav-item{
+    padding: 4px;
+    padding-right: 13px;
+    background-color: cornflowerblue;
+}
+.text-nav-item svg{
+    margin-right: 5px;
+}
+.add-icon-nav-item svg path{
+    stroke: #fff;
+}
+
+
+.light-bulb-icon-nav-item{
+    fill: black;
+}
+.content[dark-mode="true"] .light-bulb-icon-nav-item{
+    fill: white;
+}
+
+.message-icon-nav-item svg path{
+    stroke: black;
+}
+.content[dark-mode="true"] .message-icon-nav-item svg path{
+    stroke: white;
+} 
