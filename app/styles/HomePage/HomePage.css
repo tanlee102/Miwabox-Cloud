@@ -1,5 +1,6 @@
 .fr-home-page{
-    height: 100px;
-    background-color: #414141;
+    height: auto;
+    width: 100%;
+    padding-top: 20px;
     border-radius: 3px;
 }

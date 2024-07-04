@@ -19,8 +19,10 @@ import "./styles/ItemTab/ItemTab_Res.css"
 import "./styles/Account/NotificationHub.css"
 import "./styles/Profile/Profile.css"
 import "./styles/Profile/ProfileRes.css"
-
 import "./styles/MenuBar/HorizonMenu.css"
+import "./styles/HomePage/HomePageRes.css"
+import "./styles/Post/ItemPost.css"
+import "./styles/Post/ItemPostRes.css"
 
 
 import WindowProvider from "./context/WindowContext";

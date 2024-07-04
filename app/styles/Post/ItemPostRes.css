@@ -1,0 +1,196 @@
+/* Extra Small Devices (phones) */
+@media only screen and (max-width: 509px) {
+    .list-item-posts {
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 9px;
+    }
+    .item-post {
+        margin: auto;
+        width: calc(100% - 5px);
+        max-width: 410px !important;
+        height: auto;
+        position: relative;
+    }
+    .item-post_{
+        position: relative;
+        height: auto;
+    }
+    .body-item-post{
+        position: relative;
+    }
+    
+    .bottom-body-item-post span svg{
+        width: 18px;
+        height: 18px;
+    }
+    .bottom-body-item-post span p{
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (min-width: 510px) and (max-width: 850px) {
+    .list-item-posts {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 9px;
+    }
+    .item-post {
+        width: 100%;
+        padding-top: calc((4 / 4) * 100%);
+        position: relative;
+    }
+    .item-post > * {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Medium Devices (small laptops) */
+@media only screen and (min-width: 850px) and (max-width: 1124px) {
+    .list-item-posts {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 9px;
+    }
+    .item-post {
+        width: 100%;
+        padding-top: calc((4 / 4) * 100%);
+        position: relative;
+    }
+    .item-post > * {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Large Devices (desktops) */
+@media only screen and (min-width: 1125px) and (max-width: 1440px) {
+    .list-item-posts {
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 9px;
+    }
+    .item-post {
+        width: 100%;
+        padding-top: calc((4 / 4) * 100%);
+        position: relative;
+    }
+    .item-post > * {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Extra Large Devices (large desktops) */
+@media only screen and (min-width: 1441px) {
+    .list-item-posts {
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 9px;
+    }
+    .item-post {
+        width: 100%;
+        padding-top: calc((4 / 4) * 100%);
+        position: relative;
+    }
+    .item-post > * {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+
+
+
+
+
+@media only screen and (max-width: 849px){
+    .list-item-tags{
+        display: none;
+    }
+}
+
+
+@media only screen and (min-width: 510px){
+
+    .timeline-mode .list-item-posts {
+        display: grid;
+        grid-template-columns: none;
+        grid-gap: 10px;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    @media only screen and (min-width: 850px){
+        .timeline-mode .list-item-posts{
+            max-width: calc(100% - 250px);
+        }
+
+        .timeline-mode .list-item-tags{
+            position: -webkit-sticky;
+            position: sticky;
+            width: 240px;
+            top: 60px;
+            right: 0;
+            float: right;
+        }
+
+        .timeline-mode .item-tag{
+            width: 100%;
+            margin: 0px;
+            margin-bottom: 5px;
+        }
+        .timeline-mode .item-tag div{
+            text-align: left;
+        }
+    }
+
+    .timeline-mode .item-post{
+        padding-top: 0px;
+        width: 100% !important;
+    }
+
+    .timeline-mode .item-post > * {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: auto;
+        padding: 0;
+        margin: 0;
+    }
+
+    .timeline-mode .item-post {
+        margin: auto;
+        width: calc(100% - 5px);
+        max-width: 100% !important;
+        height: auto;
+        position: relative;
+    }
+    .timeline-mode .item-post_{
+        position: relative;
+        height: auto;
+        width: 100%;
+    }
+    .timeline-mode .body-item-post{
+        position: relative;
+    }
+
+    .timeline-mode .bottom-body-item-post span svg{
+        width: 22px;
+        height: 22px;
+    }
+    .timeline-mode .bottom-body-item-post span p{
+        font-size: 0.9em;
+    }
+}
