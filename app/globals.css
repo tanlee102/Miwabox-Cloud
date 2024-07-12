@@ -1,3 +1,38 @@
 .hide-element{
     display: none;
 }
+
+
+
+
+
+
+.loader-circle-small{
+position: relative;
+float: left;
+width: 100%;
+height: auto;
+display: flex;
+justify-content: center;
+}
+.loader-circle-small div{
+position: relative;
+border: 3px solid white;
+border-radius: 50%;
+border-top: 3px solid transparent;
+width: 12.5px;
+height: 12.5px;
+-webkit-animation: spin 1s linear infinite; /* Safari */
+animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}

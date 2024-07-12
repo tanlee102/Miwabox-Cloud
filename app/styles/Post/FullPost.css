@@ -1,0 +1,76 @@
+.fr-full-post{
+    width: 100%;
+    height: auto;
+    margin-top: 70px;
+}
+
+.full-post{
+    float: left;
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    padding-top: 12px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.fr-suggestion-posts{
+    float: left;
+    position: relative;
+    width: calc(100% - 10px);
+    background-color: white;
+    padding: 5px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.full-post-input-comment{
+    position: relative;
+    float: left;
+}
+
+.full-post .post-content{
+    margin-bottom: 0px;
+}
+
+
+.item-suggestion-post{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.image-suggestion-post{
+    width: 80px;
+    height: 80px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.image-suggestion-post img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.text-suggestion-post{
+    width: calc(100% - 92px);
+    margin-left: 7px;
+    padding-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-suggestion-post p{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 0.95em;
+}

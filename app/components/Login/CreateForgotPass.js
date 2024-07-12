@@ -4,6 +4,7 @@ import React, { useContext, useRef, useState } from 'react'
 import ReCAPTCHA from "react-google-recaptcha";
 
 import { WindowContext } from '@/app/context/WindowContext';
+import axios from 'axios';
 
 const CreateForgotPass = () => {
 
@@ -33,9 +34,33 @@ const CreateForgotPass = () => {
         }
     }
 
-    const createPasswordBtn = () => {
+    const createPasswordBtn = async () => {
+      if (!isValidEmail || !reCaptcha) {
+        alert("Please enter a valid email and complete the reCAPTCHA.");
+        return;
+      }
+  
+      setLoad(true);
+  
+      try {
+        const response = await axios.post('http://localhost:3000/api/auth/password/forgot', {
+          email: email,
+          recaptcha: reCaptcha
+        });
+  
+        if (response.data.success) {
+          alert("Success! Check your email for a password reset link.");
+        } else {
+          alert("Failed to send reset link. Please try again later.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again later.");
+      } finally {
+        setLoad(false);
+      }
+    }
 
-  }
 
   return (
     <div className="contain-login">
@@ -43,9 +68,9 @@ const CreateForgotPass = () => {
       <div className="content-login">
           <div>
 
-              <span className='info-text-login'>Nhập địa chỉ email liên kết với tài khoản của bạn, chúng tôi sẽ gửi một liên kết để thiết lập lại mật khẩu cho bạn.</span>
-              <input style={{marginBottom: isValidEmail ? '10px' : '5px'}}  value={email} onChange={(e) => onEmailChange(e)} type="email" placeholder="Nhập email"/>
-              <span style={{color: "tomato",display: isValidEmail ? "none" : "block"}} className="info-text-login">Email không hợp lệ.</span>
+              <span className='info-text-login'>Enter the email address associated with your account, we will send a link to reset your password.</span>
+              <input style={{marginBottom: isValidEmail ? '10px' : '5px'}}  value={email} onChange={(e) => onEmailChange(e)} type="email" placeholder="Enter email"/>
+              <span style={{color: "tomato",display: isValidEmail ? "none" : "block"}} className="info-text-login">Invalid email.</span>
 
               <div className='contain-recaptcha'>
               <ReCAPTCHA
@@ -56,12 +81,10 @@ const CreateForgotPass = () => {
               </div>
 
               <span className="btn-login" onClick={() => createPasswordBtn()}>
-                {!load ? <p>Thay đổi mật khẩu</p> : <div class="loader-circle-small"><div></div></div> }
+                {!load ? <p>Reset password</p> : <div class="loader-circle-small"><div></div></div> }
               </span>
               
-              {/* {router.pathname === '/login' ? "" : */}
-              <span className="btn-text-login" onClick={() => {if(!load){setDisplayForgotModel(false); setDisplayLoginModel(true)}}} >Đăng nhập?</span>
-              {/* } */}
+              <span className="btn-text-login" onClick={() => {if(!load){setDisplayForgotModel(false); setDisplayLoginModel(true)}}} >Login?</span>
               
           </div>
 

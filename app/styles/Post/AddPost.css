@@ -1,0 +1,83 @@
+.add-post-title {
+    /* font-size: large;
+    font-weight: normal; */
+    color: #333;
+    border-radius: 4px;
+    padding: 0px 11px;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 24px; /* Ensure some height to show placeholder properly */
+    outline: none;
+  }
+  
+  .add-post-title.empty::before {
+    content: attr(placeholder);
+    color: #999;
+  }
+  
+
+
+
+.add-media-button{
+    position: relative;
+    padding: 10px;
+    margin-top: 5px;
+}
+.add-media-button button{
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.add-media-button button svg{
+    position: relative;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    fill: white;
+}
+
+.media-item{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.media-item img, .media-item video{
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.list-media .remove-button{
+    position: absolute;
+    top: 10px;
+    right: 0;
+    cursor: pointer;
+
+    border: none;
+    background-color: rgba(144, 144, 144, 0.556);
+    color: white;
+    padding: 5px 8px;
+    border-bottom-left-radius: 3px;
+    cursor: pointer;
+}
+
+.list-media .remove-button svg{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    fill: white;
+    padding: 0px;
+    margin: 0px;
+}

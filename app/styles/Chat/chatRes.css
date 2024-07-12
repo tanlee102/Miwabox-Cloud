@@ -1,0 +1,30 @@
+/* Extra Small Devices (phones) */
+@media only screen and (max-width: 480px) {
+
+}
+
+/* Small Devices (tablets) */
+@media only screen and (min-width: 481px) and (max-width: 699px) {
+
+}
+
+/* Medium Devices (small laptops) */
+@media only screen and (min-width: 700px) and (max-width: 1024px) {
+    .fr-chat{
+        width: 650px !important;
+    }
+}
+
+/* Large Devices (desktops) */
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+    .fr-chat{
+        width: 970px !important;
+    }
+}
+
+/* Extra Large Devices (large desktops) */
+@media only screen and (min-width: 1441px) {
+    .fr-chat{
+        width: 970px !important;
+    }
+}

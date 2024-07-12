@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./styles/HomePage/HomePage.css"
+import { WindowContext } from "./context/WindowContext";
 
 export default function Home() {
 
@@ -88,8 +89,6 @@ export default function Home() {
     }
   ];
 
-  const [gridMode, setGridMode] = useState(true);
-
 
   const tags = [
     { name: "Health & Wellness", posts: "120K" },
@@ -106,13 +105,10 @@ export default function Home() {
     { name: "Fashion & Style", posts: "7K" },
   ];
 
+  const {gridMode, setDisplayPost} = useContext(WindowContext);
 
   return (
         <div className={`fr-home-page fr-content ${!gridMode ? `timeline-mode` : ``}`}>
-
-          <div className="setting-mode-container">
-              <button onClick={() => {setGridMode(!gridMode)}}>change mode</button>
-          </div>
 
             <div className="list-item-tags">
                 {tags.map((tag, index) => (
@@ -125,14 +121,16 @@ export default function Home() {
 
             <div className="list-item-posts">
               {sampleData.map((post) => (
-                <div key={post.id} className="item-post">
+                <div key={post.id} className="item-post" onClick={() => {setDisplayPost(true)}}>
                   <div className="item-post_">
                     <div className="head-item-post">
                       <img src={post.imgSrc} alt="Post Image" />
                     </div>
                     <div className="body-item-post">
                       <div className="head-body-item-post">
+                        <p>
                         {post.description}
+                        </p>
                       </div>
                       <div className="bottom-body-item-post">
                         <span>

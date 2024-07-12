@@ -1,0 +1,41 @@
+/* Extra Small Devices (phones) */
+@media only screen and (max-width: 480px) {
+
+}
+
+/* Small Devices (tablets) */
+@media only screen and (min-width: 481px) and (max-width: 699px) {
+
+}
+
+/* Medium Devices (small laptops) */
+@media only screen and (min-width: 700px) and (max-width: 1024px) {
+    .fr-full-post{
+        width: 650px !important;
+    }
+}
+
+/* Large Devices (desktops) */
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+    .fr-full-post{
+        width: 970px !important;
+    }
+}
+
+/* Extra Large Devices (large desktops) */
+@media only screen and (min-width: 1441px) {
+    .fr-full-post{
+        width: 970px !important;
+    }
+}
+
+@media only screen and (min-width: 1025px){
+    .full-post{
+        float: left;
+        width: 65%;
+    }
+    .fr-suggestion-posts{
+        float: right;
+        width: calc(35% - 20px);
+    }
+}

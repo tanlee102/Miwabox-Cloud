@@ -38,7 +38,7 @@ const page = ({ params }) => {
       <div className="fr-account fr-content">
         <MenuAccount listMenuAccount={listMenuAccount} idItem={index}/>
         <div className="setting-account">
-          {components[currentTypePath] || null}
+            {components[currentTypePath] || null}
         </div>    
 
       </div>

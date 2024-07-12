@@ -23,6 +23,7 @@ import "./styles/MenuBar/HorizonMenu.css"
 import "./styles/HomePage/HomePageRes.css"
 import "./styles/Post/ItemPost.css"
 import "./styles/Post/ItemPostRes.css"
+import "./styles/Post/Post.css"
 
 
 import WindowProvider from "./context/WindowContext";
@@ -31,12 +32,15 @@ import LayoutProvider from "./context/LayoutContext";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+        <head>
+          <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"/>
+        </head>
         <body>
-          <WindowProvider>
-            <LayoutProvider>
-              {children}
-            </LayoutProvider>
-          </WindowProvider>
+          <LayoutProvider>
+            <WindowProvider>
+                {children}
+            </WindowProvider>
+          </LayoutProvider>
         </body>
     </html>
   );
