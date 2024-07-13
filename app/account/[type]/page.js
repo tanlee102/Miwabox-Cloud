@@ -21,7 +21,7 @@ const page = ({ params }) => {
     {label:'Account', url: '/xemtua23'},
     {label:'Account Detail', url: '/account/details'},
     {label:'Password & Email', url: '/account/security'},
-    {label:'Login History', url: '/account/logged'},
+    // {label:'Login History', url: '/account/logged'},
     {label:'Notification', url: '/account/notification'},
   ]
   const components = {

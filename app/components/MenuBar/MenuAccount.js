@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import "../../styles/MenuBar/VerticalMenu.css"
 import Link from 'next/link';
+import Cookies from 'js-cookie';
+import { LayoutContext } from '@/app/context/LayoutContext';
 
 const MenuAccount = ({listMenuAccount, idItem}) => {
 
-
-
-    const [label, setLabel] = useState("");
-
+    const {conFirmFun} = useContext(LayoutContext)
 
     const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|.*Tablet.*|.*Touch/i.test(navigator.userAgent);
     const [showItemMenuAccount, setShowItemMenuAccount] = useState(!isMobileDevice);
@@ -22,20 +21,18 @@ const MenuAccount = ({listMenuAccount, idItem}) => {
         }
     }
 
-
-
-
     useEffect(() => {
 
     }, []);
 
-
     const logoutBtn = () => {
+        Cookies.remove("token");
+        Cookies.remove('thumbnail');
 
+        conFirmFun('Đăng xuất', 'Mọi dữ liệu sẽ bị xóa, bạn có muốn đăng xuất?', () => {
+            window.location.replace("/");
+        });
     }
-
-
-
 
   return (
     <div class="vertical-menu" onResize={() => {onResizex()}}>

@@ -35,15 +35,11 @@ const Nav = ({}) => {
     const router = useRouter()
 
     const config = {
-        userData: {},
-        logged: false,
         countNot: 0
     };
-    const { userData, logged, countNot} = config;
+    const {countNot} = config;
 
-
-    const {darkMode, setDarkMode, setDisplayLoginModel, gridMode, setGridMode, displayAddPost, setDisplayAddPost} = useContext(WindowContext);
-
+    const {darkMode, setDarkMode, setDisplayLoginModel, gridMode, setGridMode, displayAddPost, setDisplayAddPost, logged, userData} = useContext(WindowContext);
 
     const { width } = useWindowDimensions();
     const [typeWindow, setTypeWindow] = useState(() => checkType(width));
@@ -66,10 +62,6 @@ const Nav = ({}) => {
             }
         }
     }, [width, typeWindow]);
-
-
-    
-
 
 
     const [showListItems, setShowListItems] = useState(false);
@@ -209,7 +201,7 @@ return (
                 {logged ? 
                 <div  className="wrap-profile"  >
                     <div className='ava-profile' onClick={() => {setMenuProfile(!menuProfile)}}>
-                        <img src="https://hobiverse.com.vn/cdn/shop/articles/gojo-satoru-cung-chieu-thuc-huy-diet_thumbnail_hobi_0f3f1d7307e24f76993db251b315a389.jpg?v=1716181133"/>
+                        <img src={userData.thumbnail}/>
                     </div>
                     {menuProfile ? 
                         <div className='menu-profile' onClick={() => {setMenuProfile(false)}}>

@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import EditUserName from '../Dialog/EditUserName';
 import { LayoutContext } from '@/app/context/LayoutContext';
 import ChangeEmailBox from '../Dialog/ChangeEmailBox';
+import axios from 'axios';
+import { WindowContext } from '@/app/context/WindowContext';
 
 const SecureAccount = ({}) => {
 
@@ -10,6 +12,8 @@ const SecureAccount = ({}) => {
     const [repassword, setRePassword] = useState("");
     const [displayChangePass, setDisplayChangePass] = useState(false);
 
+    const {userData} = useContext(WindowContext)
+
     const [isVerified, setIsVerified] = useState(true);
 
     const [displayChangeEmailBox, setDisplayChangeEmailBox] = useState(false)
@@ -17,7 +21,7 @@ const SecureAccount = ({}) => {
     const {conFirmFun} = useContext(LayoutContext)
 
     useEffect(() => {
-        setIsVerified(true)
+        setIsVerified(false)
     }, [])
 
     const changeEmail = () => {
@@ -25,14 +29,35 @@ const SecureAccount = ({}) => {
     }
 
     const verifyEmail = () => {
-        conFirmFun('Xác minh tài khoản', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+'xemtua@gmail.com'+' để xác minh tài khoản của bạn?', () => {
+        conFirmFun('Xác minh tài khoản', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+userData.email+' để xác minh tài khoản của bạn?', () => {
             conFirmFun('Gửi Email');
         });
     }
 
-    const forgotEmail = () => {
-        conFirmFun('Quên mật khẩu', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+'xemtua@gmail.com'+' để khôi phục mật khẩu của bạn?', () => {
-            conFirmFun('Gửi Email');
+    const forgotEmail = async () => {
+
+        conFirmFun('Quên mật khẩu', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+userData.email+'để khôi phục mật khẩu của bạn?', async () => {
+
+            try {
+                conFirmFun('Gửi Email');
+
+                const response = await axios.post('http://localhost:3000/api/auth/password/forgot', {
+                  email: 'xemtua@gmail.com',
+                });
+          
+                if (response.data.success) {
+                  alert("Success! Check your email for a password reset link.");
+                } else {
+                  alert("Failed to send reset link. Please try again later.");
+                }
+              } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again later.");
+              } finally {
+                conFirmFun();
+              }
+
+            
         });
     }
 
@@ -51,7 +76,7 @@ const SecureAccount = ({}) => {
             <div class="form-account">
 
                 <div className='open-edit-dialog-form-account'>
-                    <span>Email: xemtua@gmail.com</span>
+                    <span>Email: {userData.email}</span>
                     <div className='label-open-edit-dialog-form-account'> 
                         {isVerified ?  
                             <><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#4dd0e1"/><path fill="#fff" d="M22.491,30.69c-0.576,0-1.152-0.22-1.591-0.659l-6.083-6.084c-0.879-0.878-0.879-2.303,0-3.182 c0.878-0.879,2.304-0.879,3.182,0l6.083,6.084c0.879,0.878,0.879,2.303,0,3.182C23.643,30.47,23.067,30.69,22.491,30.69z"/><path fill="#fff" d="M22.491,30.69c-0.576,0-1.152-0.22-1.591-0.659c-0.879-0.878-0.879-2.303,0-3.182l9.539-9.539 c0.878-0.879,2.304-0.879,3.182,0c0.879,0.878,0.879,2.303,0,3.182l-9.539,9.539C23.643,30.47,23.067,30.69,22.491,30.69z"/></svg>        

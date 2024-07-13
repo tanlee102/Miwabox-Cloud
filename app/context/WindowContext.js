@@ -13,6 +13,8 @@ import AddPostButton from '../components/Post/AddPostButton';
 import Post from '../components/Post/Post';
 import Link from 'next/link';
 import Modal from '../components/ShowPanel/Modal';
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 export const WindowContext = createContext();
 
@@ -26,6 +28,40 @@ const WindowProvider = ({ children }) => {
     const [gridMode, setGridMode] = useState(true);
     const [displayPost, setDisplayPost] = useState(false);
 
+    const [logged, setLogged] = useState(false);
+    const [userData, setUserData] = useState({});
+  
+    useEffect(() => {
+      const token = Cookies.get('token');
+      if (token) {
+        const decoded = jwtDecode(token);
+        setLogged(true);
+  
+        if (Cookies.get('thumbnail')) {
+          decoded.thumbnail = Cookies.get('thumbnail');
+          setUserData(decoded);
+        } else {
+          axios.get('http://localhost:8080/api/v1/users/thumbnail', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          .then(response => {
+            let thumbnailUrl = 'http://localhost:3000/image/'+response.data+'.jpeg';
+            if(!(response.data.length > 1)){
+                thumbnailUrl="/avatar.jpeg"
+            }
+            Cookies.set('thumbnail', thumbnailUrl);
+            decoded.thumbnail = thumbnailUrl;
+            setUserData(decoded);
+          })
+          .catch(error => {
+            console.error('Error loading thumbnail:', error);
+          });
+        }
+      }
+    }, []);
+
     useEffect(() => {
       document.body.classList.remove('dark-mode', 'light-mode');
       document.body.classList.add(darkMode ? 'dark-mode' : 'light-mode');
@@ -38,7 +74,8 @@ const WindowProvider = ({ children }) => {
                                     displayForgotModel, setDisplayForgotModel,
                                     displayRegisterModel, setDisplayRegisterModel,
                                     displayAddPost, setDisplayAddPost,
-                                    displayPost, setDisplayPost
+                                    displayPost, setDisplayPost,
+                                    logged, setUserData, userData, setLogged
                                     }}>
         <main className="content" dark-mode={darkMode ? "true" : "false"}>
             <Nav/>

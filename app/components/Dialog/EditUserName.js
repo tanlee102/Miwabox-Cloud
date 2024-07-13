@@ -3,15 +3,11 @@ import { useState, useEffect } from 'react';
 
 import { env_variable } from '../../env';
 import { hideMainScrollBar } from '@/app/helper/hideMainScrollBar';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
-const EditUserName = ({isDisplay,setIsDisplay}) => {
-
-    const [textIn, setTextIn] = useState('');
-
-    useEffect(() => {
-        setTextIn("xemtua213");
-    }, [])
+const EditUserName = ({isDisplay,setIsDisplay, textIn, setTextIn}) => {
 
     const [checkSame, setCheckSame] = useState(false);
 
@@ -20,18 +16,54 @@ const EditUserName = ({isDisplay,setIsDisplay}) => {
         setTextIn(result);
     };
     
-
-    const checkUserNameBtn = () =>{
-
+    const checkUserNameBtn = async () =>{
+        if (textIn.trim().length >= 2) {
+            try {
+              const response = await axios.get(`http://localhost:8080/api/v1/users/${encodeURIComponent(textIn)}/exists`);
+              if (response.data) {
+                console.log("Username exists");
+                setCheckSame(true);
+              } else {
+                console.log("User fine, nothing");
+                setCheckSame(false);
+              }
+            } catch (error) {
+              console.error('Error checking username:', error);
+            }
+          } else {
+          }
     }    
-    const updateUserNameBtn = () => {
 
+    const updateUserNameBtn = async () => {
+        const token = Cookies.get('token');
+        if (!token) {
+          alert('No authentication token found');
+          return;
+        }
+        try {
+          const response = await axios.post('http://localhost:8080/api/v1/users/update/username', 
+            { username: textIn }, 
+            {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          if (response.status === 200) {
+            alert('Username updated successfully');
+            setIsDisplay(false);
+          }
+        } catch (error) {
+          console.error('Error updating username:', error);
+          alert('Failed to update username');
+        }
     }
 
 
-  useEffect(() => {
-    hideMainScrollBar(isDisplay);
-  }, [isDisplay]);
+    useEffect(() => {
+      hideMainScrollBar(isDisplay);
+    }, [isDisplay]);
 
   return (
     <div  class={isDisplay ? "dialog-confirm active-confirm" : "dialog-confirm"}>
@@ -51,7 +83,6 @@ const EditUserName = ({isDisplay,setIsDisplay}) => {
 
                 </div>
                 
-
                 <footer>
                     <div class="controls"> 
                         <button class="button button-danger doAction" onClick={() => {updateUserNameBtn()}}>Vâng</button>  
