@@ -4,6 +4,24 @@ import { LayoutContext } from '@/app/context/LayoutContext';
 import ChangeEmailBox from '../Dialog/ChangeEmailBox';
 import axios from 'axios';
 import { WindowContext } from '@/app/context/WindowContext';
+import Cookies from 'js-cookie';
+
+const loadData = async (userId, setMyData) => {
+    const token = Cookies.get('token');
+    if (!token) {
+      alert('No authentication token found');
+      return;
+    }
+  
+    try {
+      const response = await axios.get(`http://localhost:8080/api/v1/users/${userId}`);
+      setMyData(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error loading user data:', error);
+    }
+  };
+  
 
 const SecureAccount = ({}) => {
 
@@ -20,29 +38,55 @@ const SecureAccount = ({}) => {
 
     const {conFirmFun} = useContext(LayoutContext)
 
+    const [myData, setMyData] = useState({});
+
     useEffect(() => {
-        setIsVerified(false)
-    }, [])
+        if(userData?.id) loadData(userData.id, setMyData);
+    }, [userData?.id]);
+    
+    useEffect(() => {
+        if(myData){
+          setIsVerified(myData.verified);
+        }
+    }, [myData?.userProfile])
 
     const changeEmail = () => {
         setDisplayChangeEmailBox(true);
     }
 
-    const verifyEmail = () => {
-        conFirmFun('Xác minh tài khoản', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+userData.email+' để xác minh tài khoản của bạn?', () => {
-            conFirmFun('Gửi Email');
+    const verifyEmail = async () => {
+        conFirmFun('Xác minh tài khoản', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+myData.email+' để xác minh tài khoản của bạn?', async () => {
+            
+            try {
+                conFirmFun('Gửi Email');
+
+                const response = await axios.post('http://localhost:3000/api/auth/email/verify', {
+                  email: myData.email,
+                });
+          
+                if (response.data.success) {
+                  alert("Success! Check your email for a verify link.");
+                } else {
+                  alert("Failed to send reset link. Please try again later.");
+                }
+              } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again later.");
+              } finally {
+                conFirmFun();
+              }
         });
     }
 
     const forgotEmail = async () => {
 
-        conFirmFun('Quên mật khẩu', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+userData.email+'để khôi phục mật khẩu của bạn?', async () => {
+        conFirmFun('Quên mật khẩu', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+myData.email+' để khôi phục mật khẩu của bạn?', async () => {
 
             try {
                 conFirmFun('Gửi Email');
 
                 const response = await axios.post('http://localhost:3000/api/auth/password/forgot', {
-                  email: 'xemtua@gmail.com',
+                  email: myData.email,
                 });
           
                 if (response.data.success) {
@@ -62,14 +106,38 @@ const SecureAccount = ({}) => {
     }
 
 
-    const changePasswordBtn = () => {
+    const changePasswordBtn = async () => {
         if(password !== '' && repassword !== ''){
-            conFirmFun("Thay đổi mật khẩu");
-        }else{
+            const token = Cookies.get('token');
+            if (!token) {
+                alert('No authentication token found');
+                return;
+            }
+            
+            try {
+                const response = await axios.post('http://localhost:8080/api/v1/auth/password/edit', {
+                    password: password,
+                    newPassword: repassword
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                if (response.data.token) {
+                    Cookies.set('token', response.data.token, { expires: 7 });  // Set token to expire in 7 days
+                    alert("Password changed successfully!");
+                } else {
+                    alert("Failed to change password. Please try again.");
+                }
+            } catch (error) {
+                console.error('Error changing password:', error);
+                alert("An error occurred. Please try again later.");
+            }
+        } else {
             conFirmFun('Đổi mật khẩu', 'Vui lòng điền đầy đủ thông tin!')  
         }
     }
-
 
     return (
         <>
@@ -111,7 +179,7 @@ const SecureAccount = ({}) => {
 
             </div>
 
-            <ChangeEmailBox isDisplay={displayChangeEmailBox} setIsDisplay={setDisplayChangeEmailBox}/>
+            <ChangeEmailBox isDisplay={displayChangeEmailBox} setIsDisplay={setDisplayChangeEmailBox} myData={myData}/>
         </>
     )
 }

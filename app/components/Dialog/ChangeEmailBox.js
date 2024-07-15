@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { useState, useEffect } from 'react';
 import { hideMainScrollBar } from '@/app/helper/hideMainScrollBar';
 import { LayoutContext } from '@/app/context/LayoutContext';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
-const ChangeEmailBox = ({isDisplay,setIsDisplay}) => {
+const ChangeEmailBox = ({isDisplay,setIsDisplay,myData}) => {
 
     const {conFirmFun} = useContext(LayoutContext);
 
@@ -22,19 +24,46 @@ const ChangeEmailBox = ({isDisplay,setIsDisplay}) => {
     }
 
 
-    const changeEmailBtn = () => {
-        if(false){
+    const changeEmailBtn = async () => {
+        if (email === myData.email) {
             conFirmFun('Thay đổi Email', 'Email yêu cầu trùng với Email hiện tại!');
-        }else{
-            if(isValidEmail == true)
-            if(email !== '' && password !== ''){
-                conFirmFun("Thay đổi Email");
-            }else{
-              conFirmFun('Thay đổi Email', 'Vui lòng điền đầy đủ thông tin!')  
+        } else {
+            if (isValidEmail) {
+                if (email !== '' && password !== '') {
+                    const token = Cookies.get('token');
+                    if (!token) {
+                        alert('No authentication token found');
+                        return;
+                    }
+    
+                    try {
+                        const response = await axios.post('http://localhost:8080/api/v1/auth/email/change', {
+                            email: email,
+                            password: password
+                        }, {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        });
+    
+                        if (response.data.token) {
+                            Cookies.set('token', response.data.token, { expires: 7 });  // Set token to expire in 7 days
+                            alert("Email changed successfully!");
+                            setIsDisplay(false);
+                        } else {
+                            alert("Failed to change email. Please try again.");
+                        }
+                    } catch (error) {
+                        console.error('Error changing email:', error);
+                        alert("An error occurred. Please try again later.");
+                    }
+                } else {
+                    conFirmFun('Thay đổi Email', 'Vui lòng điền đầy đủ thông tin!');
+                }
             }
         }
-
-    }
+    };
+    
 
     useEffect(() => {
         hideMainScrollBar(isDisplay);
