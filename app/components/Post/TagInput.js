@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import '../../styles/Tag/TagInput.css';
 
-const TagInput = () => {
-  const [tags, setTags] = useState(['posts']);
+const TagInput = ({tags, setTags}) => {
   const [maxTags, setMaxTags] = useState(10);
   const inputRef = useRef(null);
 

@@ -27,8 +27,9 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: aqua;
+    background-color: transparent;
     overflow: hidden;
+    border: 1pt solid rgba(141, 141, 141, 0.502);
 }
 .post-avatar-user img{
     position: relative;

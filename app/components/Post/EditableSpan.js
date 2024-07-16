@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const EditableSpan = ({ placeholder, fontSize, fontWeight }) => {
+const EditableSpan = ({ placeholder, fontSize, fontWeight, onChangeText }) => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [text, setText] = useState('');
   const spanRef = useRef(null);
@@ -15,6 +15,7 @@ const EditableSpan = ({ placeholder, fontSize, fontWeight }) => {
 
   const handleInput = (e) => {
     setText(e.target.textContent);
+    onChangeText(e.target.textContent);
   };
 
   const handlePaste = (e) => {
@@ -31,6 +32,7 @@ const EditableSpan = ({ placeholder, fontSize, fontWeight }) => {
 
     // Update the state with the new text content
     setText(spanRef.current.textContent);
+    onChangeText(spanRef.current.textContent);
   };
 
   const handleKeyPress = (e) => {
