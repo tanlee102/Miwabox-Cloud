@@ -20,65 +20,64 @@ const page = ({ params }) => {
 
     const [password, setPassword] = useState("");
     const [repassword, setRePassword] = useState("");
-    const [isMatchPass, setIsMatchPass] = useState(true)
-    const [isCorrectPass, setIsCorrectPass] = useState(true)
+    const [isMatchPass, setIsMatchPass] = useState(true);
+    const [isCorrectPass, setIsCorrectPass] = useState(true);
 
 
-
-  const onChangeRePassword = (e) => {
-    let str = String(e.target.value).replace(/\s/g, '');
-    setRePassword(str)
-    if(str === password || str === '' ||  password === ''){
-      setIsMatchPass(true)
-    }else{
-      setIsMatchPass(false)
-    }
-  }
-
-  const onChangePassword = (e) => {
-    let str = String(e.target.value).replace(/\s/g, '');
-    setPassword(str)
-    if(str === repassword || str === '' ||  repassword === ''){
-      setIsMatchPass(true)
-    }else{
-      setIsMatchPass(false)
-    }
-    if(str.length < 8 && str.length != 0){
-      setIsCorrectPass(false);
-    }else{
-      setIsCorrectPass(true);
-    }
-  }
-
-
-  const createPasswordBtn = async () => {
-    if (!isMatchPass || !isCorrectPass) {
-      alert("Please ensure the passwords match and are at least 8 characters long.");
-      return;
-    }
-
-    setLoad(true);
-
-    try {
-      const response = await axios.post('http://localhost:3000/api/auth/password/change', {
-        token: token,
-        email: email,
-        password: password
-      });
-
-      if (response.data.token) {
-        Cookies.set('token', response.data.token);
-        router.push('/');
-      } else {
-        alert("Failed to update password. Please try again.");
+    const onChangeRePassword = (e) => {
+      let str = String(e.target.value).replace(/\s/g, '');
+      setRePassword(str)
+      if(str === password || str === '' ||  password === ''){
+        setIsMatchPass(true)
+      }else{
+        setIsMatchPass(false)
       }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
-    } finally {
-      setLoad(false);
     }
-  }
+
+    const onChangePassword = (e) => {
+      let str = String(e.target.value).replace(/\s/g, '');
+      setPassword(str)
+      if(str === repassword || str === '' ||  repassword === ''){
+        setIsMatchPass(true)
+      }else{
+        setIsMatchPass(false)
+      }
+      if(str.length < 8 && str.length != 0){
+        setIsCorrectPass(false);
+      }else{
+        setIsCorrectPass(true);
+      }
+    }
+
+
+    const createPasswordBtn = async () => {
+      if (!isMatchPass || !isCorrectPass) {
+        alert("Please ensure the passwords match and are at least 8 characters long.");
+        return;
+      }
+
+      setLoad(true);
+
+      try {
+        const response = await axios.post('http://localhost:3000/api/auth/password/change', {
+          token: token,
+          email: email,
+          password: password
+        });
+
+        if (response.data.token) {
+          Cookies.set('token', response.data.token);
+          router.push('/');
+        } else {
+          alert("Failed to update password. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again later.");
+      } finally {
+        setLoad(false);
+      }
+    }
 
 
 

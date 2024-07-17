@@ -1,6 +1,10 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 
 const ProfileHeader = () => {
+
+    const [follow, setFollow] = useState(false);
+
   return (
     <div className='profile-header'>
         <div className='profile-avatar-container'>
@@ -25,6 +29,12 @@ const ProfileHeader = () => {
                 <span>23K</span>
                 <span> Following</span>
             </div>
+        </div>
+
+        <div className={`follow-button ${!follow? "" : "followed"}`}>
+            <span onClick={() => setFollow(!follow)}>
+                {follow? "Following" : "Follow"}
+            </span>
         </div>
         
     </div>

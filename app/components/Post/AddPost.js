@@ -29,11 +29,11 @@ const AddPost = () => {
     title.current = text;
   };
 
-    const fileInputRef = React.useRef(null);
-  
-    const handleButtonClick = () => {
-      fileInputRef.current.click();
-    };
+  const fileInputRef = React.useRef(null);
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
 
     const createVideoThumbnail = (file) => {
       return new Promise((resolve, reject) => {

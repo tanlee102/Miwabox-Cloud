@@ -80,3 +80,24 @@
 .content[dark-mode="true"] .item-follow{
     color: white;
 }
+
+.follow-button{
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.follow-button span{
+    position: relative;
+    padding: 6px 15px;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.followed span{
+    background-color: rgb(166, 166, 166);
+}

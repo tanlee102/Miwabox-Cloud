@@ -1,7 +1,7 @@
 "use client";
 
 import Cookies from 'js-cookie';
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react';
 
 import Nav from '../components/Nav';
 import PostModal from '../components/ShowPanel/PostModal';
@@ -30,10 +30,12 @@ const WindowProvider = ({ children }) => {
 
     const [logged, setLogged] = useState(false);
     const [userData, setUserData] = useState({});
+    const [postId, setPostId] = useState(-1);
   
     useEffect(() => {
       const token = Cookies.get('token');
       if (token) {
+        
         const decoded = jwtDecode(token);
         setLogged(true);
   
@@ -47,7 +49,7 @@ const WindowProvider = ({ children }) => {
             }
           })
           .then(response => {
-            let thumbnailUrl = 'http://localhost:3000/image/'+response.data+'.jpeg';
+            let thumbnailUrl = 'https://image.lehienthanh.workers.dev/?id='+response.data;
             if(!(response.data.length > 1)){
                 thumbnailUrl="/avatar.jpeg"
             }
@@ -75,7 +77,8 @@ const WindowProvider = ({ children }) => {
                                     displayRegisterModel, setDisplayRegisterModel,
                                     displayAddPost, setDisplayAddPost,
                                     displayPost, setDisplayPost,
-                                    logged, setUserData, userData, setLogged
+                                    logged, setUserData, userData, setLogged,
+                                    setPostId
                                     }}>
         <main className="content" dark-mode={darkMode ? "true" : "false"}>
             <Nav/>
@@ -86,7 +89,12 @@ const WindowProvider = ({ children }) => {
         <Modal displayModel={displayRegisterModel} setDisplayModel={setDisplayRegisterModel} title={'Register'} displayfooter={false} body={<CreateRegisterModal />}/>
         <Modal displayModel={displayForgotModel} setDisplayModel={setDisplayForgotModel} title={'Forgot password'} displayfooter={false} body={<CreateForgotPass />}/>
         <Modal displayModel={displayAddPost} setDisplayModel={setDisplayAddPost} title={"Tạo bài viết"} displayfooter={true} body={<AddPost/>} footer={<AddPostButton/>}/>
-        <PostModal displayModel={displayPost} setDisplayModel={setDisplayPost} title={<Link onClick={() => setDisplayPost(false)} href={"/post/1"}>Bài viết của Tan</Link>} displayfooter={false} body={<Post/>}/>
+        <PostModal  displayModel={displayPost} 
+                    setDisplayModel={setDisplayPost} 
+                    displayfooter={false} 
+                    title={<Link onClick={() => setDisplayPost(false)} href={"/post/"+postId}>Bài viết của Tan</Link>} 
+                    body={<Post postId={postId} userData={userData} displayPost={displayPost}/>}
+                    />
 
     </WindowContext.Provider>
   )

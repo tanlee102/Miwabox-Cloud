@@ -8,13 +8,11 @@
     display: flex;
     justify-content: left;
     width: calc(100% - 20px);
-    margin-top: 10px;
+    margin-top: 0px;
     padding: 10px;
     height: auto;
-    background-color: white;
     overflow: hidden;
     border-radius: 4px;
-    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
 }
 .fr-member[dark-mode="true"] .item-comment{
     background-color: #414141;
@@ -146,6 +144,7 @@
     width: 13px;
     height: 13px;
     fill: black;
+    margin-right: 5px;
 }
 .fr-member[dark-mode="true"] .btn-more-reply-comment{
     color: rgb(255, 255, 255);
