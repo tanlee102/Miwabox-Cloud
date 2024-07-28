@@ -8,8 +8,8 @@ import '../styles/Chat/chatRes.css'
 
 const ChatMessage = ({ type, message, timestamp }) => (
     <div className={`message ${type}`}>
-      <p>{message}</p>
-      {timestamp && <span className="timestamp">{timestamp}</span>}
+      <span>{message}</span>
+      {/* {timestamp && <span className="timestamp">{timestamp}</span>} */}
     </div>
   );
   
@@ -20,8 +20,18 @@ const page = () => {
     const [messages, setMessages] = useState([
         { type: 'incoming', message: 'Hello!', timestamp: '10:00 AM' },
         { type: 'outgoing', message: 'Hi there!', timestamp: '10:01 AM' },
-        { type: 'incoming', message: 'How are you?' },
-        { type: 'outgoing', message: "I'm good, thanks! And you?", timestamp: '10:11 AM' },
+        { type: 'incoming', message: 'How are you?', timestamp: '10:02 AM' },
+        { type: 'outgoing', message: 'Im fine, thank you! How about you?', timestamp: '10:03 AM' },
+        { type: 'outgoing', message: 'Im fine, thank you! How about you?', timestamp: '10:03 AM' },
+        { type: 'outgoing', message: 'Im fine, thank you! How about you?', timestamp: '10:03 AM' },
+        { type: 'incoming', message: 'Im also good. What about you?', timestamp: '10:04 AM' },
+        { type: 'outgoing', message: 'Same here. Whats your name?', timestamp: '10:05 AM'},
+        { type: 'incoming', message: 'John Doe', timestamp: '10:06 AM' },
+        { type: 'outgoing', message: 'John Doe', timestamp: '10:07 AM' },
+        { type: 'outgoing', message: 'John Doe', timestamp: '10:07 AM' },
+        { type: 'incoming', message: 'Do you like this app?', timestamp: '10:08 AM' },
+        { type: 'incoming', message: 'Do you like this app?', timestamp: '10:08 AM' },
+        { type: 'outgoing', message: 'Yes, I love it!', timestamp: '10:09 AM'}
       ]);
     
       useEffect(() => {
@@ -47,25 +57,58 @@ const page = () => {
     <div className={`fr-chat fr-content`}>
     <div className="container">
       <div className="chat-list">
-        <h2>Chats</h2>
+        <h3>Đoạn chat</h3>
+
+        <div class="search-app"><input placeholder="@Username" type="text" value=""/><span><svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 14.866 14.866 18 11 18C7.13401 18 4 14.866 4 11ZM11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C13.125 20 15.078 19.2635 16.6177 18.0319L20.2929 21.7071C20.6834 22.0976 21.3166 22.0976 21.7071 21.7071C22.0976 21.3166 22.0976 20.6834 21.7071 20.2929L18.0319 16.6177C19.2635 15.078 20 13.125 20 11C20 6.02944 15.9706 2 11 2Z"></path></svg></span></div>
+
         <ul>
-          <li className="chat-item">Chat 1</li>
-          <li className="chat-item">Chat 2</li>
-          <li className="chat-item">Chat 3</li>
+          <li className="chat-item">
+            <div className='avatar-chat-item'>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6Qfn0gvb-N-qQQYxmUQF9AXBKG2_gOLHDnA&s" alt="Avatar"/>
+            </div>
+            <div className='content-chat-item'>
+              <div>xemtua23</div>
+              <div className='recent-info-chat-item'>
+                 <span>Hello it me here</span> <span className='delimiter'>•</span><span>3 tiếng</span>
+              </div>
+            </div>
+          </li>
+
+          <li className="chat-item">
+            <div className='avatar-chat-item'>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6Qfn0gvb-N-qQQYxmUQF9AXBKG2_gOLHDnA&s" alt="Avatar"/>
+            </div>
+            <div className='content-chat-item'>
+              <div>xemtua23</div>
+              <div className='recent-info-chat-item'>
+                 <span>Hello it me here, you can see me</span> <span className='delimiter'>•</span><span>3 tiếng</span>
+              </div>
+            </div>
+          </li>
+
+          
         </ul>
       </div>
       <div className="chat-box">
         <div className="chat-header">
-          <h2>Chat with User</h2>
+          <h3>kimochi212</h3>
+          <div className='button-info-of-chat'>
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-z80fyv r-19wmn03"><g><path d="M13.5 8.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5S11.17 7 12 7s1.5.67 1.5 1.5zM13 17v-5h-2v5h2zm-1 5.25c5.66 0 10.25-4.59 10.25-10.25S17.66 1.75 12 1.75 1.75 6.34 1.75 12 6.34 22.25 12 22.25zM20.25 12c0 4.56-3.69 8.25-8.25 8.25S3.75 16.56 3.75 12 7.44 3.75 12 3.75s8.25 3.69 8.25 8.25z"></path></g></svg>
+          </div>
         </div>
         <div className="chat-messages">
+
+          <div className='info-user-start-chat'>
+            <img src='https://images.pexels.com/photos/2836485/pexels-photo-2836485.jpeg?cs=srgb&dl=pexels-alipazani-2836485.jpg&fm=jpg'/>
+            <div className='name-info-start-chat'>xemtua23</div>
+            <div>Hello it me here</div>
+          </div>
+
           {messages.map((msg, index) => (
-            <ChatMessage
-              key={index}
-              type={msg.type}
-              message={msg.message}
-              timestamp={msg.timestamp}
-            />
+              <div className={`message ${msg.type}`}>
+                <span className={messages[index+1]?.type !== msg?.type ? (msg?.type == "incoming" ? "inlast" : "outlast")  : ""}>{msg.message}</span>
+                {messages[index+1]?.type !== msg?.type  && <span className="timestamp">{msg.timestamp}</span>}
+              </div>
           ))}
         </div>
         <div className="chat-input">

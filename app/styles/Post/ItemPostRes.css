@@ -132,7 +132,7 @@
     }
 
     @media only screen and (min-width: 850px){
-        .timeline-mode .list-item-posts{
+        .timeline-mode .contain-list-item-posts{
             max-width: calc(100% - 250px);
         }
 

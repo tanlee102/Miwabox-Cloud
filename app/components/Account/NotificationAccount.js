@@ -1,163 +1,136 @@
-import Link from 'next/link'
-import React, { useContext } from 'react'
+// import Link from 'next/link'
+// import React, { useContext } from 'react'
 
-import { converTime } from '@/app/helper/converTime'
+// import { converTime } from '@/app/helper/converTime'
 
-const NotificationAccount = ({}) => {
+// const NotificationAccount = ({}) => {
 
-    const data = [
-        {
-            user_name: 'john_doe',
-            thumbnail: 'https://example.com/images/john_doe.jpg',
-            name: 'Post',
-            name_actor: 'John Doe',
-            total_actor: 2,
-            first_state: 'commented on your post',
-            last_state: '',
-            post_entityid: '12345',
-            Thread_Title: 'New Thread on Technology',
-            update_time: '2023-06-15T10:00:00Z'
-        },
-        {
-            user_name: 'jane_doe',
-            thumbnail: 'https://example.com/images/jane_doe.jpg',
-            name: 'SubForum',
-            name_actor: 'Jane Doe',
-            total_actor: 1,
-            first_state: 'replied to your thread in',
-            last_state: '',
-            post_entityid: '67890',
-            EntityID: '54321',
-            SubForum_Title: 'Programming Discussions',
-            update_time: '2023-06-16T12:30:00Z'
-        },
-        {
-            user_name: 'alex_smith',
-            thumbnail: 'https://example.com/images/alex_smith.jpg',
-            name: 'Follower',
-            name_actor: 'Alex Smith',
-            total_actor: 1,
-            first_state: 'started following you',
-            last_state: '',
-            update_time: '2023-06-17T14:45:00Z'
-        },
-        {
-            user_name: 'michael_johnson',
-            thumbnail: 'https://example.com/images/michael_johnson.jpg',
-            name: 'msgs',
-            name_actor: 'Michael Johnson',
-            total_actor: 3,
-            first_state: 'mentioned you in a message',
-            last_state: '',
-            update_time: '2023-06-18T16:20:00Z'
-        }
-    ];
+//     const data = [
+
+//     ];
 
   
-  return (
-    <div class="member-hub notification-hub form-account">
+//   return (
+//     <div class="member-hub notification-hub form-account">
 
-    {
-        data.map((ite, index) => (
+//     {
+//         data.map((ite, index) => (
 
-        <div key={index} class="item-tab notification-tab">
+//         <div key={index} class="item-tab notification-tab">
 
-            <Link href={"/u/"+ite.user_name}>
-            <div class="ava-notification-tab">
-                <span>
-                    <img src={""} alt=""/>
-                </span>
-            </div>
-            </Link>
+//             <Link href={"/"+user_name}>
+//             <div class="ava-notification-tab">
+//                 <span>
+//                     <img src={""} alt=""/>
+//                 </span>
+//             </div>
+//             </Link>
     
 
-            <div class="content-notification-tab">
+//             <div class="content-notification-tab">
 
-                {(ite.name === 'Post' || ite.name === 'Thread')?
-                <Link href={"/threads/data/go?post_id="+ite.post_entityid}>
-                <div>
-                    <div class="text-notification-tab">
-                        <a>{ite.name_actor}</a>
-                        <span>{ite.total_actor > 1 ? " và " : ""} </span>
-                        <a>{ite.total_actor > 1 ? ((Number(ite.total_actor) - 1) + " người khác ") : ""} </a>
-                        <span>{ite.first_state} </span>
-                        <a>{ite.Thread_Title} </a>
-                        <span>{ite.last_state} </span>
-                    </div>
-                    <div class="time-notification-tab">
-                        {converTime(ite.update_time)}
-                    </div>
-                </div>
-                </Link>
-                :""
-                }
+                
+//                 <Link href={""}>
+//                 <div>
+//                     <div class="text-notification-tab">
+//                         <a>{ite.name_actor}</a>
+//                         <span>{ite.total_actor > 1 ? " và " : ""} </span>
+//                         <a>{ite.total_actor > 1 ? ((Number(ite.total_actor) - 1) + " người khác ") : ""} </a>
+//                         <span>{state about here}</span>
+//                     </div>
+//                     <div class="time-notification-tab">
+//                         {converTime(time here)}
+//                     </div>
+//                 </div>
+//                 </Link>
+    
+//             </div>
 
-
-                {(ite.name === 'SubForum')?
-                <Link href={ite.post_entityid ? "/threads/data/go?post_id="+ite.post_entityid : "/forums/"+ite.EntityID}>
-                <div>
-                    <div class="text-notification-tab">
-                        <a>{ite.name_actor}</a>
-                        <span>{ite.total_actor > 1 ? " và " : ""} </span>
-                        <a>{ite.total_actor > 1 ? ((Number(ite.total_actor) - 1) + " người khác ") : ""} </a>
-                        <span>{ite.first_state} </span>
-                        <a>{ite.SubForum_Title} </a>
-                        <span>{ite.last_state} </span>
-                    </div>
-                    <div class="time-notification-tab">
-                        {converTime(ite.update_time)}
-                    </div>
-                </div>
-                </Link>
-                :""
-                }
-
-
-                {(ite.name === 'Follower') ?
-                <Link href={"/u/"+ite.user_name}>
-                <div>
-                    <div class="text-notification-tab">
-                        <a>{ite.name_actor}</a>
-                        <span>{ite.total_actor > 1 ? " và " : ""} </span>
-                        <a>{ite.total_actor > 1 ? ((Number(ite.total_actor) - 1) + " người khác ") : ""} </a>
-                        <span>{ite.first_state} </span>
-                    </div>
-                    <div class="time-notification-tab">
-                        {converTime(ite.update_time)}
-                    </div>
-                </div>
-                </Link>
-                :""
-                }
-
-
-                {(ite.name === 'msgs') ?
-                <Link href={"/u/"}>
-                <div>
-                    <div class="text-notification-tab">
-                        <a>{ite.name_actor}</a>
-                        <span>{ite.total_actor > 1 ? " và " : ""} </span>
-                        <a>{ite.total_actor > 1 ? ((Number(ite.total_actor) - 1) + " người khác ") : ""} </a>
-                        <span>{ite.first_state} </span>
-                    </div>
-                    <div class="time-notification-tab">
-                        {converTime(ite.update_time)}
-                    </div>
-                </div>
-                </Link>
-                :""
-                }
-
-            </div>
-
-        </div>
+//         </div>
         
-        ))
-    }
+//         ))
+//     }
 
 
-  </div>
-  )
+//   </div>
+//   )
+// }
+
+// export default NotificationAccount
+
+'use client'
+
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import { converTime } from '@/app/helper/converTime'
+
+const NotificationAccount = () => {
+    const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/notification/users/1/notifications?page=0&size=30');
+            const result = await response.json();
+            setData(result);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const getNotificationDescription = (type) => {
+        switch (type) {
+            case 'like':
+                return 'liked your post';
+            case 'comment':
+                return 'commented on your post';
+            case 'follow':
+                return 'started following you';
+            case 'reply':
+                return 'replied to your comment';
+            default:
+                return 'did something';
+        }
+    };
+
+    return (
+        <div className="member-hub notification-hub form-account">
+            {data.map((notification, index) => (
+                <div key={index} className="item-tab notification-tab">
+                    <Link href={"/" + notification.actorDetails[0].username}>
+                        <div className="ava-notification-tab">
+                            <span>
+                                <img src={notification.actorDetails[0].profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id='+ notification.actorDetails[0].profileImageUrl : '/avatar.jpeg'} alt="" />
+                            </span>
+                        </div>
+                    </Link>
+
+                    <div className="content-notification-tab">
+                        <Link href={`/${notification.type}/${notification.entityId}`}>
+                            <div>
+                                <div className="text-notification-tab">
+                                    <a>{notification.actorDetails[0].username}</a>
+                                    {notification.actorDetails.length > 1 && (
+                                        <>
+                                            <span> and </span>
+                                            <a>{notification.actorDetails.length - 1} others </a>
+                                        </>
+                                    )}
+                                    <span> {getNotificationDescription(notification.type)}</span>
+                                </div>
+                                <div className="time-notification-tab">
+                                    {converTime(notification.latestCreatedAt)}
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
 }
 
 export default NotificationAccount

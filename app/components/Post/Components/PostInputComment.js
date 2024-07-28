@@ -3,7 +3,7 @@ import { WindowContext } from '@/app/context/WindowContext';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const PostInputComment = ({ setComments, comments, isUsingFull=true }) => {
+const PostInputComment = ({ setComments, comments, isUsingFull=true, postId }) => {
     const [newComment, setNewComment] = useState("");
     const [loadSending, setLoadSending] = useState(false);
     const contentEditableDiv = useRef();
@@ -14,7 +14,7 @@ const PostInputComment = ({ setComments, comments, isUsingFull=true }) => {
             setLoadSending(true);
             try {
                 const response = await axios.post(
-                    'http://localhost:8080/api/v1/comments/post/5',
+                    'http://localhost:8080/api/v1/comments/post/'+postId,
                     { content: newComment },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );

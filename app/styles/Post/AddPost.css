@@ -81,3 +81,7 @@
     padding: 0px;
     margin: 0px;
 }
+
+.modal-body:has(.modal-footer){
+    padding-bottom: 0px;
+}

@@ -2,6 +2,7 @@
     width: 100%;
     padding-top: 60px;
     margin: auto;
+    padding-bottom: 50px;
 }
 
 .profile-header{
@@ -100,4 +101,10 @@
 }
 .followed span{
     background-color: rgb(166, 166, 166);
+}
+
+
+
+.fr-content-by-user{
+    margin-top: 60px;
 }

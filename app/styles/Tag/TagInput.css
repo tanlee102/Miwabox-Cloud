@@ -68,6 +68,7 @@
 }
 .wrapper .details{
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 .details button{
   border: none;

@@ -25,6 +25,8 @@ import "./styles/Post/ItemPost.css"
 import "./styles/Post/ItemPostRes.css"
 import "./styles/Post/Post.css"
 import "./styles/Other/LoadMore.css"
+import "./styles/Other/DropDown.css"
+import "./styles/Other/PopOutMemberPanel.css"
 
 import WindowProvider from "./context/WindowContext";
 import LayoutProvider from "./context/LayoutContext";

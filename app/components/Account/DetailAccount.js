@@ -40,9 +40,9 @@ const DetailAccount = ({data}) => {
     if(myData?.username){
       setTextIn(myData?.username);
     }
-}, [myData])
+}, [myData]);
 
-  const [bio, setBio] = useState("")
+  const [bio, setBio] = useState("");
 
   useEffect(() => {
     

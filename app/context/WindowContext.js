@@ -31,6 +31,7 @@ const WindowProvider = ({ children }) => {
     const [logged, setLogged] = useState(false);
     const [userData, setUserData] = useState({});
     const [postId, setPostId] = useState(-1);
+    const [postUsername, setPostUsername] = useState("");
   
     useEffect(() => {
       const token = Cookies.get('token');
@@ -39,22 +40,26 @@ const WindowProvider = ({ children }) => {
         const decoded = jwtDecode(token);
         setLogged(true);
   
-        if (Cookies.get('thumbnail')) {
+        if (Cookies.get('thumbnail') && Cookies.get('username')) {
           decoded.thumbnail = Cookies.get('thumbnail');
+          decoded.username = Cookies.get('username');
           setUserData(decoded);
         } else {
-          axios.get('http://localhost:8080/api/v1/users/thumbnail', {
+          axios.get('http://localhost:8080/api/v1/users/profile', {
             headers: {
               Authorization: `Bearer ${token}`
             }
           })
           .then(response => {
-            let thumbnailUrl = 'https://image.lehienthanh.workers.dev/?id='+response.data;
-            if(!(response.data.length > 1)){
-                thumbnailUrl="/avatar.jpeg"
+            const myData = response.data;
+            let thumbnailUrl = 'https://image.lehienthanh.workers.dev/?id='+myData.profileImageUrl;
+            if(!(response.data.profileImageUrl)){
+                thumbnailUrl="/avatar.jpeg";
             }
             Cookies.set('thumbnail', thumbnailUrl);
             decoded.thumbnail = thumbnailUrl;
+            Cookies.set('username', myData.username);
+            decoded.username = username;
             setUserData(decoded);
           })
           .catch(error => {
@@ -71,6 +76,7 @@ const WindowProvider = ({ children }) => {
     
     
   return (
+    
     <WindowContext.Provider  value={{darkMode, setDarkMode, gridMode, setGridMode,
                                     displayLoginModel, setDisplayLoginModel, 
                                     displayForgotModel, setDisplayForgotModel,
@@ -78,7 +84,7 @@ const WindowProvider = ({ children }) => {
                                     displayAddPost, setDisplayAddPost,
                                     displayPost, setDisplayPost,
                                     logged, setUserData, userData, setLogged,
-                                    setPostId
+                                    setPostId, setPostUsername
                                     }}>
         <main className="content" dark-mode={darkMode ? "true" : "false"}>
             <Nav/>
@@ -88,12 +94,12 @@ const WindowProvider = ({ children }) => {
         <Modal displayModel={displayLoginModel} setDisplayModel={setDisplayLoginModel} title={'Login'} displayfooter={false} body={<CreateLoginModal />}/>
         <Modal displayModel={displayRegisterModel} setDisplayModel={setDisplayRegisterModel} title={'Register'} displayfooter={false} body={<CreateRegisterModal />}/>
         <Modal displayModel={displayForgotModel} setDisplayModel={setDisplayForgotModel} title={'Forgot password'} displayfooter={false} body={<CreateForgotPass />}/>
-        <Modal displayModel={displayAddPost} setDisplayModel={setDisplayAddPost} title={"Tạo bài viết"} displayfooter={true} body={<AddPost/>} footer={<AddPostButton/>}/>
+        <Modal displayModel={displayAddPost} setDisplayModel={setDisplayAddPost} title={"Create Post"} displayfooter={false} body={<AddPost/>} footer={<AddPostButton/>}/>
         <PostModal  displayModel={displayPost} 
                     setDisplayModel={setDisplayPost} 
                     displayfooter={false} 
-                    title={<Link onClick={() => setDisplayPost(false)} href={"/post/"+postId}>Bài viết của Tan</Link>} 
-                    body={<Post postId={postId} userData={userData} displayPost={displayPost}/>}
+                    title={<Link onClick={() => setDisplayPost(false)} href={"/post/"+postId}>Bài viết của {postUsername}</Link>} 
+                    body={<Post postId={postId} userData={userData} setDisplayPost={setDisplayPost} displayPost={displayPost}/>} 
                     />
 
     </WindowContext.Provider>

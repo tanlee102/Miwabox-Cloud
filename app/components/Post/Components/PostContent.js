@@ -1,11 +1,20 @@
+import { WindowContext } from '@/app/context/WindowContext';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useContext, useEffect, useState } from 'react'
 
 const PostContent = ({postData}) => {
 
     const [isLiked, setIsLiked] = useState(false);
     const [bookmark, setBookmark] = useState(false);
+
+    const router = useRouter();
+
+    useEffect(()=>{
+        setIsLiked(false);
+        setBookmark(false)
+    },[])
 
     useEffect(() =>{
         setIsLiked(postData.status);
@@ -44,6 +53,8 @@ const PostContent = ({postData}) => {
             console.error('Error toggling bookmark:', error);
         }
     };
+
+    const {setDisplayPost} = useContext(WindowContext)
     
 
   return (
@@ -52,7 +63,7 @@ const PostContent = ({postData}) => {
 
         <div className='post-list-tags'>
             {postData?.tags?.map(tag => (
-                <span key={tag.id}>#{tag.name}</span>
+                <span onClick={() => {router.push("/?tagname="+tag.name); setDisplayPost(false)}} key={tag.id}>#{tag.name}</span>
             ))}
         </div>
 

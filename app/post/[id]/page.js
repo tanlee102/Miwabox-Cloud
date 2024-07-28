@@ -27,6 +27,7 @@ async function getData(postId, userId) {
 const page = ({params}) => {
 
     const [data, setData] = useState({});
+    
     const loadData = async () => {
         let data;
         const token = Cookies.get('token');
@@ -54,9 +55,9 @@ const page = ({params}) => {
 
                 <PostContent postData={data}></PostContent>
 
-                <PostInputComment comments={comments} setComments={setComments}></PostInputComment>
+                <PostInputComment postId={params.id} comments={comments} setComments={setComments}></PostInputComment>
 
-                <Comment comments={comments} setComments={setComments}></Comment>
+                <Comment postId={params.id} comments={comments} setComments={setComments}></Comment>
 
             </div>
 
@@ -66,7 +67,7 @@ const page = ({params}) => {
 
             <div className='item-suggestion-post'>
                 <div className='image-suggestion-post'>
-                    <img src='https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/v6bwf3e8qhdfhrgq7lv3/V%C3%A9C%C3%B4ngVi%C3%AAnGi%E1%BA%A3iTr%C3%ADIMGWorldsofAdventure%E1%BB%9FDubai.jpg' />
+                    <img src='https://qph.cf2.quoracdn.net/main-qimg-6665268c027800826ff064ac6557f18f-c' />
                 </div>
                 <div className='text-suggestion-post'>
                     <p>
@@ -77,7 +78,7 @@ const page = ({params}) => {
 
             <div className='item-suggestion-post'>
                 <div className='image-suggestion-post'>
-                    <img src='https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/v6bwf3e8qhdfhrgq7lv3/V%C3%A9C%C3%B4ngVi%C3%AAnGi%E1%BA%A3iTr%C3%ADIMGWorldsofAdventure%E1%BB%9FDubai.jpg' />
+                    <img src='https://qph.cf2.quoracdn.net/main-qimg-b9c0eb1d17df51e9fe8a47f7281dd702' />
                 </div>
                 <div className='text-suggestion-post'>
                     <p>

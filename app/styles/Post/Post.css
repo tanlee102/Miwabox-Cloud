@@ -20,6 +20,14 @@
     padding: 0px 10px;
     width: calc(100% - 20px);
 }
+.post-user-info{
+    width: 100%;
+    position: relative;
+    float: left;
+}
+.contain-dropdown-dot{
+    float: right;
+}
 
 .post-avatar-user{
     float: left;
@@ -30,6 +38,7 @@
     background-color: transparent;
     overflow: hidden;
     border: 1pt solid rgba(141, 141, 141, 0.502);
+    cursor: pointer;
 }
 .post-avatar-user img{
     position: relative;
@@ -50,6 +59,7 @@
     font-weight: bold;
     display: block;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .post-tm-user{

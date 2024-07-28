@@ -44,6 +44,9 @@
     margin-bottom: 10px;
     cursor: pointer;
 }
+.item-suggestion-post:last-child{
+    margin-bottom: 0px;
+}
 
 .image-suggestion-post{
     width: 80px;

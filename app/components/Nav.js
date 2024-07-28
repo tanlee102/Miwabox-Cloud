@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { env_variable } from '../env';
 import { checkHasClass } from '../helper/checkHasClass';
 import { WindowContext } from '../context/WindowContext';
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 
 const checkType = _width => 
@@ -30,14 +30,21 @@ function useWindowDimensions() {
     return { width };
 }
 
+async function getNotification( userId) {
+    const res = await fetch('http://localhost:8080/api/v1/notification/users/'+userId+'/unread-count');
+    if (!res.ok) {
+        console.log('Failed to fetch data');
+        return null;
+    }else{
+        return res.json();
+    }
+}
+
 const Nav = ({}) => {
 
     const router = useRouter()
 
-    const config = {
-        countNot: 0
-    };
-    const {countNot} = config;
+    const [countNot, setCountNot] = useState(0)
 
     const {darkMode, setDarkMode, setDisplayLoginModel, gridMode, setGridMode, displayAddPost, setDisplayAddPost, logged, userData} = useContext(WindowContext);
 
@@ -63,6 +70,18 @@ const Nav = ({}) => {
         }
     }, [width, typeWindow]);
 
+    const loadData = () =>{
+        if(logged){
+            getNotification(userData.id).then(data => {
+                setCountNot(Number(data));
+            });
+        }
+    }
+    useEffect(() => {
+        if (userData.id) {
+            loadData()
+        }
+    }, [userData]);
 
     const [showListItems, setShowListItems] = useState(false);
     const [showSearchItem, setShowSearchItem] = useState(true);
@@ -116,12 +135,23 @@ const Nav = ({}) => {
         }
     }
     const getSearch = () => {
+        if(String(document.getElementById('search-bar').value).length > 0){
+            router.push('/'+'?title='+searchValue)
+        }
     }
     const changeMode = () => {
         Cookies.set('dark_mode', !darkMode, {path: '/', expires: 365});
         setDarkMode(!darkMode);
     }
 
+    const searchParams = useSearchParams();
+    const title = searchParams.get('title');
+    const [searchValue, setSearchValue] = useState(title || "");
+
+    useEffect(()=>{
+        if(!title)
+        setSearchValue("")
+    },[title])
 
 
 return (
@@ -189,7 +219,7 @@ return (
                 <Link href="/account/notification">
                     <div className="wrap-notification" >
                         <div>
-                            {countNot>-1 ? <p>{countNot}</p> : ""}
+                            {countNot>0 ? <p>{countNot}</p> : ""}
                             <svg viewBox="0 -10 448 512"><path d="M222.987,510c31.418,0,57.529-22.646,62.949-52.5H160.038C165.458,487.354,191.569,510,222.987,510z"/><path d="M432.871,352.059c-22.25-22.25-49.884-32.941-49.884-141.059c0-79.394-57.831-145.269-133.663-157.83h-4.141c4.833-5.322,7.779-12.389,7.779-20.145c0-16.555-13.42-29.975-29.975-29.975s-29.975,13.42-29.975,29.975c0,7.755,2.946,14.823,7.779,20.145h-4.141C120.818,65.731,62.987,131.606,62.987,211c0,108.118-27.643,118.809-49.893,141.059C-17.055,382.208,4.312,434,47.035,434H398.93C441.568,434,463.081,382.269,432.871,352.059z"/></svg>
                         </div>
                     </div>
@@ -206,11 +236,10 @@ return (
                     {menuProfile ? 
                         <div className='menu-profile' onClick={() => {setMenuProfile(false)}}>
                             <span class="mark-head-sheet-profile"></span>
-                            <Link href={'/xemtua23'}><div>Trang cá nhân</div></Link>
-                            {userData.admin ?  
+                            <Link href={'/'+userData.username}><div>Trang cá nhân</div></Link>
+                            {true ?  
                             <>
-                                <Link href='/manage/1'><div>Quản lý</div></Link>
-                                <Link href='/images/main'><div>Ảnh</div></Link>  
+                                <Link href='/manage/posts'><div>Quản lý</div></Link>
                             </>
                             : ""}
                             <Link href='/account/details'><div>Tài khoản</div></Link>
@@ -224,7 +253,7 @@ return (
                 {!logged ?
                 <>
                     <div onClick={() => {setDisplayLoginModel(true)}} className='wrap-login-btn' >
-                        <div>Đăng nhập</div>
+                        <div>Login</div>
                     </div>
                     <Link href={"/rules/terms-and-rules"}>
                         <div style={{display: "flex", marginRight: '7px'}} className='wrap-login-btn' >
@@ -265,7 +294,7 @@ return (
                     <div className="search-wall" onFocus={() => {focus_searchBorder_Fu()}} onBlur={() => {out_searchBorder_Fu()}} style={{border: searchBorder}}>
                         <div onClick={() => getSearch()} className="search-button" ><svg x="0px" y="0px" width="100%" height="100%" viewBox="-5 -5 135 135"  stroke="#000000" ><path d="M51,102.05c10.5,0,20.2-3.2,28.3-8.6l29.3,29.3c2.301,2.3,6.101,2.3,8.5,0l5.7-5.7c2.3-2.3,2.3-6.1,0-8.5L93.4,79.35 c5.399-8.1,8.6-17.8,8.6-28.3c0-28.1-22.9-51-51-51c-28.1,0-51,22.9-51,51C0,79.149,22.8,102.05,51,102.05z M51,20.05 c17.1,0,31,13.9,31,31c0,17.1-13.9,31-31,31c-17.1,0-31-13.9-31-31C20,33.95,33.9,20.05,51,20.05z"></path> </svg></div>      
                         <div className="search-bar">
-                            <input onBlur={() => setIsFocus(false)} onFocus={() => setIsFocus(true)} id="search-bar" onKeyDown={(e) => {_handleKeyDown(e)}} type="text" placeholder="Tìm kiếm" spellCheck="false" enterKeyHint="done" autoComplete='off' maxLength={env_variable.MAX_DEFAULT_SEARCH_LENGTH}/>
+                            <input value={searchValue}  onChange={(e) => {setSearchValue(e.target.value)}} onBlur={() => setIsFocus(false)} onFocus={() => setIsFocus(true)} id="search-bar" onKeyDown={(e) => {_handleKeyDown(e)}} type="text" placeholder="Search" spellCheck="false" enterKeyHint="done" autoComplete='off' maxLength={env_variable.MAX_DEFAULT_SEARCH_LENGTH}/>
                         </div> 
                     </div>
                 </div>

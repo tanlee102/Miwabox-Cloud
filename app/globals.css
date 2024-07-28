@@ -47,7 +47,7 @@ animation: spin 1s linear infinite;
     margin-left: 14.5px;
     margin-right: 3.5px;
     margin-top: auto;
-    margin-bottom: 6px;
+    margin-bottom: auto;
     width: 26px;
     --b: 4px;
     aspect-ratio: 1;

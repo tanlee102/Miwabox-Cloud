@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useContext } from 'react'
 import MenuAccount from '../../components/MenuBar/MenuAccount'
 
 import "../../styles/Account/Account.css"
@@ -11,14 +11,16 @@ import DetailAccount from '../../components/Account/DetailAccount'
 import SecureAccount from '../../components/Account/SecureAccount'
 import LoggedAccount from '../../components/Account/LoggedAccount'
 import NotificationAccount from '../../components/Account/NotificationAccount'
+import { WindowContext } from '@/app/context/WindowContext'
 
 
 const page = ({ params }) => {
 
-  const currentTypePath = params.type
+  const currentTypePath = params.type;
+  const {userData} = useContext(WindowContext);
 
   const listMenuAccount = [
-    {label:'Account', url: '/xemtua23'},
+    {label:'Account', url: '/'+userData.username},
     {label:'Account Detail', url: '/account/details'},
     {label:'Password & Email', url: '/account/security'},
     // {label:'Login History', url: '/account/logged'},

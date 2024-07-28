@@ -1,41 +1,87 @@
 'use client'
-import React, { useState } from 'react'
+import { WindowContext } from '@/app/context/WindowContext';
+import Cookies from 'js-cookie';
+import React, { useContext, useEffect, useState } from 'react'
 
-const ProfileHeader = () => {
+const ProfileHeader = ({dataProfile}) => {
 
     const [follow, setFollow] = useState(false);
+    const {userData} = useContext(WindowContext);
+
+    useEffect(() => {
+        setFollow(dataProfile.following); // Assuming `isFollowing` is a field in `dataProfile`
+    }, [dataProfile]);
+
+    const handleFollow = async () => {
+        const token = Cookies.get('token');
+        if (!token) return;
+
+        let url = null;
+        if(follow){
+            url = 'http://localhost:8080/api/v1/followers/unfollow';
+            setFollow(false);
+        }else{
+            url = 'http://localhost:8080/api/v1/followers/follow';
+            setFollow(true);
+        }
+
+        try {
+            const response = await fetch(url+"?followerId="+dataProfile.id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: {},
+            });
+
+            if (response.ok) {
+                setFollow(!follow);
+                // Optionally update the followers count in `dataProfile`
+            } else {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
   return (
     <div className='profile-header'>
         <div className='profile-avatar-container'>
-            <img src='https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg' />
+            <img src={dataProfile.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id='+dataProfile.profileImageUrl : "/avatar.jpeg"} />
         </div>
 
         <div className='profile-name-container'>
-            <p>tanlee23.0</p>
-            <span>Be yourself</span>
+            <p>{dataProfile.username}</p>
+            {dataProfile.bio ? <span>{dataProfile.bio}</span>
+            : ""}
         </div>
 
         <div className='profile-follow-container'>
             <div className='item-follow'>
-                <span>23</span>
+                <span>{dataProfile.postsCount}</span>
                 <span> Posts</span>
             </div>
             <div className='item-follow'>
-                <span>23N</span>
+                <span>{dataProfile.followersCount}</span>
                 <span> Followers</span>
             </div>
             <div className='item-follow'>
-                <span>23K</span>
+                <span>{dataProfile.followingCount}</span>
                 <span> Following</span>
             </div>
         </div>
 
+        {dataProfile.id === userData.id ? ""
+        :
         <div className={`follow-button ${!follow? "" : "followed"}`}>
-            <span onClick={() => setFollow(!follow)}>
+            <span onClick={() => handleFollow()}>
                 {follow? "Following" : "Follow"}
             </span>
         </div>
+        }
         
     </div>
   )

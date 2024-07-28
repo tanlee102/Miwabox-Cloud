@@ -6,29 +6,37 @@ import Link from 'next/link';
 import { converTime } from '@/app/helper/converTime';
 import Cookies from 'js-cookie';
 
-const Comment = ({ setComments, comments }) => {
+const Comment = ({postId, setComments, comments }) => {
 
     const [replies, setReplies] = useState({});
     const {logged} = useContext(WindowContext);
-    // const [newComment, setNewComment] = useState("");
     const [newReplies, setNewReplies] = useState({});
     const [showReplyInput, setShowReplyInput] = useState({});
     const [loadMoreComment, setLoadMoreComment] = useState(false);
-    const [displayLoadMoreComment, setDisplayLoadMoreComment] = useState(true)
+    const [displayLoadMoreComment, setDisplayLoadMoreComment] = useState(true);
 
-    const {userData} = useContext(WindowContext)
+    const {userData} = useContext(WindowContext);
 
   
     useEffect(() => {
       // Fetch initial comments
-      axios.get('http://localhost:8080/api/v1/comments/post/5/before/10000000?limit=10')
-        .then(response => setComments(response.data))
+      if(postId){
+        axios.get('http://localhost:8080/api/v1/comments/post/'+postId+'/before/10000000?limit=10')
+        .then(response => {
+            if(response.data.length < 10){
+                setDisplayLoadMoreComment(false);
+            }else{
+                setDisplayLoadMoreComment(true);
+            }
+            setComments(response.data)
+        })
         .catch(error => console.error(error));
-    }, []);
+      }
+    }, [postId]);
 
     const handleLoadMoreComments = () =>{
         setLoadMoreComment(true);
-        axios.get(`http://localhost:8080/api/v1/comments/post/5/before/${comments[comments.length - 1].id}?limit=10`)
+        axios.get(`http://localhost:8080/api/v1/comments/post/${postId}/before/${comments[comments.length - 1].id}?limit=10`)
          .then(response => {
             if(response.data.length < 10){
                 setDisplayLoadMoreComment(false);
@@ -58,30 +66,6 @@ const Comment = ({ setComments, comments }) => {
         })))
         .catch(error => console.error(error));
     };
-
-    // const [loadSending, setLoadSending] = useState(false);
-    // const contentEditableDiv = useRef();
-
-    // const handleAddComment = async () => {
-    //     const token = Cookies.get('token');
-    //     if (token) {
-    //         setLoadSending(true);
-    //         try {
-    //             const response = await axios.post(
-    //                 'http://localhost:8080/api/v1/comments/post/5',
-    //                 { content: newComment },
-    //                 { headers: { Authorization: `Bearer ${token}` } }
-    //             );
-    //             setComments(prev => [response.data,...prev]);
-    //             setNewComment("");
-    //             contentEditableDiv.current.textContent = '';
-    //         } catch (error) {
-    //             console.error(error);
-    //         } finally {
-    //             setLoadSending(false);
-    //         }
-    //     }
-    // };
 
     const handleAddReply = async (postId, parentId) => {
         const token = Cookies.get('token');
@@ -141,25 +125,11 @@ const Comment = ({ setComments, comments }) => {
 
   return (
     <>
-                    {/* <div className='full-post-input-comment post-input-comment'>
-                    <div className="contain-input-thread">
-                        <div className="input-thread">
-                            <div className="contain-input-thr">
-                                <div onPaste={(e) => onPaste(e)} onKeyDown={null} onInput={e => setNewComment(e.currentTarget.textContent)} contentEditable='true' className="input-thr"  placeholder="Aa" ref={contentEditableDiv}></div>
-                                <div className="btn-input-thread">
-                                    {loadSending ? <div className="loader-roundo"></div> : ""}
-                                    {loadSending ? "" : <svg onClick={handleAddComment} fill="#000000" viewBox="0 0 24 24" id="send" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"><path id="primary" d="M21.66,12a2,2,0,0,1-1.14,1.81L5.87,20.75A2.08,2.08,0,0,1,5,21a2,2,0,0,1-1.82-2.82L5.46,13l.45-1-.45-1L3.18,5.87A2,2,0,0,1,5.87,3.25l14.65,6.94A2,2,0,0,1,21.66,12Z"></path><path id="secondary" d="M12,12a1,1,0,0,1-1,1H5.46l.45-1-.45-1H11A1,1,0,0,1,12,12Z"></path></svg>}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-
 
     <div className='post-comments'>
     {comments.map((comment, index) => (
         <div class="item-comment">
-            <Link href={"/"}>
+            <Link href={"/" + comment.userCommentDTO.username}>
                 <span class="fr-image-item-comment">
                     <img src={(comment.userCommentDTO.profileUrl ? 'https://image.lehienthanh.workers.dev/?id='+comment.userCommentDTO.profileUrl : "/avatar.jpeg")} alt=""/>
                 </span>
@@ -167,7 +137,7 @@ const Comment = ({ setComments, comments }) => {
             <span class="fr-text-item-comment">
                 <div class="list-in-line">
                     <ul>
-                        <Link href={"/"}>
+                        <Link href={"/" + comment.userCommentDTO.username}>
                             <li className='set-bold'> {comment.userCommentDTO.username} </li>
                         </Link>
                         <li className='set-slight'> {converTime(comment.createdAt)} </li>
@@ -208,7 +178,7 @@ const Comment = ({ setComments, comments }) => {
                         {replies[comment.id] && replies[comment.id].map((reply, index) => (  
                         <>
                         <div class="item-comment item-reply-comment">
-                            <Link href={"/"}>
+                            <Link href={"/"+reply.userCommentDTO.username}>
                                 <span class="fr-image-item-comment">
                                     <img src={(reply.userCommentDTO.profileUrl ? 'https://image.lehienthanh.workers.dev/?id='+reply.userCommentDTO.profileUrl : "/avatar.jpeg")} alt=""/>
                                 </span>
@@ -216,7 +186,7 @@ const Comment = ({ setComments, comments }) => {
                             <span class="fr-text-item-comment">
                                 <div class="list-in-line">
                                     <ul>
-                                        <Link href={"/"}>
+                                        <Link href={"/"+reply.userCommentDTO.username}>
                                             <li class="set-bold">{reply.userCommentDTO.username} </li>
                                         </Link>
                                         <li className="set-slight"> {converTime(reply.createdAt)} </li>

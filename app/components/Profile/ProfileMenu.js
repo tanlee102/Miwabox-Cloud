@@ -1,34 +1,38 @@
-import React from 'react'
-import Link from 'next/link';
+import { WindowContext } from '@/app/context/WindowContext';
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import React, { useContext } from 'react'
 
-const ProfileMenu = ({type = 1}) => {
+const ProfileMenu = ({username,type = 1}) => {
 
+
+    const router = useRouter();
+    const {userData} = useContext(WindowContext);
 
   return (
     <ul class="horizon-menu">
     
-
-        <div  className={type == 1 ? "chosen-item-horizon-menu" : "hide"} ><li id="btn-menu-mem-comment">
+        <div onClick={() => {router.push(username+"?type=1")}} className={type == 1 ? "chosen-item-horizon-menu" : "hide"} ><li id="btn-menu-mem-comment">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.9703 3.3437C13.0166 2.88543 10.9834 2.88543 9.02975 3.3437C6.20842 4.00549 4.0055 6.20841 3.3437 9.02975C2.88543 10.9834 2.88543 13.0166 3.3437 14.9703C4.0055 17.7916 6.20842 19.9945 9.02975 20.6563C10.9834 21.1146 13.0166 21.1146 14.9703 20.6563C17.7916 19.9945 19.9945 17.7916 20.6563 14.9703C21.1146 13.0166 21.1146 10.9834 20.6563 9.02975C19.9945 6.20842 17.7916 4.00549 14.9703 3.3437ZM12.6219 8.24531C13.0373 7.82988 13.6008 7.59649 14.1883 7.59649C15.4117 7.59649 16.4035 8.58828 16.4035 9.81171C16.4035 10.3992 16.1701 10.9627 15.7547 11.3781L13.255 13.8778C12.0947 15.0381 10.6408 15.8613 9.04889 16.2593L8.56575 16.38C7.99455 16.5228 7.47716 16.0055 7.61996 15.4343L7.74074 14.9511C8.13873 13.3592 8.96189 11.9053 10.1222 10.745L12.6219 8.24531ZM14.1883 8.74523C13.9054 8.74523 13.6342 8.85759 13.4342 9.0576L13.0717 9.42012C13.0359 9.70519 13.1783 10.1031 13.5376 10.4624C13.8969 10.8217 14.2948 10.9641 14.5799 10.9284L14.9424 10.5658C15.1424 10.3658 15.2548 10.0946 15.2548 9.81171C15.2548 9.22271 14.7773 8.74523 14.1883 8.74523ZM13.6171 11.8911C13.2757 11.7409 12.9685 11.5179 12.7253 11.2747C12.4821 11.0315 12.2591 10.7244 12.1089 10.3829L10.9345 11.5573C9.94927 12.5425 9.24245 13.7701 8.88471 15.1153C10.2299 14.7576 11.4575 14.0507 12.4427 13.0655L13.6171 11.8911Z" />
             </svg>
             <span>Posts</span>
             </li>
         </div>
- 
 
 
-    <div  className={type == 2 ? "chosen-item-horizon-menu" : "hide"} ><li id="btn-menu-mem-posts">
-        <svg viewBox="0 0 24 24"><path d="M15.0309 3.30271C13.0299 2.8991 10.9701 2.8991 8.96913 3.30271C6.66186 3.76809 5 5.82231 5 8.20894V18.6292C5 20.4579 6.9567 21.596 8.51221 20.6721L11.3451 18.9895C11.7496 18.7492 12.2504 18.7492 12.6549 18.9895L15.4878 20.6721C17.0433 21.596 19 20.4579 19 18.6292V8.20894C19 5.82231 17.3381 3.76809 15.0309 3.30271Z"/></svg>
-        <span>Saved</span>
-    </li></div>
 
-    <div  className={type == 2 ? "chosen-item-horizon-menu" : "hide"} ><li id="btn-menu-mem-posts">
+    <div onClick={() => {router.push(username+"?type=2")}} className={type == 2 ? "chosen-item-horizon-menu" : "hide"} ><li id="btn-menu-mem-posts">
         <svg viewBox="0 0 24 24"><path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"/></svg>
         <span>Liked</span>
     </li></div>
 
-    <div className={type == 4 ? "chosen-item-horizon-menu" : "hide"} ><li id="btn-menu-mem-info">
+    <div onClick={() => {router.push(username+"?type=3")}} className={type == 3 ? "chosen-item-horizon-menu" : "hide"} ><li id="btn-menu-mem-posts">
+        <svg viewBox="0 0 24 24"><path d="M15.0309 3.30271C13.0299 2.8991 10.9701 2.8991 8.96913 3.30271C6.66186 3.76809 5 5.82231 5 8.20894V18.6292C5 20.4579 6.9567 21.596 8.51221 20.6721L11.3451 18.9895C11.7496 18.7492 12.2504 18.7492 12.6549 18.9895L15.4878 20.6721C17.0433 21.596 19 20.4579 19 18.6292V8.20894C19 5.82231 17.3381 3.76809 15.0309 3.30271Z"/></svg>
+        <span>Saved</span>
+    </li></div>
+
+    <div onClick={() => {router.push(username+"?type=4")}} className={type == 4 ? "chosen-item-horizon-menu" : "hide"} ><li id="btn-menu-mem-info">
         <svg width="24px" height="24px" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
             <path d="M5.30769 7.88571C5.30769 5.73969 7.06411 4 9.23077 4C11.3974 4 13.1538 5.73969 13.1538 7.88571C13.1538 10.0317 11.3974 11.7714 9.23077 11.7714C7.06411 11.7714 5.30769 10.0317 5.30769 7.88571Z" />
             <path d="M6.75123 13.5261L6.91563 13.5001C8.44935 13.2577 10.0122 13.2577 11.5459 13.5001L11.7103 13.5261C13.8714 13.8677 15.4615 15.714 15.4615 17.8816C15.4615 19.0516 14.504 20 13.3228 20H5.13874C3.95755 20 3 19.0516 3 17.8816C3 15.714 4.59016 13.8677 6.75123 13.5261Z" />

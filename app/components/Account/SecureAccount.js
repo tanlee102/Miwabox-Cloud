@@ -55,13 +55,13 @@ const SecureAccount = ({}) => {
     }
 
     const verifyEmail = async () => {
-        conFirmFun('Xác minh tài khoản', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+myData.email+' để xác minh tài khoản của bạn?', async () => {
+        conFirmFun('Xác minh tài khoản', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+userData.email+' để xác minh tài khoản của bạn?', async () => {
             
             try {
                 conFirmFun('Gửi Email');
 
                 const response = await axios.post('http://localhost:3000/api/auth/email/verify', {
-                  email: myData.email,
+                  email: userData.email,
                 });
           
                 if (response.data.success) {
@@ -80,13 +80,13 @@ const SecureAccount = ({}) => {
 
     const forgotEmail = async () => {
 
-        conFirmFun('Quên mật khẩu', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+myData.email+' để khôi phục mật khẩu của bạn?', async () => {
+        conFirmFun('Quên mật khẩu', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+userData.email+' để khôi phục mật khẩu của bạn?', async () => {
 
             try {
                 conFirmFun('Gửi Email');
 
                 const response = await axios.post('http://localhost:3000/api/auth/password/forgot', {
-                  email: myData.email,
+                  email: userData.email,
                 });
           
                 if (response.data.success) {

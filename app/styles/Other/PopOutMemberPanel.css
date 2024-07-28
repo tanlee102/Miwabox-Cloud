@@ -1,0 +1,79 @@
+.pop-out-member-panel{
+    position: absolute;
+    top: -6px;
+    left: 1px;
+    width: auto !important;
+    height: auto;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    z-index: 4;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.content[dark-mode="true"] .pop-out-member-panel{
+    color: white;
+    background-color: rgb(36, 36, 36);
+}
+
+.pop-out-member-panel div{
+    position: relative;
+    display: block;
+    float: left;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center !important;
+    justify-content: left !important;
+    margin: 0px !important;
+    width: auto !important;
+
+    cursor: pointer;
+    text-align: left !important;
+}
+
+.pop-out-member-panel div:hover{
+    background-color: #e0e0e0;
+}
+
+.content[dark-mode="true"] .pop-out-member-panel div:hover{
+    background-color: rgb(113, 113, 113);
+    color: white;
+}
+
+
+.pop-out-member-panel svg{
+    width: 20px;
+    height: 20px;
+    min-width: 20px !important;
+    fill: black;
+    stroke: black;
+}
+
+.content[dark-mode="true"] .pop-out-member-panel svg{
+    fill: white;
+    stroke: white;
+}
+
+
+.pop-out-member-panel p{
+    font-size: 17px;
+    margin-left: 7px;
+    min-width: 150px;
+    font-weight: 400 !important;
+}
+
+.pop-out-member-panel-right{
+    top: 2px;
+    right: 2px;
+    left: auto;
+}
+
+.pop-out-member-panel-admin > div > p{
+    min-width: 230px !important;
+}
+
