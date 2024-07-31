@@ -8,6 +8,8 @@ import ListTags from "./components/Tags/ListTags";
 import ListItemPost from "./components/Post/Components/ListItemPost";
 import LoadMore from "./components/Other/LoadMore";
 import { useSearchParams } from "next/navigation";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 const pageSize = 20;
 const limit = 20;
@@ -31,6 +33,13 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
       default:
         url = `http://localhost:8080/api/v1/posts`;
     }
+
+    const token = Cookies.get('token');
+    const decoded = jwtDecode(token);
+    if(decoded?.id){
+      url += `&userId=${decoded.id}`;
+    }
+    
   }
 
   const res = await fetch(url);
