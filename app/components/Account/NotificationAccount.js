@@ -1,75 +1,18 @@
-// import Link from 'next/link'
-// import React, { useContext } from 'react'
+'use client';
 
-// import { converTime } from '@/app/helper/converTime'
-
-// const NotificationAccount = ({}) => {
-
-//     const data = [
-
-//     ];
-
-  
-//   return (
-//     <div class="member-hub notification-hub form-account">
-
-//     {
-//         data.map((ite, index) => (
-
-//         <div key={index} class="item-tab notification-tab">
-
-//             <Link href={"/"+user_name}>
-//             <div class="ava-notification-tab">
-//                 <span>
-//                     <img src={""} alt=""/>
-//                 </span>
-//             </div>
-//             </Link>
-    
-
-//             <div class="content-notification-tab">
-
-                
-//                 <Link href={""}>
-//                 <div>
-//                     <div class="text-notification-tab">
-//                         <a>{ite.name_actor}</a>
-//                         <span>{ite.total_actor > 1 ? " và " : ""} </span>
-//                         <a>{ite.total_actor > 1 ? ((Number(ite.total_actor) - 1) + " người khác ") : ""} </a>
-//                         <span>{state about here}</span>
-//                     </div>
-//                     <div class="time-notification-tab">
-//                         {converTime(time here)}
-//                     </div>
-//                 </div>
-//                 </Link>
-    
-//             </div>
-
-//         </div>
-        
-//         ))
-//     }
-
-
-//   </div>
-//   )
-// }
-
-// export default NotificationAccount
-
-'use client'
-
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import { converTime } from '@/app/helper/converTime'
+import Link from 'next/link';
+import React, { useContext, useEffect, useState } from 'react';
+import { converTime } from '@/app/helper/converTime';
+import { WindowContext } from '@/app/context/WindowContext';
 
 const NotificationAccount = () => {
+
     const [data, setData] = useState([]);
+    const {userData} = useContext(WindowContext);
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/v1/notification/users/1/notifications?page=0&size=30');
+            const response = await fetch('http://localhost:8080/api/v1/notification/users/'+userData.id+'/notifications?page=0&size=30');
             const result = await response.json();
             setData(result);
         } catch (error) {
@@ -78,8 +21,8 @@ const NotificationAccount = () => {
     };
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        if(userData.id) fetchData();
+    }, [userData?.id]);
 
     const getNotificationDescription = (type) => {
         switch (type) {

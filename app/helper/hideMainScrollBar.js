@@ -5,13 +5,13 @@ export const hideMainScrollBar = (display) => {
           document.getElementsByTagName('html').item(0).style.paddingRight = "10px"; 
     
           document.getElementsByClassName('wrap-bar').item(0).style.paddingRight = "10px"; 
-          document.getElementsByClassName('wrap-bar').item(0).style.width = "calc(100% - 10px)"
+          document.getElementsByClassName('wrap-bar').item(0).style.width = "calc(100% - 10px)";
         }else { 
           document.body.style.overflowY = "scroll" ; 
           document.getElementsByTagName('html').item(0).style.paddingRight = "0px"; 
     
           document.getElementsByClassName('wrap-bar').item(0).style.paddingRight = "0px"; 
-          document.getElementsByClassName('wrap-bar').item(0).style.width = "100%"
+          document.getElementsByClassName('wrap-bar').item(0).style.width = "100%";
         }
     }
 };

@@ -16,7 +16,7 @@ const checkType = _width =>
     _width <= 768 ? 2 :
     _width <= 1024 ? 3 :
     _width <= 1440 ? 4 :
-    5;                   
+    5;
 
 function useWindowDimensions() {
     const [width, setWidth] = useState(window?.innerWidth);
@@ -201,7 +201,7 @@ return (
 
                 {/*BUTT0N DISPLAY ITEM*/}
                 {logged ?
-                <div className="mark-search" >
+                <div className="mark-search">
                     <div id="mark-search" onClick={() => {{!showSearchItem ? setShowListItems(false) : null }; setShowSearchItem(!showSearchItem);}}>
                         {
                             !showSearchItem ?
@@ -229,7 +229,7 @@ return (
                 
                 {/* PROFILE ITEM */}
                 {logged ? 
-                <div  className="wrap-profile"  >
+                <div className="wrap-profile">
                     <div className='ava-profile' onClick={() => {setMenuProfile(!menuProfile)}}>
                         <img src={userData.thumbnail}/>
                     </div>
@@ -237,7 +237,7 @@ return (
                         <div className='menu-profile' onClick={() => {setMenuProfile(false)}}>
                             <span class="mark-head-sheet-profile"></span>
                             <Link href={'/'+userData.username}><div>Trang cá nhân</div></Link>
-                            {true ?  
+                            {userData.role === "ADMIN" ?  
                             <>
                                 <Link href='/manage/posts'><div>Quản lý</div></Link>
                             </>
@@ -306,7 +306,7 @@ return (
         </div>
 
     </div>
-  )
+    )
 }
 
 export default Nav

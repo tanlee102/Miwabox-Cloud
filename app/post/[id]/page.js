@@ -15,6 +15,7 @@ import { WindowContext } from '@/app/context/WindowContext';
 import LoadMore from '@/app/components/Other/LoadMore';
 import Comment from '@/app/components/Post/Components/Comment';
 import PostInputComment from '@/app/components/Post/Components/PostInputComment';
+import { useRouter } from 'next/navigation';
 
 async function getData(postId, userId) {
     const res = await fetch('http://localhost:8080/api/v1/posts/v2/'+postId+'?userId='+userId)
@@ -24,9 +25,26 @@ async function getData(postId, userId) {
     return res.json();
 }
 
+
+async function getRandomPosts(limit) {
+    const res = await fetch('http://localhost:8080/api/v1/posts/random?limit=' + limit)
+    if (!res.ok) {
+        throw new Error('Failed to fetch random posts');
+    }
+    return res.json();
+}
+
 const page = ({params}) => {
 
     const [data, setData] = useState({});
+    const [randomPosts, setRandomPosts] = useState([]);
+
+    const router = useRouter();
+
+    const loadRandomPosts = async () => {
+        const posts = await getRandomPosts(5);
+        setRandomPosts(posts);
+    }
     
     const loadData = async () => {
         let data;
@@ -41,6 +59,7 @@ const page = ({params}) => {
     }
     useEffect(() => {
         loadData();
+        loadRandomPosts();
     }, []);
 
     const [comments, setComments] = useState([]);
@@ -65,27 +84,18 @@ const page = ({params}) => {
       
         <div className='fr-suggestion-posts'>
 
-            <div className='item-suggestion-post'>
-                <div className='image-suggestion-post'>
-                    <img src='https://qph.cf2.quoracdn.net/main-qimg-6665268c027800826ff064ac6557f18f-c' />
+            {randomPosts.map(post => (
+                <div onClick={() => {router.push('/post/'+post.id)}} className='item-suggestion-post' key={post.id}>
+                    <div className='image-suggestion-post'>
+                        <img src={post.media[0].mediaType==="video" ? 'https://image.lehienthanh1.workers.dev/?id='+post.media[0].thumb_url : 'https://image.lehienthanh1.workers.dev/?id='+post.media[0].url } alt="Post Image" />
+                    </div>
+                    <div className='text-suggestion-post'>
+                        <p>
+                            {post.title}
+                        </p>
+                    </div>
                 </div>
-                <div className='text-suggestion-post'>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
-                </div>
-            </div>
-
-            <div className='item-suggestion-post'>
-                <div className='image-suggestion-post'>
-                    <img src='https://qph.cf2.quoracdn.net/main-qimg-b9c0eb1d17df51e9fe8a47f7281dd702' />
-                </div>
-                <div className='text-suggestion-post'>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
-                </div>
-            </div>
+            ))}
 
         </div>
     </div>

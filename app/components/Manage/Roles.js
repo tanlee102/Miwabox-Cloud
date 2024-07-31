@@ -1,73 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import OptionPanelPart from '../Other/OptionPanelPart'
-import Link from 'next/link'
+import axios from 'axios';
+import PopOutAuthorityPanel from '../Other/PopOutAuthorityPanel';
+
 
 const Roles = () => {
+
+  const [data, setData] = useState();
+
+  const loadRoles = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/users/role/2');
+      if (response.status === 200) {
+          const responseData = await response.json();
+          setData(responseData);
+      }else{}
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    loadRoles();
+  }, []);
+
   return (
-    <div className="member-hub">
-
-
-        <div className="item-tab member-tab">
-          <div className="content-member-tab">
-            <div className="ava-item-tab">
-              <img src={"https://play-lh.googleusercontent.com/hYdIazwJBlPhmN74Yz3m_jU9nA6t02U7ZARfKunt6dauUAB6O3nLHp0v5ypisNt9OJk"} alt="" />
-            </div>
-
-            <div class="content-item-tab">
-                <div class="title-item-tab set-bold set-black-white">Hella</div>
-                <div class="list-in-line set-anchor-gray-color">
-                    <ul>
-                        <li>Supreme Admin </li>
-                    </ul>
+      <div className="member-hub">
+          {data?.map(user => (
+            <div className="item-tab member-tab">
+              <div key={user.userId} className="content-member-tab">
+                <div className="ava-item-tab">
+                  <img src={user?.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + user.profileImageUrl : '/avatar.jpeg'} alt="" />
                 </div>
-            </div>
-
-          </div>
-          <OptionPanelPart isAdmin={true}></OptionPanelPart>
-        </div>
-
-
-
-        <div className="item-tab member-tab">
-          <div className="content-member-tab">
-            <div className="ava-item-tab">
-              <img src={"https://play-lh.googleusercontent.com/hYdIazwJBlPhmN74Yz3m_jU9nA6t02U7ZARfKunt6dauUAB6O3nLHp0v5ypisNt9OJk"} alt="" />
-            </div>
-
-            <div class="content-item-tab">
-                <div class="title-item-tab set-bold set-black-white">Hella</div>
-                <div class="list-in-line set-anchor-gray-color">
+                <div className="content-item-tab">
+                  <div className="title-item-tab set-bold set-black-white">{user.username}</div>
+                  <div className="list-in-line set-anchor-gray-color">
                     <ul>
-                        <li> Admin </li>
+                        <li>Admin</li>
                     </ul>
+                  </div>
                 </div>
+              </div>
+              <PopOutAuthorityPanel idMember={user.userId}></PopOutAuthorityPanel>
             </div>
-
-          </div>
-          <OptionPanelPart isAdmin={true}></OptionPanelPart>
-        </div>
-
-
-        <div className="item-tab member-tab">
-          <div className="content-member-tab">
-            <div className="ava-item-tab">
-              <img src={"https://play-lh.googleusercontent.com/hYdIazwJBlPhmN74Yz3m_jU9nA6t02U7ZARfKunt6dauUAB6O3nLHp0v5ypisNt9OJk"} alt="" />
-            </div>
-
-            <div class="content-item-tab">
-                <div class="title-item-tab set-bold set-black-white">Hella</div>
-                <div class="list-in-line set-anchor-gray-color">
-                    <ul>
-                        <li> Admin </li>
-                    </ul>
-                </div>
-            </div>
-
-          </div>
-          <OptionPanelPart isAdmin={true}></OptionPanelPart>
-        </div>
-
-  </div>
+          ))}
+      </div>
   )
 }
 

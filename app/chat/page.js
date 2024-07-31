@@ -1,134 +1,232 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import '../styles/Chat/chat.css';
+import '../styles/Chat/chatRes.css';
+import { LayoutContext } from '../context/LayoutContext';
+import axios from 'axios';
+import { WindowContext } from '../context/WindowContext';
+import { converTime, converTimeShort } from '../helper/converTime';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
-import '../styles/Chat/chat.css'
-import '../styles/Chat/chatRes.css'
-
-
-const ChatMessage = ({ type, message, timestamp }) => (
-    <div className={`message ${type}`}>
-      <span>{message}</span>
-      {/* {timestamp && <span className="timestamp">{timestamp}</span>} */}
-    </div>
-  );
-  
 const page = () => {
+  const { userData } = useContext(WindowContext);
 
-  const loadSending = false;
+  const [messages, setMessages] = useState([]);
+  const [listConversations, setListConversations] = useState([]);
+  const [chater, setChater] = useState({});
+  const [currentMessageId, setCurrentMessageId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-    const [messages, setMessages] = useState([
-        { type: 'incoming', message: 'Hello!', timestamp: '10:00 AM' },
-        { type: 'outgoing', message: 'Hi there!', timestamp: '10:01 AM' },
-        { type: 'incoming', message: 'How are you?', timestamp: '10:02 AM' },
-        { type: 'outgoing', message: 'Im fine, thank you! How about you?', timestamp: '10:03 AM' },
-        { type: 'outgoing', message: 'Im fine, thank you! How about you?', timestamp: '10:03 AM' },
-        { type: 'outgoing', message: 'Im fine, thank you! How about you?', timestamp: '10:03 AM' },
-        { type: 'incoming', message: 'Im also good. What about you?', timestamp: '10:04 AM' },
-        { type: 'outgoing', message: 'Same here. Whats your name?', timestamp: '10:05 AM'},
-        { type: 'incoming', message: 'John Doe', timestamp: '10:06 AM' },
-        { type: 'outgoing', message: 'John Doe', timestamp: '10:07 AM' },
-        { type: 'outgoing', message: 'John Doe', timestamp: '10:07 AM' },
-        { type: 'incoming', message: 'Do you like this app?', timestamp: '10:08 AM' },
-        { type: 'incoming', message: 'Do you like this app?', timestamp: '10:08 AM' },
-        { type: 'outgoing', message: 'Yes, I love it!', timestamp: '10:09 AM'}
-      ]);
-    
-      useEffect(() => {
-        const processedMessages = [];
-        let lastTimestamp = null;
-    
-        messages.forEach(msg => {
-          const timestamp = msg.timestamp ? new Date(`1970-01-01T${msg.timestamp.replace(' ', 'T')}:00Z`) : null;
-          if (timestamp && lastTimestamp && (timestamp - lastTimestamp) / (1000 * 60) <= 10) {
-            processedMessages.push({ ...msg, timestamp: null });
-          } else {
-            processedMessages.push(msg);
-            if (timestamp) lastTimestamp = timestamp;
-          }
+  const messageInputRef = useRef(null);
+  const chatMessagesRef = useRef(null);
+
+  let stompClient = useRef(null);
+
+  const loadConversations = async (userId) => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/conversations?userId=' + userId);
+      setListConversations(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const loadMessages = async (senderId, receiverId, size, lastMessageId) => {
+    try {
+      const url = lastMessageId 
+      ? `http://localhost:8080/api/v1/messages?senderId=${senderId}&receiverId=${receiverId}&size=${size}&lastMessageId=${lastMessageId}`
+      : `http://localhost:8080/api/v1/messages?senderId=${senderId}&receiverId=${receiverId}&size=${size}`;
+      const response = await axios.get(url);
+      let fetchedMessages = response.data.map(msg => ({
+        type: msg.senderId === userData.id ? 'outgoing' : 'incoming',
+        message: msg.content,
+        timestamp: new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        id: msg.id,
+      }));
+      console.log(fetchedMessages)
+      fetchedMessages = fetchedMessages.reverse();
+      setCurrentMessageId(fetchedMessages[0].id);
+      setMessages(prevMessages => [...fetchedMessages, ...prevMessages]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (userData?.id) {
+      loadConversations(userData.id);
+      loadMessages(userData.id, chater?.otherUser?.userId, 10, currentMessageId);
+    }
+  }, [userData?.id]);
+
+  useEffect(() => {
+    setMessages([])
+    if (userData?.id) {
+      loadMessages(userData.id, chater?.otherUser?.userId, 10);
+    }
+  }, [chater]);
+
+  // Scroll to bottom when messages are loaded or a new message is sent
+  useEffect(() => {
+    if (chatMessagesRef.current && messages.length <= 10) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  // WebSocket connection setup
+  useEffect(() => {
+    const userId = userData?.id;
+
+    const connect = () => {
+      const socket = new SockJS('http://localhost:8080/ws');
+      stompClient.current = Stomp.over(socket);
+      stompClient.current.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.current.subscribe(`/user/${userId}/queue/messages`, function (message) {
+          console.log('Received message: ', message);
+          const newMessage = JSON.parse(message.body);
+          setMessages((prevMessages) => [...prevMessages, {
+            type: 'incoming',
+            message: newMessage.content,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          }]);
+          chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
         });
-    
-        setMessages(processedMessages);
-      }, []);
+      }, function (error) {
+        console.error('Error connecting: ' + error);
+      });
+    };
 
+    if (userId) {
+      connect();
+    }
 
+    return () => {
+      if (stompClient?.current) {
+        try {
+          stompClient.current?.disconnect(); 
+        } catch (error) {
+          
+        }
+      }
+    };
+  }, [userData]);
+
+  const sendMessage = () => {
+    const content = messageInputRef.current.textContent;
+    if (!content) {
+      console.error('Message content is empty');
+      return;
+    }
+
+    const message = {
+      senderId: userData.id,
+      receiverId: chater?.otherUser?.userId,
+      content: content
+    };
+
+    console.log('Sending message: ' + JSON.stringify(message));
+    stompClient.current.send("/app/chat", {}, JSON.stringify(message));
+
+    setMessages((prevMessages) => [...prevMessages, {
+      type: 'outgoing',
+      message: content,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    }]);
+
+    messageInputRef.current.textContent = "";
+  };
+
+  const handleScroll = async () => {
+    if (chatMessagesRef.current.scrollTop === 0 && !loading) {
+      setLoading(true);
+      await loadMessages(userData.id, chater?.otherUser?.userId, 10, currentMessageId);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={`fr-chat fr-content`}>
-    <div className="container">
-      <div className="chat-list">
-        <h3>Đoạn chat</h3>
+      <div className="container">
+        <div className="chat-list">
+          <h3>Đoạn chat</h3>
 
-        <div class="search-app"><input placeholder="@Username" type="text" value=""/><span><svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 14.866 14.866 18 11 18C7.13401 18 4 14.866 4 11ZM11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C13.125 20 15.078 19.2635 16.6177 18.0319L20.2929 21.7071C20.6834 22.0976 21.3166 22.0976 21.7071 21.7071C22.0976 21.3166 22.0976 20.6834 21.7071 20.2929L18.0319 16.6177C19.2635 15.078 20 13.125 20 11C20 6.02944 15.9706 2 11 2Z"></path></svg></span></div>
-
-        <ul>
-          <li className="chat-item">
-            <div className='avatar-chat-item'>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6Qfn0gvb-N-qQQYxmUQF9AXBKG2_gOLHDnA&s" alt="Avatar"/>
-            </div>
-            <div className='content-chat-item'>
-              <div>xemtua23</div>
-              <div className='recent-info-chat-item'>
-                 <span>Hello it me here</span> <span className='delimiter'>•</span><span>3 tiếng</span>
-              </div>
-            </div>
-          </li>
-
-          <li className="chat-item">
-            <div className='avatar-chat-item'>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6Qfn0gvb-N-qQQYxmUQF9AXBKG2_gOLHDnA&s" alt="Avatar"/>
-            </div>
-            <div className='content-chat-item'>
-              <div>xemtua23</div>
-              <div className='recent-info-chat-item'>
-                 <span>Hello it me here, you can see me</span> <span className='delimiter'>•</span><span>3 tiếng</span>
-              </div>
-            </div>
-          </li>
-
-          
-        </ul>
-      </div>
-      <div className="chat-box">
-        <div className="chat-header">
-          <h3>kimochi212</h3>
-          <div className='button-info-of-chat'>
-            <svg viewBox="0 0 24 24" aria-hidden="true" class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-z80fyv r-19wmn03"><g><path d="M13.5 8.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5S11.17 7 12 7s1.5.67 1.5 1.5zM13 17v-5h-2v5h2zm-1 5.25c5.66 0 10.25-4.59 10.25-10.25S17.66 1.75 12 1.75 1.75 6.34 1.75 12 6.34 22.25 12 22.25zM20.25 12c0 4.56-3.69 8.25-8.25 8.25S3.75 16.56 3.75 12 7.44 3.75 12 3.75s8.25 3.69 8.25 8.25z"></path></g></svg>
-          </div>
-        </div>
-        <div className="chat-messages">
-
-          <div className='info-user-start-chat'>
-            <img src='https://images.pexels.com/photos/2836485/pexels-photo-2836485.jpeg?cs=srgb&dl=pexels-alipazani-2836485.jpg&fm=jpg'/>
-            <div className='name-info-start-chat'>xemtua23</div>
-            <div>Hello it me here</div>
+          <div className="search-app">
+            <input placeholder="@Username" type="text" value="" />
+            <span>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path fillRule="evenodd" clipRule="evenodd" d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 14.866 14.866 18 11 18C7.13401 18 4 14.866 4 11ZM11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C13.125 20 15.078 19.2635 16.6177 18.0319L20.2929 21.7071C20.6834 22.0976 21.3166 22.0976 21.7071 21.7071C22.0976 21.3166 22.0976 20.6834 21.7071 20.2929L18.0319 16.6177C19.2635 15.078 20 13.125 20 11C20 6.02944 15.9706 2 11 2Z"></path>
+              </svg>
+            </span>
           </div>
 
-          {messages.map((msg, index) => (
-              <div className={`message ${msg.type}`}>
-                <span className={messages[index+1]?.type !== msg?.type ? (msg?.type == "incoming" ? "inlast" : "outlast")  : ""}>{msg.message}</span>
-                {messages[index+1]?.type !== msg?.type  && <span className="timestamp">{msg.timestamp}</span>}
-              </div>
-          ))}
+          <ul>
+            {listConversations.map((conversation, index) => (
+              <li key={conversation.id} onClick={() => {
+                setChater(listConversations[index]);
+              }} className="chat-item">
+                <div className='avatar-chat-item'>
+                  <img src={conversation.otherUser.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + conversation.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
+                </div>
+                <div className='content-chat-item'>
+                  <div>{conversation.otherUser.username}</div>
+                  <div className='recent-info-chat-item'>
+                    <span>{conversation.lastMessage.content}</span>
+                    <span className='delimiter'>•</span>
+                    <span>{converTimeShort(conversation.lastMessage.createdAt)}</span>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="chat-input">
+
+        <div className="chat-box">
+          <div className="chat-header">
+            <h3>{chater?.otherUser?.username}</h3>
+            <div className='button-info-of-chat'>
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-z80fyv r-19wmn03">
+                <g>
+                  <path d="M13.5 8.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5S11.17 7 12 7s1.5.67 1.5 1.5zM13 17v-5h-2v5h2zm-1 5.25c5.66 0 10.25-4.59 10.25-10.25S17.66 1.75 12 1.75 1.75 6.34 1.75 12 6.34 22.25 12 22.25zM20.25 12c0 4.56-3.69 8.25-8.25 8.25S3.75 16.56 3.75 12 7.44 3.75 12 3.75s8.25 3.69 8.25 8.25z"></path>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div className="chat-messages" ref={chatMessagesRef} onScroll={handleScroll}>
+            <div className='info-user-start-chat'>
+              <img src={chater?.otherUser?.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + chater.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
+              <div className='name-info-start-chat'>{chater?.otherUser?.username}</div>
+              <div>Hello it me here</div>
+            </div>
+
+            {messages.map((msg, index) => (
+              <div key={msg.id} className={`message ${msg.type}`}>
+                <span className={messages[index + 1]?.type !== msg?.type ? (msg?.type === "incoming" ? "inlast" : "outlast") : ""}>{msg.message}</span>
+                {messages[index + 1]?.type !== msg?.type && <span className="timestamp">{msg.timestamp}</span>}
+              </div>
+            ))}
+          </div>
+          <div className="chat-input">
             <div className="contain-input-thread">
-                <div className="input-thread">
+              <div className="input-thread">
                 <div className="contain-input-thr">
-                    <div onPaste={(e) => onPaste(e)} onKeyDown={null} contentEditable='true' className="input-thr"  placeholder="Aa"></div>
-                    <div className="btn-input-thread">
-                        {loadSending ? <div className="loader-roundo"></div> : ""}
-                        {loadSending ? "" : <svg onClick={() => {}} fill="#000000" viewBox="0 0 24 24" id="send" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"><path id="primary" d="M21.66,12a2,2,0,0,1-1.14,1.81L5.87,20.75A2.08,2.08,0,0,1,5,21a2,2,0,0,1-1.82-2.82L5.46,13l.45-1-.45-1L3.18,5.87A2,2,0,0,1,5.87,3.25l14.65,6.94A2,2,0,0,1,21.66,12Z"></path><path id="secondary" d="M12,12a1,1,0,0,1-1,1H5.46l.45-1-.45-1H11A1,1,0,0,1,12,12Z"></path></svg>
-                        }
-                    </div>
+                  <div ref={messageInputRef} contentEditable='true' className="input-thr" placeholder="Aa"></div>
+                  <div className="btn-input-thread">
+                    <svg onClick={sendMessage} fill="#000000" viewBox="0 0 24 24" id="send" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg">
+                      <path id="primary" d="M21.66,12a2,2,0,0,1-1.14,1.81L5.87,20.75A2.08,2.08,0,0,1,5,21a2,2,0,0,1-1.82-2.82L5.46,13l.45-1-.45-1L3.18,5.87A2,2,0,0,1,5.87,3.25l14.65,6.94A2,2,0,0,1,21.66,12Z"></path>
+                      <path id="secondary" d="M12,12a1,1,0,0,1-1,1H5.46l.45-1-.45-1H11A1,1,0,0,1,12,12Z"></path>
+                    </svg>
+                  </div>
                 </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

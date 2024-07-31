@@ -2,6 +2,7 @@
 import { WindowContext } from '@/app/context/WindowContext';
 import Cookies from 'js-cookie';
 import React, { useContext, useEffect, useState } from 'react'
+import OptionPanelPart from '../Other/OptionPanelPart';
 
 const ProfileHeader = ({dataProfile}) => {
 
@@ -76,10 +77,15 @@ const ProfileHeader = ({dataProfile}) => {
 
         {dataProfile.id === userData.id ? ""
         :
-        <div className={`follow-button ${!follow? "" : "followed"}`}>
-            <span onClick={() => handleFollow()}>
-                {follow? "Following" : "Follow"}
-            </span>
+        <div className='contain-profile-option'>
+            <div className='button-profile-option'>{}
+                <OptionPanelPart isAdmin={userData.role === "ADMIN" ? true : false} dataProfile={dataProfile}></OptionPanelPart>
+            </div>
+            <div className={`follow-button ${!follow? "" : "followed"}`}>
+                <span onClick={() => handleFollow()}>
+                    {follow? "Following" : "Follow"}
+                </span>
+            </div>
         </div>
         }
         

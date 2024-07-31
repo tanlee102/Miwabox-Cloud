@@ -56,7 +56,7 @@ const Members = () => {
                     </div>
                 </div>
 
-                <OptionPanelPart isAdmin={true}></OptionPanelPart>
+                <OptionPanelPart isAdmin={true} dataProfile={ite}></OptionPanelPart>
 
             </div>
 

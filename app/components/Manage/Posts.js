@@ -3,10 +3,11 @@ import OptionPanelPart from '../Other/OptionPanelPart'
 import { converTime } from '@/app/helper/converTime';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
+import PopOutPostManagePanel from '../Other/PopOutPostManagePanel';
 
 
 async function getData(page, size) {
-    const res = await fetch('http://localhost:8080/api/v1/posts');
+    const res = await fetch('http://localhost:8080/api/v1/posts/orderById?limit=1000');
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -46,7 +47,7 @@ const Posts = () => {
                 </div>
             
                 <div class="post-manage-button">
-                    <OptionPanelPart isAdmin={true}></OptionPanelPart>
+                    <PopOutPostManagePanel restricted={item.restricted} muted={item.muted} postId={item.id}></PopOutPostManagePanel>
                 </div>
 
                 <div class="post-manage-item">
@@ -55,10 +56,6 @@ const Posts = () => {
                 <div class="post-manage-item">
                     <p>{item.likeCount} likes</p>
                 </div>
-                
-                {/* <div class="post-manage-date">
-                    <p>23-23-2013</p>
-                </div> */}
 
             </div>
         ))}

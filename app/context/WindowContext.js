@@ -76,7 +76,6 @@ const WindowProvider = ({ children }) => {
     
     
   return (
-    
     <WindowContext.Provider  value={{darkMode, setDarkMode, gridMode, setGridMode,
                                     displayLoginModel, setDisplayLoginModel, 
                                     displayForgotModel, setDisplayForgotModel,
