@@ -49,9 +49,9 @@ const page = ({params}) => {
         <ProfileHeader dataProfile={data}></ProfileHeader>
         <ProfileMenu username={params.username} type={type}></ProfileMenu>
         {Number(type) < 4 ? 
-        <ContentByUser type={Number(type)} userId={data.id}></ContentByUser> : 
-        <FollowingSection userId={data.id}></FollowingSection>}
-       
+          <ContentByUser type={Number(type)} userId={data.id}></ContentByUser> : 
+          <FollowingSection userId={data.id}></FollowingSection>
+        }
     </div>
   )
 }
