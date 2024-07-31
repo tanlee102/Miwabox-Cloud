@@ -35,9 +35,11 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
     }
 
     const token = Cookies.get('token');
-    const decoded = jwtDecode(token);
-    if(decoded?.id){
-      url += `&userId=${decoded.id}`;
+    if(token){
+      const decoded = jwtDecode(token);
+      if(decoded?.id){
+        url += `&userId=${decoded.id}`;
+      }
     }
     
   }

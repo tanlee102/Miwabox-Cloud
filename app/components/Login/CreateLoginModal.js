@@ -48,7 +48,6 @@ const CreateLoginModal = () => {
         const data = await response.json();
         if (data.token) {
           // Set cookies
-          Cookies.set('email', email, { expires: 7 });
           Cookies.set('token', data.token, { expires: 7 });
           // Redirect or update the UI as needed
           window.location.reload("/")

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Cookies from 'js-cookie';
 import React, { createContext, useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ import Link from 'next/link';
 import Modal from '../components/ShowPanel/Modal';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { useSearchParams } from 'next/navigation';
 
 export const WindowContext = createContext();
 
@@ -32,9 +33,16 @@ const WindowProvider = ({ children }) => {
     const [userData, setUserData] = useState({});
     const [postId, setPostId] = useState(-1);
     const [postUsername, setPostUsername] = useState("");
+
+    const searchParams = useSearchParams();
   
     useEffect(() => {
-      const token = Cookies.get('token');
+      let token = Cookies.get('token');
+
+      if(!token) {
+        token = searchParams.get('token');
+      }
+
       if (token) {
         
         const decoded = jwtDecode(token);
@@ -52,13 +60,14 @@ const WindowProvider = ({ children }) => {
           })
           .then(response => {
             const myData = response.data;
+            const username = myData.username;
             let thumbnailUrl = 'https://image.lehienthanh.workers.dev/?id='+myData.profileImageUrl;
             if(!(response.data.profileImageUrl)){
                 thumbnailUrl="/avatar.jpeg";
             }
             Cookies.set('thumbnail', thumbnailUrl);
+            Cookies.set('username', username)
             decoded.thumbnail = thumbnailUrl;
-            Cookies.set('username', myData.username);
             decoded.username = username;
             setUserData(decoded);
           })

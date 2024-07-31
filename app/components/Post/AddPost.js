@@ -9,7 +9,10 @@ const AddPost = () => {
   const [mediaFiles, setMediaFiles] = useState([]);
   const mediaDescriptionsRef = useRef([]);
   const title = useRef('');
+  const [onResetTitle, setOnResetTitle] = useState(false)
   const [tags, setTags] = useState(['posts']);
+
+  const [displayRotateUpload, setDisplayRotateUpload] = useState(false)
 
   const handleFileUpload = (event) => {
     const files = Array.from(event.target.files);
@@ -66,9 +69,19 @@ const AddPost = () => {
     };
   
 
+    const resetAttributes = () => {
+      setMediaFiles([]);
+      mediaDescriptionsRef.current = [];
+      title.current = '';
+      setTags(['posts']);
+      setOnResetTitle(!onResetTitle);
+    };
+  
+
 
     const uploadPost = async () => {
       try {
+        setDisplayRotateUpload(true)
         const token = Cookies.get('token');
         if (!token) {
           alert('No authentication token found');
@@ -114,16 +127,30 @@ const AddPost = () => {
   
         alert('Post and media files uploaded successfully');
         console.log(postId)
+
+            // Reset attributes after successful upload
+      resetAttributes();
         
       } catch (error) {
         console.error('Error uploading post and media files:', error);
+      }finally{
+        setDisplayRotateUpload(false)
       }
     };
   
 
   return (
     <div className="add-post">
-      <EditableSpan placeholder="Give your post a unique title..." fontSize="large" fontWeight="bold" onChangeText={handleTitleChange}/>
+
+      {
+        displayRotateUpload ?
+        <div className='background-overlay-loading'>
+        <div class="loader-overlay-loading"></div>
+      </div>
+      : ""
+      }
+
+      <EditableSpan placeholder="Give your post a unique title..." fontSize="large" fontWeight="bold" onChangeText={handleTitleChange} onReset={onResetTitle}/>
 
       <div className="list-media">
         {mediaFiles.map((file, index) => (

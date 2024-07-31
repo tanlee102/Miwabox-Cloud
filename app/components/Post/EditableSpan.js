@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const EditableSpan = ({ placeholder, fontSize, fontWeight, onChangeText }) => {
+const EditableSpan = ({ placeholder, fontSize, fontWeight, onChangeText, onReset=null }) => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [text, setText] = useState('');
   const spanRef = useRef(null);
@@ -12,6 +12,10 @@ const EditableSpan = ({ placeholder, fontSize, fontWeight, onChangeText }) => {
   useEffect(() => {
     setIsEmpty(text.trim() === '');
   }, [text]);
+
+  useEffect(() => {
+    document.getElementsByClassName('add-post-title').item(0).innerHTML = '';
+  }, [onReset])
 
   const handleInput = (e) => {
     setText(e.target.textContent);
