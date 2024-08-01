@@ -14,7 +14,7 @@ const EditableSpan = ({ placeholder, fontSize, fontWeight, onChangeText, onReset
   }, [text]);
 
   useEffect(() => {
-    document.getElementsByClassName('add-post-title').item(0).innerHTML = '';
+    if(onReset) document.getElementsByClassName('add-post-title').item(0).innerHTML = '';
   }, [onReset])
 
   const handleInput = (e) => {

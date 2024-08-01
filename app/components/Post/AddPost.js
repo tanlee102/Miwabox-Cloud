@@ -74,13 +74,14 @@ const AddPost = () => {
       mediaDescriptionsRef.current = [];
       title.current = '';
       setTags(['posts']);
-      setOnResetTitle(!onResetTitle);
+      setOnResetTitle(true);
     };
   
 
 
     const uploadPost = async () => {
       try {
+        setOnResetTitle(false);
         setDisplayRotateUpload(true)
         const token = Cookies.get('token');
         if (!token) {
@@ -117,7 +118,7 @@ const AddPost = () => {
             formData.append('media_type', 'image');
           }
   
-          await axios.post('https://spring-firefly-e4ca.caculus103.workers.dev', formData, {
+          await axios.post('http://localhost:8787', formData, {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'multipart/form-data' 

@@ -11,18 +11,19 @@ const PostContent = ({postData}) => {
 
     const router = useRouter();
 
-    useEffect(()=>{
-        setIsLiked(false);
-        setBookmark(false)
-    },[])
+    // useEffect(()=>{
+    //     setIsLiked(false);
+    //     setBookmark(false)
+    // },[])
 
     useEffect(() =>{
-        setIsLiked(postData.status);
-    }, [postData?.status]);
+        setIsLiked(postData?.status);
+        setBookmark(postData?.bookmark);
+    }, [postData]);
 
-    useEffect(() =>{
-        setBookmark(postData.bookmark);
-    }, [postData?.bookmark]);
+    // useEffect(() =>{
+    //     setBookmark(postData.bookmark);
+    // }, [postData?.bookmark]);
 
     const toggleLike = async (postId) => {
         setIsLiked(!isLiked);
