@@ -74,9 +74,11 @@ const page = ({params}) => {
 
                 <PostContent postData={data}></PostContent>
 
+                {data?.muted ? "" : 
                 <PostInputComment postId={params.id} comments={comments} setComments={setComments}></PostInputComment>
+                }
 
-                <Comment postId={params.id} comments={comments} setComments={setComments}></Comment>
+                <Comment postId={params.id} comments={comments} setComments={setComments} isMuted={data?.muted}></Comment>
 
             </div>
 

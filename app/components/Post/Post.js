@@ -50,11 +50,12 @@ const Post = ({displayPost, setDisplayPost={setDisplayPost}, postId, userData}) 
 
         <PostContent  postData={data}></PostContent>
 
-        <Comment postId={postId} comments={comments} setComments={setComments}></Comment>
+        <Comment postId={postId} comments={comments} setComments={setComments} isMuted={data?.muted}></Comment>
 
     </div>
-
+    {data?.muted ? "" : 
     <PostInputComment postId={postId} comments={comments} setComments={setComments} isUsingFull={false}></PostInputComment>
+    }
 </>
   )
 }

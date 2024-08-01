@@ -30,6 +30,17 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
         url = `http://localhost:8080/api/v1/posts/orderById?limit=${limit}`;
         if (lastId) url += `&postId=${lastId}`;
         break;
+      case 2: { // Followed
+        const token = Cookies.get('token');
+        if (token) {
+          const decoded = jwtDecode(token);
+          if (decoded?.id) {
+            url = `http://localhost:8080/api/v1/posts/followed?size=${limit}&page=${pageNumber}&userId=${decoded.id}`;
+            break;
+          }
+        }
+        return null; // Return null if there's no valid user ID for "Followed" case
+      }
       default:
         url = `http://localhost:8080/api/v1/posts`;
     }
@@ -118,7 +129,7 @@ export default function Home() {
       }
       <div className="contain-list-item-posts">
         {!tagname && !title && (
-          <DropdownTrans options={['Chronology', 'Top Posts']} indexOption={sortingIndex} setIndexOption={setSortingIndex} />
+          <DropdownTrans options={['Chronology', 'Top Posts', 'Followed']} indexOption={sortingIndex} setIndexOption={setSortingIndex} />
         )}
         <div className="list-item-posts">
           <ListItemPost data={data} />

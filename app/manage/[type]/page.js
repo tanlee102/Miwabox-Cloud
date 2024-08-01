@@ -9,9 +9,7 @@ import "../../styles/Account/AccountRes.css"
 import "../../styles/Account/FormAccount.css"
 import "../../styles/Manage/Posts.css"
 
-import OptionPanelPart from '@/app/components/Other/OptionPanelPart';
 import DropdownTrans from '@/app/components/DropDown/DropDownTrans';
-import LoadMore from '@/app/components/Other/LoadMore';
 
 import Posts from '@/app/components/Manage/Posts';
 import Members from '@/app/components/Manage/Members';
@@ -21,6 +19,8 @@ const page = ({params}) => {
 
     const currentTypePath = params.type;
     const {userData} = useContext(WindowContext);
+
+    const [sortingIndex, setSortingIndex] = useState(0)
   
     const listMenuAccount = [
       {label:'Posts', url: '/manage/posts'},
@@ -28,7 +28,7 @@ const page = ({params}) => {
       {label:'Roles', url: '/manage/roles'},
     ]
     const components = {
-        posts: <Posts></Posts>,
+        posts: <Posts sortingIndex={sortingIndex}></Posts>,
         members: <Members></Members>,
         roles: <Roles></Roles>,
     };
@@ -46,14 +46,12 @@ const page = ({params}) => {
       }
     }
 
-    const [sortingIndex, setSortingIndex] = useState(0)
-
   return (
     <div className="fr-account fr-content">
     <MenuAccount listMenuAccount={listMenuAccount} idItem={index}/>
     <div className="setting-manage" style={{overflowX: index == 0 ? "auto" : "visible", overflowY: "visible", paddingBottom: "000px"}}>
 
-        { 1==index?
+        { 1 == index ?
           <div class="wrap-search-manage-account">
               <div class="manage-search-bar">
                 <input type="text" class="searchTerm-manage-account" value={search} 
@@ -66,10 +64,10 @@ const page = ({params}) => {
               </div>
           </div>
         : ""}
-        {1==index?
+        {1 == index ?
         <DropdownTrans options={['Chronology', 'Top Members']} indexOption={sortingIndex} setIndexOption={setSortingIndex} />
         : ""}
-        {0==index?
+        {0 == index ?
         <>
             <div style={{marginTop:'10px'}}></div>
             <DropdownTrans options={['Chronology', 'Restricted', 'Muted']} indexOption={sortingIndex} setIndexOption={setSortingIndex} />

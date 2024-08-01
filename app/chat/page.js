@@ -9,35 +9,44 @@ import { WindowContext } from '../context/WindowContext';
 import { converTime, converTimeShort } from '../helper/converTime';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
   const { userData } = useContext(WindowContext);
 
   const [messages, setMessages] = useState([]);
   const [listConversations, setListConversations] = useState([]);
-  const [chater, setChater] = useState({});
+  const [chater, setChater] = useState(null);
   const [currentMessageId, setCurrentMessageId] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const messageInputRef = useRef(null);
   const chatMessagesRef = useRef(null);
 
+  const searchParams = useSearchParams();
+  const conversationIdSearch = searchParams.get('conversation');
+
   let stompClient = useRef(null);
 
   const loadConversations = async (userId) => {
     try {
       const response = await axios.get('http://localhost:8080/api/conversations?userId=' + userId);
+      const myTempList = response.data;
       setListConversations(response.data);
+      if(chater == null){
+        setChater(myTempList.find(c => c.id === Number(conversationIdSearch)))
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const loadMessages = async (senderId, receiverId, size, lastMessageId) => {
+  const loadMessages = async (conversationId, size, lastMessageId) => {
     try {
       const url = lastMessageId 
-      ? `http://localhost:8080/api/v1/messages?senderId=${senderId}&receiverId=${receiverId}&size=${size}&lastMessageId=${lastMessageId}`
-      : `http://localhost:8080/api/v1/messages?senderId=${senderId}&receiverId=${receiverId}&size=${size}`;
+      ? `http://localhost:8080/api/v1/messages?conversationId=${conversationId}&size=${size}&lastMessageId=${lastMessageId}`
+      : `http://localhost:8080/api/v1/messages?conversationId=${conversationId}&size=${size}`;
       const response = await axios.get(url);
       let fetchedMessages = response.data.map(msg => ({
         type: msg.senderId === userData.id ? 'outgoing' : 'incoming',
@@ -57,14 +66,18 @@ const page = () => {
   useEffect(() => {
     if (userData?.id) {
       loadConversations(userData.id);
-      loadMessages(userData.id, chater?.otherUser?.userId, 10, currentMessageId);
+      if(conversationIdSearch){
+        loadMessages(conversationIdSearch, 10);
+      }
     }
   }, [userData?.id]);
+
 
   useEffect(() => {
     setMessages([])
     if (userData?.id) {
-      loadMessages(userData.id, chater?.otherUser?.userId, 10);
+      console.log(chater)
+      loadMessages(chater?.id, 10);
     }
   }, [chater]);
 
@@ -142,17 +155,19 @@ const page = () => {
   const handleScroll = async () => {
     if (chatMessagesRef.current.scrollTop === 0 && !loading) {
       setLoading(true);
-      await loadMessages(userData.id, chater?.otherUser?.userId, 10, currentMessageId);
+      await loadMessages(chater?.id, 10, currentMessageId);
       setLoading(false);
     }
   };
+
+
+  const router = useRouter();
 
   return (
     <div className={`fr-chat fr-content`}>
       <div className="container">
         <div className="chat-list">
           <h3>Đoạn chat</h3>
-
           <div className="search-app">
             <input placeholder="@Username" type="text" value="" />
             <span>
@@ -161,11 +176,11 @@ const page = () => {
               </svg>
             </span>
           </div>
-
           <ul>
             {listConversations.map((conversation, index) => (
               <li key={conversation.id} onClick={() => {
                 setChater(listConversations[index]);
+                router.push('/chat?conversation=' + listConversations[index].id)
               }} className="chat-item">
                 <div className='avatar-chat-item'>
                   <img src={conversation.otherUser.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + conversation.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
@@ -173,9 +188,9 @@ const page = () => {
                 <div className='content-chat-item'>
                   <div>{conversation.otherUser.username}</div>
                   <div className='recent-info-chat-item'>
-                    <span>{conversation.lastMessage.content}</span>
+                    <span>{conversation?.lastMessage?.content ?  conversation?.lastMessage?.content : ""}</span>
                     <span className='delimiter'>•</span>
-                    <span>{converTimeShort(conversation.lastMessage.createdAt)}</span>
+                    <span>{conversation?.lastMessage?.createdAt ? converTimeShort(conversation?.lastMessage?.createdAt) : ""}</span>
                   </div>
                 </div>
               </li>
@@ -198,7 +213,7 @@ const page = () => {
             <div className='info-user-start-chat'>
               <img src={chater?.otherUser?.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + chater.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
               <div className='name-info-start-chat'>{chater?.otherUser?.username}</div>
-              <div>Hello it me here</div>
+              <div>{chater?.otherUser?.bio}</div>
             </div>
 
             {messages.map((msg, index) => (
