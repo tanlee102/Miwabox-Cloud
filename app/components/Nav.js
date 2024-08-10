@@ -236,13 +236,13 @@ return (
                     {menuProfile ? 
                         <div className='menu-profile' onClick={() => {setMenuProfile(false)}}>
                             <span class="mark-head-sheet-profile"></span>
-                            <Link href={'/'+userData.username}><div>Trang cá nhân</div></Link>
+                            <Link href={'/'+userData.username}><div>Profile</div></Link>
                             {userData.role === "ADMIN" ?  
                             <>
-                                <Link href='/manage/posts'><div>Quản lý</div></Link>
+                                <Link href='/manage/posts'><div>Manage</div></Link>
                             </>
                             : ""}
-                            <Link href='/account/details'><div>Tài khoản</div></Link>
+                            <Link href='/account/details'><div>Account</div></Link>
                         </div>
                     : ""}
                 </div>

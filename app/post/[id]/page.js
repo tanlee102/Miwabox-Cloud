@@ -1,21 +1,18 @@
 'use client'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { jwtDecode } from 'jwt-decode';
+import { useRouter } from 'next/navigation';
 
 import '../../styles/Post/FullPost.css';
 import '../../styles/Post/FullPostRes.css';
 
-import Link from 'next/link';
-import { converTime } from '@/app/helper/converTime';
 import PostInfo from '@/app/components/Post/Components/PostInfo';
 import PostContent from '@/app/components/Post/Components/PostContent';
 import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
-import axios from 'axios';
-import { WindowContext } from '@/app/context/WindowContext';
-import LoadMore from '@/app/components/Other/LoadMore';
 import Comment from '@/app/components/Post/Components/Comment';
 import PostInputComment from '@/app/components/Post/Components/PostInputComment';
-import { useRouter } from 'next/navigation';
+import { WindowContext } from '@/app/context/WindowContext';
+
 
 async function getData(postId, userId) {
     const res = await fetch('http://localhost:8080/api/v1/posts/v2/'+postId+'?userId='+userId)
@@ -25,9 +22,8 @@ async function getData(postId, userId) {
     return res.json();
 }
 
-
-async function getRandomPosts(limit) {
-    const res = await fetch('http://localhost:8080/api/v1/posts/random?limit=' + limit)
+async function getRandomPosts(limit, postId) {
+    const res = await fetch('http://localhost:8080/api/v1/posts/randomExcludingId?limit=' + limit + '&excludePostId='+postId)
     if (!res.ok) {
         throw new Error('Failed to fetch random posts');
     }
@@ -38,11 +34,12 @@ const page = ({params}) => {
 
     const [data, setData] = useState({});
     const [randomPosts, setRandomPosts] = useState([]);
+    const {setDisplayPost} = useContext(WindowContext);
 
     const router = useRouter();
 
     const loadRandomPosts = async () => {
-        const posts = await getRandomPosts(5);
+        const posts = await getRandomPosts(5, params.id);
         setRandomPosts(posts);
     }
     
@@ -58,6 +55,7 @@ const page = ({params}) => {
         setData(data);
     }
     useEffect(() => {
+        setDisplayPost(false);
         loadData();
         loadRandomPosts();
     }, []);
@@ -89,7 +87,7 @@ const page = ({params}) => {
             {randomPosts.map(post => (
                 <div onClick={() => {router.push('/post/'+post.id)}} className='item-suggestion-post' key={post.id}>
                     <div className='image-suggestion-post'>
-                        <img src={post.media[0].mediaType==="video" ? 'https://image.lehienthanh1.workers.dev/?id='+post.media[0].thumb_url : 'https://image.lehienthanh1.workers.dev/?id='+post.media[0].url } alt="Post Image" />
+                        <img src={post.media[0]?.mediaType==="video" ? 'https://image.lehienthanh1.workers.dev/?id='+post.media[0].thumb_url : 'https://image.lehienthanh1.workers.dev/?id='+post.media[0]?.url } alt="Post Image" />
                     </div>
                     <div className='text-suggestion-post'>
                         <p>

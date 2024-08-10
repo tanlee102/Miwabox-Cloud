@@ -1,9 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import axios from 'axios';
 import TagInput from './TagInput';
 import '../../styles/Post/AddPost.css';
 import EditableSpan from './EditableSpan';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import { WindowContext } from '@/app/context/WindowContext';
 
 const AddPost = () => {
   const [mediaFiles, setMediaFiles] = useState([]);
@@ -12,7 +14,10 @@ const AddPost = () => {
   const [onResetTitle, setOnResetTitle] = useState(false)
   const [tags, setTags] = useState(['posts']);
 
-  const [displayRotateUpload, setDisplayRotateUpload] = useState(false)
+  const [displayRotateUpload, setDisplayRotateUpload] = useState(false);
+  const {setDisplayPost} = useContext(WindowContext)
+
+  const router = useRouter()
 
   const handleFileUpload = (event) => {
     const files = Array.from(event.target.files);
@@ -75,6 +80,7 @@ const AddPost = () => {
       title.current = '';
       setTags(['posts']);
       setOnResetTitle(true);
+      setDisplayPost(false)
     };
   
 
@@ -129,8 +135,11 @@ const AddPost = () => {
         alert('Post and media files uploaded successfully');
         console.log(postId)
 
-            // Reset attributes after successful upload
-      resetAttributes();
+      
+        // Reset attributes after successful upload
+        resetAttributes();
+        router.push(`/post/${postId}`)
+
         
       } catch (error) {
         console.error('Error uploading post and media files:', error);

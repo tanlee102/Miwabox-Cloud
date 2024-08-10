@@ -146,7 +146,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
                         <span>{comment.content}</span>
                         <span>
                             <span>
-                                <p>Báo cáo</p>
+                                <p>Report</p>
                             </span>
                             {comment.userCommentDTO.id === userData.id ? 
                             <span onClick={() => {deleteComment(comment.id, false, null)}} className='delete-btn-ms-item-comment'>
@@ -161,7 +161,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
                                 <svg viewBox="1 1 22 22" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M21.71,4.72,19.28,2.29a1,1,0,0,0-1.41,0L12.29,7.87a1,1,0,0,0-.29.71V11a1,1,0,0,0,1,1h2.42a1,1,0,0,0,.71-.29l5.58-5.58A1,1,0,0,0,21.71,4.72ZM15,10H14V9l4.58-4.58,1,1Zm4,2h0a1,1,0,0,0-1,1,7,7,0,0,1-7,7H5.41l.64-.63a1,1,0,0,0,0-1.42A7,7,0,0,1,11,6a1,1,0,0,0,0-2h0A9,9,0,0,0,4,18.62L2.29,20.29a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,22h8a9,9,0,0,0,9-9A1,1,0,0,0,19,12Z"/>
                                 </svg>                            
-                                <p>Trả lời</p>
+                                <p>Reply</p>
                             </span>
                             : ""}
                         </span>
@@ -171,7 +171,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
                             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" enable-background="new 0 0 512 512">
                                 <path d="M9 16h7.2l-2.6 2.6L15 20l5-5-5-5-1.4 1.4 2.6 2.6H9c-2.2 0-4-1.8-4-4s1.8-4 4-4h2V4H9c-3.3 0-6 2.7-6 6s2.7 6 6 6z"/>
                             </svg> 
-                            <span>{comment.replyCount - (replies[comment.id] ? replies[comment.id] : 0)} trả lời</span>
+                            <span>{comment.replyCount - (replies[comment.id] ? replies[comment.id] : 0)} Reply</span>
                         </span>
                         : ""}
 
@@ -197,7 +197,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
                                         <span>{reply.content}</span>
                                         <span> 
                                             <span>
-                                                <p>Báo cáo</p>
+                                                <p>Report</p>
                                             </span>
                                             {reply.userCommentDTO.id === userData.id ? 
                                             <span className='delete-btn-ms-item-comment' onClick={() => {deleteComment(reply.id, true, comment.id)}}>
@@ -212,7 +212,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
                                                 <svg viewBox="1 1 22 22" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M21.71,4.72,19.28,2.29a1,1,0,0,0-1.41,0L12.29,7.87a1,1,0,0,0-.29.71V11a1,1,0,0,0,1,1h2.42a1,1,0,0,0,.71-.29l5.58-5.58A1,1,0,0,0,21.71,4.72ZM15,10H14V9l4.58-4.58,1,1Zm4,2h0a1,1,0,0,0-1,1,7,7,0,0,1-7,7H5.41l.64-.63a1,1,0,0,0,0-1.42A7,7,0,0,1,11,6a1,1,0,0,0,0-2h0A9,9,0,0,0,4,18.62L2.29,20.29a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,22h8a9,9,0,0,0,9-9A1,1,0,0,0,19,12Z"/>
                                                 </svg>                            
-                                                <p>Trả lời</p>
+                                                <p>Reply</p>
                                             </span>
                                             : ""}
                                         </span>

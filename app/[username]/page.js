@@ -25,10 +25,10 @@ async function getData(username) {
   return res.json();
 }
 
+
 const page = ({params}) => {
 
   const {setDisplayPost} = useContext(WindowContext);
-
   const [data, setData] = useState({});
 
   const loadData = async (username) =>  {

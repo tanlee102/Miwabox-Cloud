@@ -54,6 +54,17 @@ const NotificationAccount = () => {
         setLoadMoreState(false);
     }
 
+    const setUrlNotifications = (notification) => {
+        const type = notification.type;
+        const entityId = notification.entityId;
+        const username = notification.actorDetails[0].username;
+        if(type === 'like' || type === 'comment' || type === 'reply'){
+            return `/post/${entityId}`
+        }else{
+            return `/${username}`
+        }
+    }
+
     return (
         <div className="member-hub notification-hub form-account">
             {data?.map((notification, index) => (
@@ -65,9 +76,10 @@ const NotificationAccount = () => {
                             </span>
                         </div>
                     </Link>
-
                     <div className="content-notification-tab">
-                        <Link href={`/${notification.type}/${notification.entityId}`}>
+                        <Link href={
+                            setUrlNotifications(notification)
+                            }>
                             <div>
                                 <div className="text-notification-tab">
                                     <a>{notification.actorDetails[0].username}</a>

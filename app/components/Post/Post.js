@@ -22,6 +22,7 @@ async function getData(postId, userId) {
 const Post = ({displayPost, setDisplayPost={setDisplayPost}, postId, userData}) => {
 
     const [data, setData] = useState({});
+
     const loadData = async () => {
         let data;
         if (userData?.id) {
@@ -32,31 +33,27 @@ const Post = ({displayPost, setDisplayPost={setDisplayPost}, postId, userData}) 
         setPostUsername(data?.user?.username);
         setData(data);
     }
+
     useEffect(() => {
         if(displayPost){
             loadData();
         }
     }, [displayPost]);
 
-
     const [comments, setComments] = useState([]);
     const {setPostUsername} = useContext(WindowContext);
 
   return (
-<>
-    <div className='post-content'>
-
-        <PostInfo setDisplayPost={setDisplayPost} postData={data}></PostInfo>
-
-        <PostContent  postData={data}></PostContent>
-
-        <Comment postId={postId} comments={comments} setComments={setComments} isMuted={data?.muted}></Comment>
-
-    </div>
-    {data?.muted ? "" : 
-    <PostInputComment postId={postId} comments={comments} setComments={setComments} isUsingFull={false}></PostInputComment>
-    }
-</>
+    <>
+        <div className='post-content'>
+            <PostInfo setDisplayPost={setDisplayPost} postData={data}></PostInfo>
+            <PostContent postData={data}></PostContent>
+            <Comment postId={postId} comments={comments} setComments={setComments} isMuted={data?.muted}></Comment>
+        </div>
+        {data?.muted ? "" : 
+            <PostInputComment postId={postId} comments={comments} setComments={setComments} isUsingFull={false}></PostInputComment>
+        }
+    </>
   )
 }
 

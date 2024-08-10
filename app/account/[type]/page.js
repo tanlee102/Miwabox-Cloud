@@ -12,6 +12,7 @@ import SecureAccount from '../../components/Account/SecureAccount'
 import LoggedAccount from '../../components/Account/LoggedAccount'
 import NotificationAccount from '../../components/Account/NotificationAccount'
 import { WindowContext } from '@/app/context/WindowContext'
+import Blocked from '@/app/components/Account/Blocked'
 
 
 const page = ({ params }) => {
@@ -25,12 +26,14 @@ const page = ({ params }) => {
     {label:'Password & Email', url: '/account/security'},
     // {label:'Login History', url: '/account/logged'},
     {label:'Notification', url: '/account/notification'},
+    {label:'Blocked', url: '/account/blocked'},
   ]
   const components = {
     details: <DetailAccount />,
     security: <SecureAccount />,
     logged: <LoggedAccount />,
-    notification: <NotificationAccount />
+    notification: <NotificationAccount />,
+    blocked: <Blocked />
   };
 
   const index = listMenuAccount.findIndex(menuItem => menuItem.url.includes(currentTypePath));

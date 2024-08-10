@@ -11,8 +11,8 @@ import { useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
-const pageSize = 20;
-const limit = 20;
+const pageSize = 30;
+const limit = 30;
 
 async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = null, title = null) {
   let url;
@@ -56,6 +56,7 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
   }
 
   const res = await fetch(url);
+
   if (!res.ok) {
     console.log('Failed to fetch data');
     return null;
@@ -80,7 +81,7 @@ export default function Home() {
   const loading = useRef(false);
 
 
-  const loadData = async (index, page = 0, lastId = null, tagname = null, title = null) => {
+  const loadData = async (index, page = 0, lastId = null, tagname = null, title = null, isChange=false) => {
     if (loading.current) return;
     loading.current = true;
     const newData = await getData(index, page, lastId, tagname, title);
@@ -91,7 +92,7 @@ export default function Home() {
         setHasMore(false);
       }
     } else {
-      if(tagname != null || title != null) setData([])
+      if(tagname != null || title != null || isChange) setData([])
       setHasMore(false);
     }
     setLoadState(false);
@@ -103,7 +104,7 @@ export default function Home() {
     setPageNumber(0);
     setLastId(null);
     setHasMore(true);
-    loadData(sortingIndex, 0, null, tagname, title);
+    loadData(sortingIndex, 0, null, tagname, title, true);
   }, [sortingIndex, tagname, title]);
 
 

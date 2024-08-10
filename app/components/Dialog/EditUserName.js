@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect } from 'react';
 
 import { env_variable } from '../../env';
 import { hideMainScrollBar } from '@/app/helper/hideMainScrollBar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { WindowContext } from '@/app/context/WindowContext';
 
 
 const EditUserName = ({isDisplay,setIsDisplay, textIn, setTextIn}) => {
 
     const [checkSame, setCheckSame] = useState(false);
+    const {setUserData} = useContext(WindowContext)
 
     const handleChange = event => {
         const result = event.target.value.replace(/[^a-z0-9]/gi, '').replace(/\s/g,'').toLowerCase();
@@ -51,6 +53,12 @@ const EditUserName = ({isDisplay,setIsDisplay, textIn, setTextIn}) => {
             }
           );
           if (response.status === 200) {
+            Cookies.set('token', response.data.token, { expires: 7 });  // Set token to expire in 7 days
+            Cookies.set('username', textIn, { expires: 7 });  // Set token to expire in 7 days
+            setUserData((prevUserData) => ({
+              ...prevUserData,
+              username: textIn
+            }));
             alert('Username updated successfully');
             setIsDisplay(false);
           }

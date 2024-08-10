@@ -25,10 +25,10 @@ const loadData = async (userId, setMyData) => {
 
 
 
-const DetailAccount = ({data}) => {
+const DetailAccount = () => {
 
   const [displayBox, setDisplayBox] = useState(false)
-  const {userData} = useContext(WindowContext);
+  const {userData, setUserData} = useContext(WindowContext);
 
   const [myData, setMyData] = useState({})
 
@@ -103,9 +103,13 @@ const DetailAccount = ({data}) => {
         }
       })
       .then(response => {
-        const newThumbnailUrl = 'http://localhost:3000/image/'+response.data.id+'.jpeg';
+        const newThumbnailUrl = 'https://image.lehienthanh.workers.dev/?id='+response.data.id;
         const expirationDays = 7; // Set the expiration days as needed
         Cookies.set('thumbnail', newThumbnailUrl, { expires: expirationDays });
+        setUserData((prevUserData) => ({
+          ...prevUserData,
+          thumbnail: newThumbnailUrl
+        }));
         alert('Image uploaded successfully');
         // Optionally update userData with the new thumbnail URL
       })
@@ -133,46 +137,39 @@ const DetailAccount = ({data}) => {
     } catch (error) {
       console.error('Error updating profile:', error);
     }
-
-
   }
-
 
 
 
   return (
 
     <>
-
     <div class="form-account">
 
-
       <div className='open-edit-dialog-form-account'>
-          <span>Tên tài khoản: {textIn}</span>
-          <span onClick={() => setDisplayBox(true)}>Chỉnh sửa</span>
+          <span>Username: {textIn}</span>
+          <span onClick={() => setDisplayBox(true)}>Edit</span>
       </div>
 
-    <div>
-        <span>Bio:</span>
-        <input value={bio} onChange={(e) => {setBio(e.target.value)}} type="text" maxLength="12"/>
+      <div>
+          <span>Bio:</span>
+          <input value={bio} onChange={(e) => {setBio(e.target.value)}} type="text" maxLength="12"/>
+      </div>
+
+      <div>
+          <span>Avatar:</span>
+          <span>
+            <img id="icon-btn-image-form-account" onClick={() => clickImageBtn()}  src={preview || userData.thumbnail} alt=""/> 
+            <p>click to change image</p>     
+          </span>
+          <input id="avatar-file-input" className='hide-element' type="file" accept=".jpg, .jpeg, .png" onChange={onSelectFile}/>
+      </div>
+
+      <div class="submit-form-account">
+        <span onClick={() => {updateAccount()}}>Save</span>
+      </div>
+
     </div>
-
-    <div>
-        <span>Avatar:</span>
-        <span>
-          <img id="icon-btn-image-form-account" onClick={() => clickImageBtn()}  src={preview || userData.thumbnail} alt=""/> 
-          <p>click to change image</p>     
-        </span>
-        <input id="avatar-file-input" className='hide-element' type="file" accept=".jpg, .jpeg, .png" onChange={onSelectFile}/>
-    </div>
-
-    <div class="submit-form-account">
-      <span onClick={() => {updateAccount()}}>Save</span>
-    </div>
-
-
-  
-  </div>
 
   <EditUserName setIsDisplay={setDisplayBox} isDisplay={displayBox} textIn={textIn} setTextIn={setTextIn}/>
 

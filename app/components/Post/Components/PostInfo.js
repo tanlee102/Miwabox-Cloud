@@ -50,7 +50,7 @@ const PostInfo = ({ postData }) => {
         </span>
         <span className='contain-post-name-user'>
           <div onClick={() => { router.push("/" + postData?.user?.username) }} className='post-name-user'>{postData?.user?.username}</div>
-          <div className='post-tm-user'><span>1,634 views</span><span className='delimiter'>•</span><span>{converTime(postData.createdAt)}</span></div>
+          <div className='post-tm-user'><span>{postData.viewCount} views</span><span className='delimiter'>•</span><span>{converTime(postData.createdAt)}</span></div>
         </span>
 
         <div className='contain-dropdown-dot'>

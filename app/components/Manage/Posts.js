@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import OptionPanelPart from '../Other/OptionPanelPart';
 import { converTime } from '@/app/helper/converTime';
 import Cookies from 'js-cookie';
 
 import PopOutPostManagePanel from '../Other/PopOutPostManagePanel';
 import { jwtDecode } from 'jwt-decode';
+import { WindowContext } from '@/app/context/WindowContext';
 
 // Function to fetch data based on sortingIndex
 async function getData(sortingIndex, page, size) {
@@ -31,6 +32,7 @@ async function getData(sortingIndex, page, size) {
 
 const Posts = ({ sortingIndex }) => {
     const [data, setData] = useState([]);
+    const {setPostId, setDisplayPost} = useContext(WindowContext);
 
     const loadData = async (sortingIndex, page, size) => {
         const token = Cookies.get('token');
@@ -49,7 +51,7 @@ const Posts = ({ sortingIndex }) => {
         <>
             {data?.map((item, index) => (
                 <div className="post-manage" key={index}>
-                    <div className="post-manage-image">
+                    <div style={{cursor: 'pointer'}} className="post-manage-image" onClick={() => {setDisplayPost(true); setPostId(item.id);}}>
                         <img
                             src={
                                 item.media[0].mediaType === 'video'
@@ -59,7 +61,7 @@ const Posts = ({ sortingIndex }) => {
                             alt="Post Image"
                         />
                     </div>
-                    <div className="post-manage-content">
+                    <div style={{cursor: 'pointer'}} className="post-manage-content" onClick={() => {setDisplayPost(true); setPostId(item.id);}}>
                         <h3>{item.title}</h3>
                         <p>{converTime(item.createdAt)}</p>
                     </div>

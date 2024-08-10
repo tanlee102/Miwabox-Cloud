@@ -9,21 +9,14 @@ const PostContent = ({postData}) => {
     const [isLiked, setIsLiked] = useState(false);
     const [bookmark, setBookmark] = useState(false);
 
-    const router = useRouter();
+    const {logged} = useContext(WindowContext)
 
-    // useEffect(()=>{
-    //     setIsLiked(false);
-    //     setBookmark(false)
-    // },[])
+    const router = useRouter();
 
     useEffect(() =>{
         setIsLiked(postData?.status);
         setBookmark(postData?.bookmark);
     }, [postData]);
-
-    // useEffect(() =>{
-    //     setBookmark(postData.bookmark);
-    // }, [postData?.bookmark]);
 
     const toggleLike = async (postId) => {
         setIsLiked(!isLiked);
@@ -84,6 +77,7 @@ const PostContent = ({postData}) => {
                 </>
             ))}
             
+            {logged ? 
             <div className='post-content-like'>
                 <span onClick={() => toggleLike(postData?.id)}>
                     {isLiked == false ?
@@ -103,6 +97,7 @@ const PostContent = ({postData}) => {
                     }
                 </span>
             </div>
+            :""}
 
         </div>
       

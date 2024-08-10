@@ -12,7 +12,7 @@ const ListItemPost = ({data}) => {
                 <div key={post.id} className="item-post">
                     <div className="item-post_">
                         <div className="head-item-post" onClick={() => {setDisplayPost(true); setPostId(post.id);}}>
-                            <img src={post.media[0].mediaType==="video" ? 'https://image.lehienthanh1.workers.dev/?id='+post.media[0].thumb_url : 'https://image.lehienthanh1.workers.dev/?id='+post.media[0].url } alt="Post Image" />
+                            <img src={post.media[0]?.mediaType==="video" ? 'https://image.lehienthanh1.workers.dev/?id='+post.media[0]?.thumb_url : 'https://image.lehienthanh1.workers.dev/?id='+post?.media[0]?.url } alt="Post Image" />
                         </div>
                         <div className="body-item-post">
                             <div className="head-body-item-post" onClick={() => {setDisplayPost(true); setPostId(post.id);}}>

@@ -106,7 +106,7 @@ const WindowProvider = ({ children }) => {
         <PostModal  displayModel={displayPost} 
                     setDisplayModel={setDisplayPost} 
                     displayfooter={false} 
-                    title={<Link onClick={() => setDisplayPost(false)} href={"/post/"+postId}>Bài viết của {postUsername}</Link>} 
+                    title={<Link onClick={() => setDisplayPost(false)} href={"/post/"+postId}>Post by {postUsername}</Link>} 
                     body={<Post postId={postId} userData={userData} setDisplayPost={setDisplayPost} displayPost={displayPost}/>} 
                     />
 

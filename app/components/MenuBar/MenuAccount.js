@@ -46,7 +46,7 @@ const MenuAccount = ({listMenuAccount, idItem}) => {
                 {listMenuAccount.map((item, index) => 
                     <Link key={index} href={item.url}><li style={pickMenu(index)}>{item.label}</li></Link>
                 )}
-                <li onClick={() => logoutBtn()} >Đăng xuất</li>
+                <li onClick={() => logoutBtn()} >Logout</li>
             </ul>
         </div>
 
