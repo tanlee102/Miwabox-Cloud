@@ -40,11 +40,22 @@ async function getNotification( userId) {
     }
 }
 
+async function getUnreadMessages(userId) {
+    const res = await fetch('http://localhost:8080/api/conversations/unread/count?userId='+userId);
+    if (!res.ok) {
+        console.log('Failed to fetch data');
+        return null;
+    }else{
+        return res.json();
+    }
+}
+
 const Nav = ({}) => {
 
     const router = useRouter()
 
-    const [countNot, setCountNot] = useState(0)
+    const [countNot, setCountNot] = useState(0);
+    const [countNotMsg, setCountNotMsg] = useState(0);
 
     const {darkMode, setDarkMode, setDisplayLoginModel, gridMode, setGridMode, displayAddPost, setDisplayAddPost, logged, userData} = useContext(WindowContext);
 
@@ -74,6 +85,10 @@ const Nav = ({}) => {
         if(logged){
             getNotification(userData.id).then(data => {
                 setCountNot(Number(data));
+            });
+
+            getUnreadMessages(userData.id).then(data => {
+                setCountNotMsg(Number(data));
             });
         }
     }
@@ -181,6 +196,7 @@ return (
                     </div>
                     {logged ? 
                         <div onClick={() => {window.location.replace("/chat")}} className='icon-nav-item message-icon-nav-item'>
+                            {countNotMsg>0 ? <p>{countNotMsg}</p> : ""}
                             <svg viewBox="0 0 24 24" fill="none"><path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/><path d="M8 12H8.009M11.991 12H12M15.991 12H16" stroke="#1C274C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
                         : null

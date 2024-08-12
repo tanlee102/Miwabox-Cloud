@@ -47,10 +47,16 @@ const page = ({params}) => {
   return (
     <div className='fr-profile fr-content'>
         <ProfileHeader dataProfile={data}></ProfileHeader>
+
+        {data.beBlocked == false ? (<>
         <ProfileMenu username={params.username} type={type}></ProfileMenu>
         {Number(type) < 4 ? 
           <ContentByUser type={Number(type)} userId={data.id}></ContentByUser> : 
           <FollowingSection userId={data.id}></FollowingSection>
+        }
+        </>
+        )
+        : ""
         }
     </div>
   )

@@ -46,6 +46,7 @@ const WindowProvider = ({ children }) => {
       if (token) {
         
         const decoded = jwtDecode(token);
+        if(decoded.role === 'SUPREME') decoded.role = 'ADMIN';
         setLogged(true);
   
         if (Cookies.get('thumbnail') && Cookies.get('username')) {

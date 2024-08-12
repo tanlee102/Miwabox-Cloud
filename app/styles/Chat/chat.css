@@ -47,7 +47,7 @@
     cursor: pointer;
 }
 
-.chat-item:hover {
+.con-reading{
     background: #f0f0f0;
 }
 
@@ -222,6 +222,12 @@
     font-size: small;
 }
 
+.not-read-recent-info-chat-item{
+    opacity: 1 !important;
+    color: black;
+    font-weight: bold;
+}
+
 .recent-info-chat-item span:first-child{
     position: relative;
     max-width: 70%;
@@ -324,4 +330,15 @@
     margin-top: 4px;
     font-size: 0.8em;
     opacity: 0.7;
+}
+
+.info-block-two-chat{
+    position: relative;
+    width: 100%;
+    padding:  20px 0px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.9;
 }

@@ -27,7 +27,7 @@ const PostInfo = ({ postData }) => {
 
           if (response.status === 200) {
             // Redirect to home page
-            router.push('/');
+            window.location.replace('/');
             // Optionally update the followers count in `dataProfile`
           } else {
             const errorData = response.data;

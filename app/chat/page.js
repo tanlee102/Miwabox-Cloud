@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import Link from 'next/link';
 
 const page = () => {
   const { userData } = useContext(WindowContext);
@@ -24,6 +25,7 @@ const page = () => {
 
   const messageInputRef = useRef(null);
   const chatMessagesRef = useRef(null);
+  const currentChatter = useRef(null);
 
   const [searchUsers, setSearchUsers] = useState("")
 
@@ -39,6 +41,7 @@ const page = () => {
       setListConversations(response.data);
       if(chater == null){
         setChater(myTempList.find(c => c.id === Number(conversationIdSearch)))
+        currentChatter.current = myTempList.find(c => c.id === Number(conversationIdSearch))
       }
     } catch (error) {
       console.error(error);
@@ -70,7 +73,7 @@ const page = () => {
     if (userData?.id) {
       loadConversations(userData.id);
       if(conversationIdSearch){
-        loadMessages(conversationIdSearch, 10);
+        loadMessages(conversationIdSearch, 100);
       }
     }
   }, [userData?.id]);
@@ -79,13 +82,13 @@ const page = () => {
   useEffect(() => {
     setMessages([])
     if (userData?.id) {
-      loadMessages(chater?.id, 10);
+      loadMessages(chater?.id, 100);
     }
   }, [chater]);
 
   // Scroll to bottom when messages are loaded or a new message is sent
   useEffect(() => {
-    if (chatMessagesRef.current && messages.length <= 10) {
+    if (chatMessagesRef.current && messages.length >= 10) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
   }, [messages]);
@@ -102,18 +105,39 @@ const page = () => {
         stompClient.current.subscribe(`/user/${userId}/queue/messages`, function (message) {
           console.log('Received message: ', message);
           const newMessage = JSON.parse(message.body);
-          setMessages((prevMessages) => [...prevMessages, {
-            type: 'incoming',
-            message: newMessage.content,
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-          }]);
-          chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+          console.log('Received message: ', newMessage);
+          console.log(currentChatter.current )
+          if(currentChatter.current.id == newMessage.conversationId){
+            setMessages((prevMessages) => [...prevMessages, {
+              type: 'incoming',
+              message: newMessage.content,
+              timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            }]);
+            chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+          }else{
+              // If the message is for a different conversation, update the conversation list
+              setListConversations((prevConversations) => {
+                return prevConversations.map((conversation) => {
+                  if (conversation.id === newMessage.conversationId) {
+                    return {
+                      ...conversation,
+                      lastMessage: {
+                        content: newMessage.content,
+                        createdAt: new Date().toISOString() // or newMessage.createdAt if available
+                      },
+                      readAllMessages: false // Mark as unread
+                    };
+                  }
+                  return conversation;
+                });
+              });
+          }
         });
       }, function (error) {
         console.error('Error connecting: ' + error);
       });
     };
-
+ 
     if (userId) {
       connect();
     }
@@ -156,13 +180,26 @@ const page = () => {
   const handleScroll = async () => {
     if (chatMessagesRef.current.scrollTop === 0 && !loading) {
       setLoading(true);
-      await loadMessages(chater?.id, 10, currentMessageId);
+      await loadMessages(chater?.id, 100, currentMessageId);
       setLoading(false);
     }
   };
 
 
   const router = useRouter();
+
+
+    // Update conversation to mark it as read
+    const markConversationAsRead = (index) => {
+      setListConversations(prevConversations => {
+        const updatedConversations = [...prevConversations];
+        updatedConversations[index] = {
+          ...updatedConversations[index],
+          readAllMessages: true
+        };
+        return updatedConversations;
+      });
+    };
 
   return (
     <div className={`fr-chat fr-content`}>
@@ -181,14 +218,16 @@ const page = () => {
             {listConversations.map((conversation, index) => (
               <li key={conversation.id} onClick={() => {
                 setChater(listConversations[index]);
+                currentChatter.current = listConversations[index];
+                markConversationAsRead(index);
                 router.push('/chat?conversation=' + listConversations[index].id)
-              }} className="chat-item">
+              }} className={`chat-item ${chater?.id == conversation.id ? "con-reading" : ""}`}>
                 <div className='avatar-chat-item'>
                   <img src={conversation.otherUser.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + conversation.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
                 </div>
                 <div className='content-chat-item'>
                   <div>{conversation.otherUser.username}</div>
-                  <div className='recent-info-chat-item'>
+                  <div className={`recent-info-chat-item ${conversation.readAllMessages ? "" : "not-read-recent-info-chat-item"}`}>
                     <span>{conversation?.lastMessage?.content ?  conversation?.lastMessage?.content : ""}</span>
                     <span className='delimiter'>•</span>
                     <span>{conversation?.lastMessage?.createdAt ? converTimeShort(conversation?.lastMessage?.createdAt) : ""}</span>
@@ -201,7 +240,8 @@ const page = () => {
 
         <div className="chat-box">
           <div className="chat-header">
-            <h3>{chater?.otherUser?.username}</h3>
+            <Link href={'/'+chater?.otherUser?.username}>
+            <h3>{chater?.otherUser?.username}</h3></Link>
             <div className='button-info-of-chat'>
               <svg viewBox="0 0 24 24" aria-hidden="true" className="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-z80fyv r-19wmn03">
                 <g>
@@ -226,6 +266,8 @@ const page = () => {
               </div>
             ))}
           </div>
+
+          {chater && chater.blocked == false && (
           <div className="chat-input">
             <div className="contain-input-thread">
               <div className="input-thread">
@@ -241,6 +283,12 @@ const page = () => {
               </div>
             </div>
           </div>
+          )}
+
+          {chater?.blocked == true ? 
+          <div className="info-block-two-chat">The conversation between the two users have been blocked.</div>
+          : ""}
+
         </div>
 
       </div>

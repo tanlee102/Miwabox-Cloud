@@ -10,7 +10,7 @@ const Roles = () => {
 
   const loadRoles = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/v1/users/role/2');
+      const response = await fetch('http://localhost:8080/api/v1/users/role/greater-than/1');
       if (response.status === 200) {
           const responseData = await response.json();
           setData(responseData);
@@ -34,7 +34,7 @@ const Roles = () => {
                   <div className="title-item-tab set-bold set-black-white">{user.username}</div>
                   <div className="list-in-line set-anchor-gray-color">
                     <ul>
-                        <li>Admin</li>
+                        <li>{user.role.name}</li>
                     </ul>
                   </div>
                 </div>
