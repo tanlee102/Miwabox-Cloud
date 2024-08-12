@@ -18,6 +18,10 @@ const DropdownTrans = ({options, indexOption = 0, setIndexOption = null, zIndex 
   };
 
   useEffect(() => {
+    setSelectedOption(options[indexOption])
+  }, [indexOption]);
+
+  useEffect(() => {
     if (options.length > 0 && !selectedOption) {
       setSelectedOption(options[indexOption]);
     }

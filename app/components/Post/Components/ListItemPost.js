@@ -37,6 +37,15 @@ const ListItemPost = ({data}) => {
                     </div>
                 </div>
             ))}
+
+            <>
+            {data.length <= 0 && (
+                <div className="empty-posts">
+                    <p>No posts found.</p>
+                </div>
+            )}
+            </>
+
         </>
     )
 }

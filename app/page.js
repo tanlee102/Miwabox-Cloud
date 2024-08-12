@@ -14,6 +14,76 @@ import { jwtDecode } from "jwt-decode";
 const pageSize = 30;
 const limit = 30;
 
+// async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = null, title = null) {
+//   let url;
+
+//   if (tagname) {
+//     url = `http://localhost:8080/api/v1/posts/topByTag?limit=${limit}&tagName=${tagname}`;
+//   } else if (title) {
+//     url = `http://localhost:8080/api/v1/posts/topByTitle?limit=${limit}&keyword=${title}`;
+//   } else {
+//     switch (sortingIndex) {
+//       case 1: // Top Posts
+//         url = `http://localhost:8080/api/v1/posts/orderByTotalLikes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+//         break;
+//       case 0: // Chronology
+//         url = `http://localhost:8080/api/v1/posts/orderById?limit=${limit}`;
+//         if (lastId) url += `&postId=${lastId}`;
+//         break;
+//       case 2: { // Followed
+//         const token = Cookies.get('token');
+//         if (token) {
+//           const decoded = jwtDecode(token);
+//           if (decoded?.id) {
+//             url = `http://localhost:8080/api/v1/posts/followed?size=${limit}&page=${pageNumber}&userId=${decoded.id}`;
+//             break;
+//           }
+//         }
+//         return null; // Return null if there's no valid user ID for "Followed" case
+//       }
+//       default:
+//         url = `http://localhost:8080/api/v1/posts`;
+//     }
+
+//     const token = Cookies.get('token');
+//     if(token){
+//       const decoded = jwtDecode(token);
+//       if(decoded?.id){
+//         url += `&userId=${decoded.id}`;
+//       }
+//     }
+    
+//   }
+
+//   const res = await fetch(url);
+
+//   if (!res.ok) {
+//     console.log('Failed to fetch data');
+//     return null;
+//   } else {
+//     return res.json();
+//   }
+// }
+
+
+
+export default function Home() {
+  const searchParams = useSearchParams();
+  const tagname = searchParams.get('tagname');
+  const title = searchParams.get('title');
+
+  const [data, setData] = useState([]);
+  const { gridMode } = useContext(WindowContext);
+  const [sortingIndex, setSortingIndex] = useState(0);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [lastId, setLastId] = useState(null);
+  const [loadState, setLoadState] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  const loading = useRef(false);
+
+
+
 async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = null, title = null) {
   let url;
 
@@ -26,11 +96,12 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
       case 1: // Top Posts
         url = `http://localhost:8080/api/v1/posts/orderByTotalLikes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
         break;
-      case 0: // Chronology
+      case 2: { // Chronology (was case 0)
         url = `http://localhost:8080/api/v1/posts/orderById?limit=${limit}`;
         if (lastId) url += `&postId=${lastId}`;
         break;
-      case 2: { // Followed
+      }
+      case 0: { // Followed (was case 2)
         const token = Cookies.get('token');
         if (token) {
           const decoded = jwtDecode(token);
@@ -38,6 +109,8 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
             url = `http://localhost:8080/api/v1/posts/followed?size=${limit}&page=${pageNumber}&userId=${decoded.id}`;
             break;
           }
+        }else{
+          setSortingIndex(2)
         }
         return null; // Return null if there's no valid user ID for "Followed" case
       }
@@ -65,20 +138,6 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
   }
 }
 
-export default function Home() {
-  const searchParams = useSearchParams();
-  const tagname = searchParams.get('tagname');
-  const title = searchParams.get('title');
-
-  const [data, setData] = useState([]);
-  const { gridMode } = useContext(WindowContext);
-  const [sortingIndex, setSortingIndex] = useState(0);
-  const [pageNumber, setPageNumber] = useState(0);
-  const [lastId, setLastId] = useState(null);
-  const [loadState, setLoadState] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-
-  const loading = useRef(false);
 
 
   const loadData = async (index, page = 0, lastId = null, tagname = null, title = null, isChange=false) => {
@@ -97,6 +156,10 @@ export default function Home() {
     }
     setLoadState(false);
     loading.current = false;
+
+    if(newData.length == 0 && data.length == 0) {
+      setSortingIndex(2)
+    }
   };
 
 
@@ -130,7 +193,7 @@ export default function Home() {
       }
       <div className="contain-list-item-posts">
         {!tagname && !title && (
-          <DropdownTrans options={['Chronology', 'Top Posts', 'Followed']} indexOption={sortingIndex} setIndexOption={setSortingIndex} />
+          <DropdownTrans options={['Followed', 'Top Posts', 'Chronology']} indexOption={sortingIndex} setIndexOption={setSortingIndex} />
         )}
         <div className="list-item-posts">
           <ListItemPost data={data} />

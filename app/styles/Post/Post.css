@@ -165,3 +165,28 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.list-item-posts:has(.empty-posts){
+    display: block;
+}
+
+
+.empty-posts{
+    float: left;
+    width: 100% !important;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: rgb(148, 148, 148);
+}
+
+.empty-users{
+    float: left;
+    width: 100% !important;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: rgb(148, 148, 148);
+}

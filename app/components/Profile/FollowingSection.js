@@ -106,6 +106,16 @@ const FollowingSection = ({ userId }) => {
             </div>
           </Link>
         ))}
+
+
+        <>
+        {data.length <= 0 && (
+            <div className="empty-users">
+                <p>No users found.</p>
+            </div>
+        )}
+        </>
+
       </div>
     </>
   );
