@@ -73,6 +73,10 @@ const WindowProvider = ({ children }) => {
             setUserData(decoded);
           })
           .catch(error => {
+            Cookies.remove("token");
+            Cookies.remove('thumbnail');
+            Cookies.remove('username');
+            window.location.replace("/error-account");
             console.error('Error loading thumbnail:', error);
           });
         }

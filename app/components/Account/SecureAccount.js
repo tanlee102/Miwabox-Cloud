@@ -51,7 +51,7 @@ const SecureAccount = ({}) => {
     }
 
     const verifyEmail = async () => {
-        conFirmFun('Xác minh tài khoản', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+userData.email+' để xác minh tài khoản của bạn?', async () => {
+      conFirmFun('Verify Account', 'We will send a link to the address ' + userData.email + ' to verify your account?', async () => {
             
             try {
                 conFirmFun('Gửi Email');
@@ -76,7 +76,7 @@ const SecureAccount = ({}) => {
 
     const forgotEmail = async () => {
 
-        conFirmFun('Quên mật khẩu', 'Chúng tôi sẽ gửi một liên kết đến địa chỉ '+userData.email+' để khôi phục mật khẩu của bạn?', async () => {
+      conFirmFun('Forgot Password', 'We will send a link to the address ' + userData.email + ' to reset your password?', async () => {
 
             try {
                 conFirmFun('Gửi Email');
@@ -162,15 +162,16 @@ const SecureAccount = ({}) => {
                     <span style={{display: displayChangePass ? "none" : "block"}} onClick={() => setDisplayChangePass(true)}>Change</span>
 
                     <div style={{display: displayChangePass ? "block" : "none"}} className='input-open-edit-dialog-form-account'>
-                        <input value={password} onChange={(e) => setPassword(String(e.target.value).replace(/\s/g, ''))} placeholder='Nhập mật khẩu hiện tại' type="password" maxLength="70"/>
-                        <input value={repassword} onChange={(e) => setRePassword(String(e.target.value).replace(/\s/g, ''))} placeholder='Nhập mật khẩu mới' type="password" maxLength="70"/>
+                      <input value={password} onChange={(e) => setPassword(String(e.target.value).replace(/\s/g, ''))} placeholder='Enter current password' type="password" maxLength="70"/>
+                      <input value={repassword} onChange={(e) => setRePassword(String(e.target.value).replace(/\s/g, ''))} placeholder='Enter new password' type="password" maxLength="70"/>
                     </div>
 
                     <div style={{display: displayChangePass ? "block" : "none"}}>
-                        <span className='button-open-edit-dialog-form-account' onClick={() => changePasswordBtn()}>Thay đổi mật khẩu</span>
+                        <span className='button-open-edit-dialog-form-account' onClick={() => changePasswordBtn()}>Change Password</span>
                     </div>
 
-                    <span style={{display: displayChangePass ? "block" : "none"}}  onClick={() => forgotEmail()}>Quên mật khẩu</span>
+                    <span style={{display: displayChangePass ? "block" : "none"}} onClick={() => forgotEmail()}>Forgot Password</span>
+
 
                 </div>
 

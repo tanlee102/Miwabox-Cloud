@@ -25,94 +25,182 @@ const PopOutPostManagePanel = ({postId, restricted, muted}) => {
     };
 
 
+    // const restrictPost = () => {
+    //     console.log(postId);
+    
+    //     conFirmFun("Quản lý", "Bạn có muốn hạn chế bài viết này?", async () => {
+    //       conFirmFun("Quản lý");
+    //       setTimeout(async () => {
+    //         try {
+    //           const token = Cookies.get('token');
+    //           const response = await axios.post(`http://localhost:8080/api/v1/posts/toggle-restrict/${postId}`, {}, {
+    //             headers: {
+    //               'Authorization': `Bearer ${token}`,
+    //               'Content-Type': 'application/json'
+    //             }
+    //           });
+    
+    //           if (response.status === 200) {
+    //             conFirmFun("Quản lý", "Bài viết đã được hạn chế thành công.");
+    //             targetRefExp.current.style.display = 'none';
+    //             setRestricted(!Restricted);
+    //           } else {
+    //             conFirmFun("Quản lý", "Hạn chế bài viết thất bại: " + response.data.message);
+    //           }
+    //         } catch (error) {
+    //           conFirmFun("Quản lý", "Hạn chế bài viết thất bại: " + error.message);
+    //         }
+    //       }, 400);
+    //     });
+    //   };
+    
+
+    //   const mutePost = () => {
+    //     console.log(postId);
+    
+    //     conFirmFun("Quản lý", "Bạn có muốn tắt bài viết này?", async () => {
+    //       conFirmFun("Quản lý");
+    //       setTimeout(async () => {
+    //         try {
+    //           const token = Cookies.get('token');
+    //           const response = await axios.post(`http://localhost:8080/api/v1/posts/toggle-mute/${postId}`, {}, {
+    //             headers: {
+    //               'Authorization': `Bearer ${token}`,
+    //               'Content-Type': 'application/json'
+    //             }
+    //           });
+    
+    //           if (response.status === 200) {
+    //             conFirmFun("Quản lý", "Bài viết đã được tắt thành công.");
+    //             targetRefExp.current.style.display = 'none';
+    //             setMuted(!Muted);
+    //           } else {
+    //             conFirmFun("Quản lý", "Tắt bài viết thất bại: " + response.data.message);
+    //           }
+    //         } catch (error) {
+    //           conFirmFun("Quản lý", "Tắt bài viết thất bại: " + error.message);
+    //         }
+    //       }, 400);
+    //     });
+    // };
+
+
+
+    // const deletePost = () => {
+    //     console.log(postId)
+
+    //     conFirmFun("Quản lý", "Bạn có muốn xóa bài viết này?", async () => {
+    //         conFirmFun("Quản lý");
+    //         setTimeout(async () => {
+    //             try {
+    //                 const token = Cookies.get('token');
+    //                 const response = await axios.delete(`http://localhost:8080/api/v1/posts/${postId}`, {
+    //                     headers: {
+    //                         'Authorization': `Bearer ${token}`,
+    //                         'Content-Type': 'application/json'
+    //                     }
+    //                 });
+
+    //                 if (response.status === 200) {
+    //                     conFirmFun("Quản lý", "Bài viết đã được xóa thành công.");
+    //                     targetRefExp.current.style.display = 'none';
+    //                 } else {
+    //                     conFirmFun("Quản lý", "Xóa bài viết thất bại: " + error.message);
+    //                 }
+    //             } catch (error) {
+    //                 conFirmFun("Quản lý", "Xóa bài viết thất bại: " + error.message);
+    //             }
+    //         }, 400);
+    //     });
+    // }
+
+
     const restrictPost = () => {
-        console.log(postId);
-    
-        conFirmFun("Quản lý", "Bạn có muốn hạn chế bài viết này?", async () => {
-          conFirmFun("Quản lý");
-          setTimeout(async () => {
-            try {
-              const token = Cookies.get('token');
-              const response = await axios.post(`http://localhost:8080/api/v1/posts/toggle-restrict/${postId}`, {}, {
-                headers: {
-                  'Authorization': `Bearer ${token}`,
-                  'Content-Type': 'application/json'
-                }
-              });
-    
-              if (response.status === 200) {
-                conFirmFun("Quản lý", "Bài viết đã được hạn chế thành công.");
-                targetRefExp.current.style.display = 'none';
-                setRestricted(!Restricted);
-              } else {
-                conFirmFun("Quản lý", "Hạn chế bài viết thất bại: " + response.data.message);
+      console.log(postId);
+  
+      conFirmFun("Management", "Do you want to restrict this post?", async () => {
+        conFirmFun("Management");
+        setTimeout(async () => {
+          try {
+            const token = Cookies.get('token');
+            const response = await axios.post(`http://localhost:8080/api/v1/posts/toggle-restrict/${postId}`, {}, {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
               }
-            } catch (error) {
-              conFirmFun("Quản lý", "Hạn chế bài viết thất bại: " + error.message);
+            });
+  
+            if (response.status === 200) {
+              conFirmFun("Management", "The post has been successfully restricted.");
+              targetRefExp.current.style.display = 'none';
+              setRestricted(!Restricted);
+            } else {
+              conFirmFun("Management", "Failed to restrict post: " + response.data.message);
             }
-          }, 400);
-        });
-      };
-    
-
-      const mutePost = () => {
-        console.log(postId);
-    
-        conFirmFun("Quản lý", "Bạn có muốn tắt bài viết này?", async () => {
-          conFirmFun("Quản lý");
-          setTimeout(async () => {
-            try {
-              const token = Cookies.get('token');
-              const response = await axios.post(`http://localhost:8080/api/v1/posts/toggle-mute/${postId}`, {}, {
-                headers: {
-                  'Authorization': `Bearer ${token}`,
-                  'Content-Type': 'application/json'
-                }
-              });
-    
-              if (response.status === 200) {
-                conFirmFun("Quản lý", "Bài viết đã được tắt thành công.");
-                targetRefExp.current.style.display = 'none';
-                setMuted(!Muted);
-              } else {
-                conFirmFun("Quản lý", "Tắt bài viết thất bại: " + response.data.message);
+          } catch (error) {
+            conFirmFun("Management", "Failed to restrict post: " + error.message);
+          }
+        }, 400);
+      });
+  };
+  
+  const mutePost = () => {
+      console.log(postId);
+  
+      conFirmFun("Management", "Do you want to mute this post?", async () => {
+        conFirmFun("Management");
+        setTimeout(async () => {
+          try {
+            const token = Cookies.get('token');
+            const response = await axios.post(`http://localhost:8080/api/v1/posts/toggle-mute/${postId}`, {}, {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
               }
-            } catch (error) {
-              conFirmFun("Quản lý", "Tắt bài viết thất bại: " + error.message);
+            });
+  
+            if (response.status === 200) {
+              conFirmFun("Management", "The post has been successfully muted.");
+              targetRefExp.current.style.display = 'none';
+              setMuted(!Muted);
+            } else {
+              conFirmFun("Management", "Failed to mute post: " + response.data.message);
             }
+          } catch (error) {
+            conFirmFun("Management", "Failed to mute post: " + error.message);
+          }
+        }, 400);
+      });
+  };
+  
+  const deletePost = () => {
+      console.log(postId)
+  
+      conFirmFun("Management", "Do you want to delete this post?", async () => {
+          conFirmFun("Management");
+          setTimeout(async () => {
+              try {
+                  const token = Cookies.get('token');
+                  const response = await axios.delete(`http://localhost:8080/api/v1/posts/${postId}`, {
+                      headers: {
+                          'Authorization': `Bearer ${token}`,
+                          'Content-Type': 'application/json'
+                      }
+                  });
+  
+                  if (response.status === 200) {
+                      conFirmFun("Management", "The post has been successfully deleted.");
+                      targetRefExp.current.style.display = 'none';
+                  } else {
+                      conFirmFun("Management", "Failed to delete post: " + error.message);
+                  }
+              } catch (error) {
+                  conFirmFun("Management", "Failed to delete post: " + error.message);
+              }
           }, 400);
-        });
-    };
-
-
-
-    const deletePost = () => {
-        console.log(postId)
-
-        conFirmFun("Quản lý", "Bạn có muốn xóa bài viết này?", async () => {
-            conFirmFun("Quản lý");
-            setTimeout(async () => {
-                try {
-                    const token = Cookies.get('token');
-                    const response = await axios.delete(`http://localhost:8080/api/v1/posts/${postId}`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-
-                    if (response.status === 200) {
-                        conFirmFun("Quản lý", "Bài viết đã được xóa thành công.");
-                        targetRefExp.current.style.display = 'none';
-                    } else {
-                        conFirmFun("Quản lý", "Xóa bài viết thất bại: " + error.message);
-                    }
-                } catch (error) {
-                    conFirmFun("Quản lý", "Xóa bài viết thất bại: " + error.message);
-                }
-            }, 400);
-        });
-    }
+      });
+  }
+  
 
   return (
     <span class="btn-icon-member-tab btn-member-tab un-btn-member-tab" onClick={() => handleClick()}>

@@ -112,7 +112,7 @@ const CreateRegisterModal = () => {
         });
   
         if (response.status === 200) {
-          conFirmFun('Đăng ký', 'Chúng tôi đã gửi một liên kết đến địa chỉ '+email+' để hoàn tất xác nhận đăng ký của bạn.');
+          conFirmFun('Registration', 'We have sent a link to the address ' + email + ' to complete your registration confirmation.');
           reset();
         } else {
           alert('Failed to create account. Please try again.');

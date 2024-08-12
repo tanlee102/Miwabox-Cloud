@@ -86,23 +86,49 @@ const page = ({ params }) => {
       <div className="contain-login">
 
               <div className="content-login">
+
                   <div>
-                      <span className='title-text-setpassword'>Update password with account link to [{email}]</span>
+                    <span className='title-text-setpassword'>Update password for the account linked to [{email}]</span>
 
-                      <input style={{ marginBottom: isCorrectPass ? '10px' : '5px'}} value={password} onChange={(e) => onChangePassword(e)} type="password" placeholder="Nhập mật khẩu"/>
-                      <span style={{color: "tomato",display: isCorrectPass ? "none" : "block"}} className="info-text-login">Mật khẩu phải ít nhất 8 ký tự.</span>
-                      <input style={{ marginBottom: isMatchPass ? '10px' : '5px'}}  value={repassword} onChange={(e) => onChangeRePassword(e)} type="password" placeholder="Nhập lại mật khẩu"/>
-                      <span style={{color: "tomato",display: isMatchPass ? "none" : "block"}} className="info-text-login">Không khớp mật khẩu.</span>
+                    <input 
+                        style={{ marginBottom: isCorrectPass ? '10px' : '5px' }} 
+                        value={password} 
+                        onChange={(e) => onChangePassword(e)} 
+                        type="password" 
+                        placeholder="Enter password"
+                    />
+                    <span 
+                        style={{ color: "tomato", display: isCorrectPass ? "none" : "block" }} 
+                        className="info-text-login"
+                    >
+                        Password must be at least 8 characters.
+                    </span>
 
-                      <span className="btn-login" onClick={() => createPasswordBtn()}>
-                        {!load ? <p>Xác nhận</p> : <div class="loader-circle-small"><div></div></div> }
-                      </span>
+                    <input 
+                        style={{ marginBottom: isMatchPass ? '10px' : '5px' }}  
+                        value={repassword} 
+                        onChange={(e) => onChangeRePassword(e)} 
+                        type="password" 
+                        placeholder="Re-enter password"
+                    />
+                    <span 
+                        style={{ color: "tomato", display: isMatchPass ? "none" : "block" }} 
+                        className="info-text-login"
+                    >
+                        Passwords do not match.
+                    </span>
 
-                      <Link href={"/"}>
-                      <span className="btn-text-login">Bỏ qua</span>
-                      </Link>
-                    
-                  </div>
+                    <span className="btn-login" onClick={() => createPasswordBtn()}>
+                        {!load ? <p>Confirm</p> : <div class="loader-circle-small"><div></div></div>}
+                    </span>
+
+                    <Link href={"/"}>
+                        <span className="btn-text-login">Skip</span>
+                    </Link>
+                </div>
+
+
+
 
               </div>
 

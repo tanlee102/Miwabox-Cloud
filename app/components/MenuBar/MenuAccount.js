@@ -26,14 +26,14 @@ const MenuAccount = ({listMenuAccount, idItem}) => {
     }, []);
 
     const logoutBtn = () => {
-        Cookies.remove("token");
-        Cookies.remove('thumbnail');
-
-        conFirmFun('Đăng xuất', 'Mọi dữ liệu sẽ bị xóa, bạn có muốn đăng xuất?', () => {
+        conFirmFun('Logout', 'All data will be deleted, do you want to log out?', () => {
+            Cookies.remove("token");
+            Cookies.remove('thumbnail');
+            Cookies.remove('username');
             window.location.replace("/");
         });
     }
-
+    
   return (
     <div class="vertical-menu" onResize={() => {onResizex()}}>
 

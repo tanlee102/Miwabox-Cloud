@@ -33,7 +33,7 @@ const ConfirmBox = ({isDisplay,setIsDisplay,objAction}) => {
             {objAction.contentBox ? 
             <footer>
                 <div class="controls"> 
-                    <button class="button button-danger doAction" onClick={() => {objAction.actionFu ? objAction.actionFu() : setIsDisplay(false)}}>Vâng</button>  
+                    <button class="button button-danger doAction" onClick={() => {objAction.actionFu ? objAction.actionFu() : setIsDisplay(false)}}>Yes</button>  
                     {objAction.actionFu ? <button class="button button-default cancelAction" onClick={() => setIsDisplay(false)}>Hủy</button>  : ""}
                 </div>
             </footer>

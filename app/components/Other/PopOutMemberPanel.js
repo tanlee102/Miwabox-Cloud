@@ -53,7 +53,7 @@ const PopOutMemberPanel = ({isAdmin=false,isBlock=false,isBan=false, idMember, d
         { Ban ?
         <div  onClick={() => {Pop.removeBan()}}>
             <svg viewBox="-3.5 -4 32 32"><path d="M12 1c6.065 0 11 4.935 11 11s-4.935 11-11 11-11-4.935-11-11 4.935-11 11-11zm0-1c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12z"/></svg>
-            <p>Bỏ cấm</p>
+            <p>Remove Ban</p>
         </div>
         :
         <div  onClick={() => {Pop.addBan()}}>

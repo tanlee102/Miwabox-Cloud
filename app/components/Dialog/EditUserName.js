@@ -77,7 +77,7 @@ const EditUserName = ({isDisplay,setIsDisplay, textIn, setTextIn}) => {
     <div  class={isDisplay ? "dialog-confirm active-confirm" : "dialog-confirm"}>
   
         <div>
-            <div>
+            {/* <div>
                 <header> 
                     <h3> Chỉnh sửa tên tài khoảng </h3> 
                     <i class="fa fa-close" aria-hidden="true" onClick={() => setIsDisplay(false)}></i>
@@ -98,7 +98,35 @@ const EditUserName = ({isDisplay,setIsDisplay, textIn, setTextIn}) => {
                     </div>
                 </footer>
 
+            </div> */}
+
+            <div>
+                <header> 
+                    <h3>Edit Account Name</h3> 
+                    <i class="fa fa-close" aria-hidden="true" onClick={() => setIsDisplay(false)}></i>
+                </header>
+
+                <div class="dialog-msg dialog-user-name"> 
+                    <input 
+                        value={textIn} 
+                        onChange={handleChange} 
+                        placeholder='Enter account name' 
+                        id='input-dialog-user-name' 
+                        type="text" 
+                        maxLength={env_variable.MAX_NAME_USER_LENGTH}
+                        onBlur={(e) => checkUserNameBtn()}
+                    />
+                    {checkSame ? <span>This name is already taken.</span> : "" }
+                </div>
+                
+                <footer>
+                    <div class="controls"> 
+                        <button class="button button-danger doAction" onClick={() => {updateUserNameBtn()}}>Yes</button>  
+                        <button class="button button-default cancelAction" onClick={() => setIsDisplay(false)}>Cancel</button> 
+                    </div>
+                </footer>
             </div>
+
         </div>
 
     </div>

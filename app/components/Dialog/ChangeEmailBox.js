@@ -26,7 +26,7 @@ const ChangeEmailBox = ({isDisplay,setIsDisplay,myData}) => {
 
     const changeEmailBtn = async () => {
         if (email === myData.email) {
-            conFirmFun('Thay đổi Email', 'Email yêu cầu trùng với Email hiện tại!');
+            conFirmFun('Change Email', 'The requested email must be different from the current email!');
         } else {
             if (isValidEmail) {
                 if (email !== '' && password !== '') {
@@ -58,7 +58,7 @@ const ChangeEmailBox = ({isDisplay,setIsDisplay,myData}) => {
                         alert("An error occurred. Please try again later.");
                     }
                 } else {
-                    conFirmFun('Thay đổi Email', 'Vui lòng điền đầy đủ thông tin!');
+                    conFirmFun('Change Email', 'Please fill in all required information!');
                 }
             }
         }
@@ -75,20 +75,20 @@ const ChangeEmailBox = ({isDisplay,setIsDisplay,myData}) => {
         <div>
             <div>
                 <header> 
-                    <h3> Thay đổi Email </h3> 
+                    <h3> Change Email </h3> 
                     <i class="fa fa-close" aria-hidden="true" onClick={() => setIsDisplay(false)}></i>
                 </header>
 
                 <div class="dialog-msg dialog-user-name"> 
-                    <input value={email} onChange={(e) => onEmailChange(e)}  placeholder='Nhập email mới' id='input-dialog-user-name' type="text" maxLength="50"/>
-                    {!isValidEmail ? <span style={{marginTop: '5px'}} >Email không hợp lệ.</span> : "" }
-                    <input value={password} onChange={(e) => setPassword(String(e.target.value).replace(/\s/g, ''))}  style={{marginTop: '10px'}} placeholder='Nhập mật khẩu' id='input-dialog-user-name' type="password" maxLength="70"/>
+                    <input value={email} onChange={(e) => onEmailChange(e)} placeholder='Enter new email' id='input-dialog-user-name' type="text" maxLength="50"/>
+                    {!isValidEmail ? <span style={{marginTop: '5px'}}>Invalid email.</span> : "" }
+                    <input value={password} onChange={(e) => setPassword(String(e.target.value).replace(/\s/g, ''))} style={{marginTop: '10px'}} placeholder='Enter password' id='input-dialog-user-name' type="password" maxLength="70"/>
                 </div>
-                
+
                 <footer>
                     <div class="controls"> 
-                        <button class="button button-danger doAction" onClick={() => {changeEmailBtn()}}>Vâng</button>  
-                         <button class="button button-default cancelAction" onClick={() => setIsDisplay(false)}>Hủy</button> 
+                        <button class="button button-danger doAction" onClick={() => {changeEmailBtn()}}>Yes</button>  
+                        <button class="button button-default cancelAction" onClick={() => setIsDisplay(false)}>Cancel</button>
                     </div>
                 </footer>
 

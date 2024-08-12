@@ -28,7 +28,7 @@ const PopOutAuthorityPanel = ({idMember}) => {
     const removeAdmin = () => {
         console.log(idMember)
 
-        conFirmFun("Quản lý", "Bạn có muốn đặt lại thành viên này làm USER?", async () => {
+        conFirmFun("Manage", "Do you want to reset this member to USER?", async () => {
             conFirmFun("Quản lý");
             setTimeout(async () => {
                 try {
