@@ -14,58 +14,6 @@ import { jwtDecode } from "jwt-decode";
 const pageSize = 30;
 const limit = 30;
 
-// async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = null, title = null) {
-//   let url;
-
-//   if (tagname) {
-//     url = `http://localhost:8080/api/v1/posts/topByTag?limit=${limit}&tagName=${tagname}`;
-//   } else if (title) {
-//     url = `http://localhost:8080/api/v1/posts/topByTitle?limit=${limit}&keyword=${title}`;
-//   } else {
-//     switch (sortingIndex) {
-//       case 1: // Top Posts
-//         url = `http://localhost:8080/api/v1/posts/orderByTotalLikes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-//         break;
-//       case 0: // Chronology
-//         url = `http://localhost:8080/api/v1/posts/orderById?limit=${limit}`;
-//         if (lastId) url += `&postId=${lastId}`;
-//         break;
-//       case 2: { // Followed
-//         const token = Cookies.get('token');
-//         if (token) {
-//           const decoded = jwtDecode(token);
-//           if (decoded?.id) {
-//             url = `http://localhost:8080/api/v1/posts/followed?size=${limit}&page=${pageNumber}&userId=${decoded.id}`;
-//             break;
-//           }
-//         }
-//         return null; // Return null if there's no valid user ID for "Followed" case
-//       }
-//       default:
-//         url = `http://localhost:8080/api/v1/posts`;
-//     }
-
-//     const token = Cookies.get('token');
-//     if(token){
-//       const decoded = jwtDecode(token);
-//       if(decoded?.id){
-//         url += `&userId=${decoded.id}`;
-//       }
-//     }
-    
-//   }
-
-//   const res = await fetch(url);
-
-//   if (!res.ok) {
-//     console.log('Failed to fetch data');
-//     return null;
-//   } else {
-//     return res.json();
-//   }
-// }
-
-
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -157,7 +105,7 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
     setLoadState(false);
     loading.current = false;
 
-    if(newData.length == 0 && data.length == 0) {
+    if(newData?.length == 0 && data?.length == 0) {
       setSortingIndex(2)
     }
   };
