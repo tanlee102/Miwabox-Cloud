@@ -37,7 +37,7 @@ const ChangeEmailBox = ({isDisplay,setIsDisplay,myData}) => {
                     }
     
                     try {
-                        const response = await axios.post('https://vnthread.com/api/v1/auth/email/change', {
+                        const response = await axios.post('https://hoifancuongonepiece.site/api/v1/auth/email/change', {
                             email: email,
                             password: password
                         }, {

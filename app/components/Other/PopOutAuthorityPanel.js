@@ -33,7 +33,7 @@ const PopOutAuthorityPanel = ({idMember}) => {
             setTimeout(async () => {
                 try {
                     const token = Cookies.get('token');
-                    const response = await axios.post(`https://vnthread.com/api/v1/users/role/user/${idMember}`, {}, {
+                    const response = await axios.post(`https://hoifancuongonepiece.site/api/v1/users/role/user/${idMember}`, {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'

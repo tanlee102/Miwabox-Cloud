@@ -36,16 +36,16 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
   let url;
 
   if (tagname) {
-    url = `https://vnthread.com/api/v1/posts/topByTag?limit=${limit}&tagName=${tagname}`;
+    url = `https://hoifancuongonepiece.site/api/v1/posts/topByTag?limit=${limit}&tagName=${tagname}`;
   } else if (title) {
-    url = `https://vnthread.com/api/v1/posts/topByTitle?limit=${limit}&keyword=${title}`;
+    url = `https://hoifancuongonepiece.site/api/v1/posts/topByTitle?limit=${limit}&keyword=${title}`;
   } else {
     switch (sortingIndex) {
       case 1: // Top Posts
-        url = `https://vnthread.com/api/v1/posts/orderByTotalLikes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+        url = `https://hoifancuongonepiece.site/api/v1/posts/orderByTotalLikes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
         break;
       case 2: { // Chronology (was case 0)
-        url = `https://vnthread.com/api/v1/posts/orderById?limit=${limit}`;
+        url = `https://hoifancuongonepiece.site/api/v1/posts/orderById?limit=${limit}`;
         if (lastId) url += `&postId=${lastId}`;
         break;
       }
@@ -54,7 +54,7 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
         if (token) {
           const decoded = jwtDecode(token);
           if (decoded?.id) {
-            url = `https://vnthread.com/api/v1/posts/followed?size=${limit}&page=${pageNumber}&userId=${decoded.id}`;
+            url = `https://hoifancuongonepiece.site/api/v1/posts/followed?size=${limit}&page=${pageNumber}&userId=${decoded.id}`;
             break;
           }
         }else{
@@ -63,7 +63,7 @@ async function getData(sortingIndex, pageNumber = 0, lastId = null, tagname = nu
         return null; // Return null if there's no valid user ID for "Followed" case
       }
       default:
-        url = `https://vnthread.com/api/v1/posts`;
+        url = `https://hoifancuongonepiece.site/api/v1/posts`;
     }
 
     const token = Cookies.get('token');

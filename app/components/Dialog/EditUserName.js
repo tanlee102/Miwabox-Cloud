@@ -21,7 +21,7 @@ const EditUserName = ({isDisplay,setIsDisplay, textIn, setTextIn}) => {
     const checkUserNameBtn = async () =>{
         if (textIn.trim().length >= 2) {
             try {
-              const response = await axios.get(`https://vnthread.com/api/v1/users/${encodeURIComponent(textIn)}/exists`);
+              const response = await axios.get(`https://hoifancuongonepiece.site/api/v1/users/${encodeURIComponent(textIn)}/exists`);
               if (response.data) {
                 console.log("Username exists");
                 setCheckSame(true);
@@ -43,7 +43,7 @@ const EditUserName = ({isDisplay,setIsDisplay, textIn, setTextIn}) => {
           return;
         }
         try {
-          const response = await axios.post('https://vnthread.com/api/v1/users/update/username', 
+          const response = await axios.post('https://hoifancuongonepiece.site/api/v1/users/update/username', 
             { username: textIn }, 
             {
               headers: {

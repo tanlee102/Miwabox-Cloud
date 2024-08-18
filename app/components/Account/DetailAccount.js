@@ -15,7 +15,7 @@ const loadData = async (userId, setMyData) => {
   }
 
   try {
-    const response = await axios.get(`https://vnthread.com/api/v1/users/${userId}`);
+    const response = await axios.get(`https://hoifancuongonepiece.site/api/v1/users/${userId}`);
     setMyData(response.data);
     console.log(response.data)
   } catch (error) {
@@ -122,7 +122,7 @@ const DetailAccount = () => {
 
 
     try {
-      const response = await axios.post('https://vnthread.com/api/v1/users/profile/update', 
+      const response = await axios.post('https://hoifancuongonepiece.site/api/v1/users/profile/update', 
         { bio : bio }, 
         {
           headers: {

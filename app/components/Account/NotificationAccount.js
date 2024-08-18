@@ -15,7 +15,7 @@ const NotificationAccount = () => {
 
     const fetchData = async (page = 0, size = 40) => {
         try {
-            const response = await fetch(`https://vnthread.com/api/v1/notification/users/${userData.id}/notifications?page=${page}&size=${size}`);
+            const response = await fetch(`https://hoifancuongonepiece.site/api/v1/notification/users/${userData.id}/notifications?page=${page}&size=${size}`);
             const result = await response.json();
             if (page === 0) {
                 setData(result);

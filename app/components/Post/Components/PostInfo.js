@@ -14,7 +14,7 @@ const PostInfo = ({ postData }) => {
       if (indexOptions === 0) {
         console.log("DELETE " + postData.id);
 
-        const url = 'https://vnthread.com/api/v1/posts/' + postData.id;
+        const url = 'https://hoifancuongonepiece.site/api/v1/posts/' + postData.id;
         const token = Cookies.get('token');
 
         try {

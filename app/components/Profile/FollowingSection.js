@@ -15,7 +15,7 @@ const getData = async (userId, typeFollow, setMyData) => {
 
   try {
     const endpoint = typeFollow === 0 ? 'followers' : 'following';
-    const response = await axios.post(`https://vnthread.com/api/v1/followers/${endpoint}?userId=${userId}`, {}, {
+    const response = await axios.post(`https://hoifancuongonepiece.site/api/v1/followers/${endpoint}?userId=${userId}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -48,9 +48,9 @@ const FollowingSection = ({ userId }) => {
 
     let url = null;
     if (user.followed) {
-      url = 'https://vnthread.com/api/v1/followers/unfollow';
+      url = 'https://hoifancuongonepiece.site/api/v1/followers/unfollow';
     } else {
-      url = 'https://vnthread.com/api/v1/followers/follow';
+      url = 'https://hoifancuongonepiece.site/api/v1/followers/follow';
     }
 
     try {

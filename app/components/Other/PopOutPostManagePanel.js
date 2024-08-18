@@ -33,7 +33,7 @@ const PopOutPostManagePanel = ({postId, restricted, muted}) => {
         setTimeout(async () => {
           try {
             const token = Cookies.get('token');
-            const response = await axios.post(`https://vnthread.com/api/v1/posts/toggle-restrict/${postId}`, {}, {
+            const response = await axios.post(`https://hoifancuongonepiece.site/api/v1/posts/toggle-restrict/${postId}`, {}, {
               headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ const PopOutPostManagePanel = ({postId, restricted, muted}) => {
         setTimeout(async () => {
           try {
             const token = Cookies.get('token');
-            const response = await axios.post(`https://vnthread.com/api/v1/posts/toggle-mute/${postId}`, {}, {
+            const response = await axios.post(`https://hoifancuongonepiece.site/api/v1/posts/toggle-mute/${postId}`, {}, {
               headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const PopOutPostManagePanel = ({postId, restricted, muted}) => {
           setTimeout(async () => {
               try {
                   const token = Cookies.get('token');
-                  const response = await axios.delete(`https://vnthread.com/api/v1/posts/${postId}`, {
+                  const response = await axios.delete(`https://hoifancuongonepiece.site/api/v1/posts/${postId}`, {
                       headers: {
                           'Authorization': `Bearer ${token}`,
                           'Content-Type': 'application/json'

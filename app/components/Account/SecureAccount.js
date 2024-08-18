@@ -13,7 +13,7 @@ const loadData = async (userId, setMyData) => {
       return;
     }
     try {
-      const response = await axios.get(`https://vnthread.com/api/v1/users/${userId}`);
+      const response = await axios.get(`https://hoifancuongonepiece.site/api/v1/users/${userId}`);
       setMyData(response.data);
       console.log(response.data)
     } catch (error) {
@@ -111,7 +111,7 @@ const SecureAccount = ({}) => {
             }
             
             try {
-                const response = await axios.post('https://vnthread.com/api/v1/auth/password/edit', {
+                const response = await axios.post('https://hoifancuongonepiece.site/api/v1/auth/password/edit', {
                     password: password,
                     newPassword: repassword
                 }, {

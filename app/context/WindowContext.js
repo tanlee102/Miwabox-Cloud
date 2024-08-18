@@ -57,7 +57,7 @@ const WindowProvider = ({ children }) => {
           decoded.username = Cookies.get('username');
           setUserData(decoded);
         } else {
-          axios.get('https://vnthread.com/api/v1/users/profile', {
+          axios.get('https://hoifancuongonepiece.site/api/v1/users/profile', {
             headers: {
               Authorization: `Bearer ${token}`
             }

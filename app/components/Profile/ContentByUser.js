@@ -5,7 +5,7 @@ import ListItemPost from '../Post/Components/ListItemPost';
 const limit = 12;
 
 async function getData(type, cursor, userId) {
-    let url = `https://vnthread.com/api/v1`;
+    let url = `https://hoifancuongonepiece.site/api/v1`;
 
     if (type === 1) {
         url += `/posts/users/${userId}?limit=${limit}`;

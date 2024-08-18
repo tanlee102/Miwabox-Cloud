@@ -10,7 +10,7 @@ import PostInputComment from './Components/PostInputComment';
 import { WindowContext } from '@/app/context/WindowContext';
 
 async function getData(postId, userId) {
-    const res = await fetch('https://vnthread.com/api/v1/posts/v2/'+postId+'?userId='+userId);
+    const res = await fetch('https://hoifancuongonepiece.site/api/v1/posts/v2/'+postId+'?userId='+userId);
     if (!res.ok) {
         console.log('Failed to fetch data');
         return null;

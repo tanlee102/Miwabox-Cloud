@@ -42,7 +42,7 @@ const CreateRegisterModal = () => {
     const handleBlur = async () => {
       if (name.trim().length >= 2) {
         try {
-          const response = await axios.get(`https://vnthread.com/api/v1/users/${encodeURIComponent(name)}/exists`);
+          const response = await axios.get(`https://hoifancuongonepiece.site/api/v1/users/${encodeURIComponent(name)}/exists`);
           if (response.data.exists) {
             setIsExistUsername(true);
           } else {

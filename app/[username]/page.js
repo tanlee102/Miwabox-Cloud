@@ -14,10 +14,10 @@ async function getData(username) {
   const token = Cookies.get('token');
   let res = null;
   if (!token) {
-    res = await fetch('https://vnthread.com/api/v1/users/profile/'+username);
+    res = await fetch('https://hoifancuongonepiece.site/api/v1/users/profile/'+username);
   }else{
     const decoded = jwtDecode(token);
-    res = await fetch('https://vnthread.com/api/v1/users/profile/'+username+"?userId="+decoded.id);
+    res = await fetch('https://hoifancuongonepiece.site/api/v1/users/profile/'+username+"?userId="+decoded.id);
   }
   if (!res.ok) {
     throw new Error('Failed to fetch data');

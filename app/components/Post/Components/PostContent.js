@@ -31,7 +31,7 @@ const PostContent = ({postData}) => {
         setIsLiked(!isLiked);
         const token = Cookies.get('token');
         try {
-          const response = await axios.post(`https://vnthread.com/api/v1/likes/post/${postId}`, {}, {
+          const response = await axios.post(`https://hoifancuongonepiece.site/api/v1/likes/post/${postId}`, {}, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -46,7 +46,7 @@ const PostContent = ({postData}) => {
         setBookmark(!bookmark); // Assuming you have state for bookmarked status
         const token = Cookies.get('token');
         try {
-            const response = await axios.post(`https://vnthread.com/api/v1/bookmarks/toggle?postId=${postId}`, {}, {
+            const response = await axios.post(`https://hoifancuongonepiece.site/api/v1/bookmarks/toggle?postId=${postId}`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
