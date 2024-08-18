@@ -9,8 +9,9 @@ const getData = async (userId, typeFollow, setMyData) => {
 
   const token = Cookies.get('token');
   if (!token) {
-    alert('No authentication token found');
-    return;
+    token="null"
+    // alert('No authentication token found');
+    // return;
   }
 
   try {
