@@ -231,7 +231,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
                                     onInput={e => setNewReplies(prev => ({ ...prev, [comment.id]: e.target.value }))}
                                     value={newReplies[comment.id]}
                                     ></textarea>
-                                    <button onClick={() => {handleAddReply(5, comment.id)}}>Viết</button>
+                                    <button onClick={() => {handleAddReply(postId, comment.id)}}>Viết</button>
                                 </span>
                             </div>
                 
