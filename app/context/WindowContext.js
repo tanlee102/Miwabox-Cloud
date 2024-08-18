@@ -26,7 +26,7 @@ const WindowProvider = ({ children }) => {
     const [displayForgotModel, setDisplayForgotModel] = useState(false);
     const [displayRegisterModel, setDisplayRegisterModel] = useState(false);
     const [displayAddPost, setDisplayAddPost] = useState(false);
-    const [gridMode, setGridMode] = useState(false);
+    const [gridMode, setGridMode] = useState(true);
     const [displayPost, setDisplayPost] = useState(false);
 
     const [logged, setLogged] = useState(false);
