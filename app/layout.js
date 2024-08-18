@@ -30,6 +30,7 @@ import "./styles/Other/PopOutMemberPanel.css"
 
 import WindowProvider from "./context/WindowContext";
 import LayoutProvider from "./context/LayoutContext";
+import { Suspense } from "react";
 
 
 export default function RootLayout({ children }) {
@@ -40,9 +41,11 @@ export default function RootLayout({ children }) {
         </head>
         <body>
           <LayoutProvider>
+            <Suspense>
             <WindowProvider>
                 {children}
             </WindowProvider>
+            </Suspense>
           </LayoutProvider>
         </body>
     </html>
