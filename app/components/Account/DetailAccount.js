@@ -96,7 +96,7 @@ const DetailAccount = () => {
       formData.append('image', selectedFile);
       formData.append('file', selectedFile.name);
   
-      axios.put('http://localhost:3000/image/upload', formData, {
+      axios.put('https://miwa-cloud-api.netlify.app/image/upload', formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

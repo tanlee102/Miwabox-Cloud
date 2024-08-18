@@ -59,7 +59,7 @@ const page = ({ params }) => {
       setLoad(true);
 
       try {
-        const response = await axios.post('http://localhost:3000/api/auth/password/change', {
+        const response = await axios.post('https://miwa-cloud-api.netlify.app/api/auth/password/change', {
           token: token,
           email: email,
           password: password

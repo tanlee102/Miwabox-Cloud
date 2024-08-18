@@ -105,7 +105,7 @@ const CreateRegisterModal = () => {
       setLoad(true);
   
       try {
-        const response = await axios.post('http://localhost:3000/api/auth/password/register', {
+        const response = await axios.post('https://miwa-cloud-api.netlify.app/api/auth/password/register', {
           username: name,
           password: password,
           email: email

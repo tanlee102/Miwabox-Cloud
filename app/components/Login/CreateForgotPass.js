@@ -43,7 +43,7 @@ const CreateForgotPass = () => {
       setLoad(true);
   
       try {
-        const response = await axios.post('http://localhost:3000/api/auth/password/forgot', {
+        const response = await axios.post('https://miwa-cloud-api.netlify.app/api/auth/password/forgot', {
           email: email,
           recaptcha: reCaptcha
         });
