@@ -22,7 +22,7 @@ export default function Home() {
 
   const [data, setData] = useState([]);
   const { gridMode } = useContext(WindowContext);
-  const [sortingIndex, setSortingIndex] = useState(0);
+  const [sortingIndex, setSortingIndex] = useState(2);
   const [pageNumber, setPageNumber] = useState(0);
   const [lastId, setLastId] = useState(null);
   const [loadState, setLoadState] = useState(false);
