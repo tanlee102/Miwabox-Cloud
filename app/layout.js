@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
           <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"/>
         </head>
         <body>
-        <Suspense>
+          <Suspense>
           <LayoutProvider>
               <WindowProvider>
                 <MainProvider>
