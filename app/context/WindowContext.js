@@ -41,6 +41,9 @@ const WindowProvider = ({ children }) => {
 
       if(!token) {
         token = searchParams.get('token');
+        if(token){
+          Cookies.set('token', token);
+        }
       }
 
       if (token) {
@@ -54,7 +57,7 @@ const WindowProvider = ({ children }) => {
           decoded.username = Cookies.get('username');
           setUserData(decoded);
         } else {
-          axios.get('http://localhost:8080/api/v1/users/profile', {
+          axios.get('http://8.219.96.109/api/v1/users/profile', {
             headers: {
               Authorization: `Bearer ${token}`
             }

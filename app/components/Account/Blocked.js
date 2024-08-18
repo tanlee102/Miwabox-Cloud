@@ -21,7 +21,7 @@ const Blocked = () => {
         }
       
         try {
-          const response = await axios.post(`http://localhost:8080/api/v1/blocks/blocked-users`, {}, {
+          const response = await axios.post(`http://8.219.96.109/api/v1/blocks/blocked-users`, {}, {
             headers: {
               Authorization: `Bearer ${token}`
             }

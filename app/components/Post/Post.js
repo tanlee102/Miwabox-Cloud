@@ -10,7 +10,7 @@ import PostInputComment from './Components/PostInputComment';
 import { WindowContext } from '@/app/context/WindowContext';
 
 async function getData(postId, userId) {
-    const res = await fetch('http://localhost:8080/api/v1/posts/v2/'+postId+'?userId='+userId);
+    const res = await fetch('http://8.219.96.109/api/v1/posts/v2/'+postId+'?userId='+userId);
     if (!res.ok) {
         console.log('Failed to fetch data');
         return null;

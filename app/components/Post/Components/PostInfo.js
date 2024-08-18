@@ -14,7 +14,7 @@ const PostInfo = ({ postData }) => {
       if (indexOptions === 0) {
         console.log("DELETE " + postData.id);
 
-        const url = 'http://localhost:8080/api/v1/posts/' + postData.id;
+        const url = 'http://8.219.96.109/api/v1/posts/' + postData.id;
         const token = Cookies.get('token');
 
         try {

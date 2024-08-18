@@ -5,7 +5,7 @@ import ListItemPost from '../Post/Components/ListItemPost';
 const limit = 12;
 
 async function getData(type, cursor, userId) {
-    let url = `http://localhost:8080/api/v1`;
+    let url = `http://8.219.96.109/api/v1`;
 
     if (type === 1) {
         url += `/posts/users/${userId}?limit=${limit}`;

@@ -10,7 +10,7 @@ const Roles = () => {
 
   const loadRoles = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/v1/users/role/greater-than/1');
+      const response = await fetch('http://8.219.96.109/api/v1/users/role/greater-than/1');
       if (response.status === 200) {
           const responseData = await response.json();
           setData(responseData);

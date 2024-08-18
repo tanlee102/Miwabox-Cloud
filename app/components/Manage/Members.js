@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import OptionPanelPart from '../Other/OptionPanelPart';
 
 async function getData(page, size, sortingIndex) {
-    let url = 'http://localhost:8080/api/v1/users/';
+    let url = 'http://8.219.96.109/api/v1/users/';
     if (sortingIndex === 0) {
         url += 'latest';
     } else if (sortingIndex === 1) {

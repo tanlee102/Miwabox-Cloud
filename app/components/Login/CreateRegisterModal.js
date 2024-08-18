@@ -42,7 +42,7 @@ const CreateRegisterModal = () => {
     const handleBlur = async () => {
       if (name.trim().length >= 2) {
         try {
-          const response = await axios.get(`http://localhost:8080/api/v1/users/${encodeURIComponent(name)}/exists`);
+          const response = await axios.get(`http://8.219.96.109/api/v1/users/${encodeURIComponent(name)}/exists`);
           if (response.data.exists) {
             setIsExistUsername(true);
           } else {
@@ -105,7 +105,7 @@ const CreateRegisterModal = () => {
       setLoad(true);
   
       try {
-        const response = await axios.post('http://localhost:3000/api/auth/password/register', {
+        const response = await axios.post('https://miwa-cloud-api.netlify.app/api/auth/password/register', {
           username: name,
           password: password,
           email: email

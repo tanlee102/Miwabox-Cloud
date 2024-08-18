@@ -97,7 +97,7 @@ const AddPost = () => {
 
         // Step 1: Create the post and get the post ID
         const tagsString = tags.join(',');
-        const postResponse = await axios.post(`http://localhost:8080/api/v1/posts/create?tags=${tagsString}`, 
+        const postResponse = await axios.post(`http://8.219.96.109/api/v1/posts/create?tags=${tagsString}`, 
           { title: title.current },
           {
             headers: {
@@ -124,7 +124,7 @@ const AddPost = () => {
             formData.append('media_type', 'image');
           }
   
-          await axios.post('http://localhost:8787', formData, {
+          await axios.post('https://spring-firefly-e4ca.caculus103.workers.dev', formData, {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'multipart/form-data' 

@@ -13,7 +13,7 @@ const loadData = async (userId, setMyData) => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8080/api/v1/users/${userId}`);
+      const response = await axios.get(`http://8.219.96.109/api/v1/users/${userId}`);
       setMyData(response.data);
       console.log(response.data)
     } catch (error) {
@@ -56,7 +56,7 @@ const SecureAccount = ({}) => {
             try {
                 conFirmFun('Gửi Email');
 
-                const response = await axios.post('http://localhost:3000/api/auth/email/verify', {
+                const response = await axios.post('https://miwa-cloud-api.netlify.app/api/auth/email/verify', {
                   email: userData.email,
                 });
           
@@ -81,7 +81,7 @@ const SecureAccount = ({}) => {
             try {
                 conFirmFun('Gửi Email');
 
-                const response = await axios.post('http://localhost:3000/api/auth/password/forgot', {
+                const response = await axios.post('https://miwa-cloud-api.netlify.app/api/auth/password/forgot', {
                   email: userData.email,
                 });
           
@@ -111,7 +111,7 @@ const SecureAccount = ({}) => {
             }
             
             try {
-                const response = await axios.post('http://localhost:8080/api/v1/auth/password/edit', {
+                const response = await axios.post('http://8.219.96.109/api/v1/auth/password/edit', {
                     password: password,
                     newPassword: repassword
                 }, {

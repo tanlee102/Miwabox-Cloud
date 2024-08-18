@@ -33,7 +33,7 @@ const PopOutPostManagePanel = ({postId, restricted, muted}) => {
         setTimeout(async () => {
           try {
             const token = Cookies.get('token');
-            const response = await axios.post(`http://localhost:8080/api/v1/posts/toggle-restrict/${postId}`, {}, {
+            const response = await axios.post(`http://8.219.96.109/api/v1/posts/toggle-restrict/${postId}`, {}, {
               headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ const PopOutPostManagePanel = ({postId, restricted, muted}) => {
         setTimeout(async () => {
           try {
             const token = Cookies.get('token');
-            const response = await axios.post(`http://localhost:8080/api/v1/posts/toggle-mute/${postId}`, {}, {
+            const response = await axios.post(`http://8.219.96.109/api/v1/posts/toggle-mute/${postId}`, {}, {
               headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const PopOutPostManagePanel = ({postId, restricted, muted}) => {
           setTimeout(async () => {
               try {
                   const token = Cookies.get('token');
-                  const response = await axios.delete(`http://localhost:8080/api/v1/posts/${postId}`, {
+                  const response = await axios.delete(`http://8.219.96.109/api/v1/posts/${postId}`, {
                       headers: {
                           'Authorization': `Bearer ${token}`,
                           'Content-Type': 'application/json'

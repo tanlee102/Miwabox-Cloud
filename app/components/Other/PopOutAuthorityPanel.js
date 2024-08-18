@@ -33,7 +33,7 @@ const PopOutAuthorityPanel = ({idMember}) => {
             setTimeout(async () => {
                 try {
                     const token = Cookies.get('token');
-                    const response = await axios.post(`http://localhost:8080/api/v1/users/role/user/${idMember}`, {}, {
+                    const response = await axios.post(`http://8.219.96.109/api/v1/users/role/user/${idMember}`, {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
