@@ -97,7 +97,7 @@ const AddPost = () => {
 
         // Step 1: Create the post and get the post ID
         const tagsString = tags.join(',');
-        const postResponse = await axios.post(`http://8.219.96.109/api/v1/posts/create?tags=${tagsString}`, 
+        const postResponse = await axios.post(`https://vnthread.com/api/v1/posts/create?tags=${tagsString}`, 
           { title: title.current },
           {
             headers: {

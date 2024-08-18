@@ -19,10 +19,10 @@ const ProfileHeader = ({dataProfile}) => {
 
         let url = null;
         if(follow){
-            url = 'http://8.219.96.109/api/v1/followers/unfollow';
+            url = 'https://vnthread.com/api/v1/followers/unfollow';
             setFollow(false);
         }else{
-            url = 'http://8.219.96.109/api/v1/followers/follow';
+            url = 'https://vnthread.com/api/v1/followers/follow';
             setFollow(true);
         }
 
@@ -52,7 +52,7 @@ const ProfileHeader = ({dataProfile}) => {
 
     const gettingConversation = async () => {
         try {
-            const response = await fetch(`http://8.219.96.109/api/conversation?userId1=${userData.id}&userId2=${dataProfile.id}`, {
+            const response = await fetch(`https://vnthread.com/api/conversation?userId1=${userData.id}&userId2=${dataProfile.id}`, {
                 method: 'GET',
             });
 

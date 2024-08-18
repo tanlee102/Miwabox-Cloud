@@ -10,7 +10,7 @@ const BlockButton = ({ user }) => {
     try {
       const token = Cookies.get('token');
       const response = await axios.post(
-        `http://8.219.96.109/api/v1/blocks/block?blockedId=${user.id}`,
+        `https://vnthread.com/api/v1/blocks/block?blockedId=${user.id}`,
         {},
         {
           headers: {
@@ -35,7 +35,7 @@ const BlockButton = ({ user }) => {
     try {
       const token = Cookies.get('token');
       const response = await axios.delete(
-        `http://8.219.96.109/api/v1/blocks/unblock?blockedId=${user.id}`,
+        `https://vnthread.com/api/v1/blocks/unblock?blockedId=${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ const BlockButton = ({ user }) => {
       try {
         const token = Cookies.get('token');
         const response = await axios.get(
-          `http://8.219.96.109/api/v1/blocks/status?blockedId=${user.id}`,
+          `https://vnthread.com/api/v1/blocks/status?blockedId=${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

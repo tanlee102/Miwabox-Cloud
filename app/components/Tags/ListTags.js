@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState, useEffect, useContext } from 'react';
 
 async function getData() {
-    const res = await fetch('http://8.219.96.109/api/v1/tags/top');
+    const res = await fetch('https://vnthread.com/api/v1/tags/top');
     if (!res.ok) {
         return null;
     } else {

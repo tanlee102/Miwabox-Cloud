@@ -15,7 +15,7 @@ import { WindowContext } from '@/app/context/WindowContext';
 
 
 async function getData(postId, userId) {
-    const res = await fetch('http://8.219.96.109/api/v1/posts/v2/'+postId+'?userId='+userId)
+    const res = await fetch('https://vnthread.com/api/v1/posts/v2/'+postId+'?userId='+userId)
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -23,7 +23,7 @@ async function getData(postId, userId) {
 }
 
 async function getRandomPosts(limit, postId) {
-    const res = await fetch('http://8.219.96.109/api/v1/posts/randomExcludingId?limit=' + limit + '&excludePostId='+postId)
+    const res = await fetch('https://vnthread.com/api/v1/posts/randomExcludingId?limit=' + limit + '&excludePostId='+postId)
     if (!res.ok) {
         throw new Error('Failed to fetch random posts');
     }

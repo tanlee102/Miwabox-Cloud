@@ -19,7 +19,7 @@ const LikeButtonListItem = ({likeCount, postId, likeState}) => {
         setIsLiked(!isLiked);
         const token = Cookies.get('token');
         try {
-          const response = await axios.post(`http://8.219.96.109/api/v1/likes/post/${postId}`, {}, {
+          const response = await axios.post(`https://vnthread.com/api/v1/likes/post/${postId}`, {}, {
             headers: {
               Authorization: `Bearer ${token}`
             }

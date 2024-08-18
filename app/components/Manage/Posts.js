@@ -12,13 +12,13 @@ async function getData(sortingIndex, page, size) {
     let url;
     switch (sortingIndex) {
         case 1: // Restricted
-            url = `http://8.219.96.109/api/v1/posts/restricted?page=${page}&size=${size}`;
+            url = `https://vnthread.com/api/v1/posts/restricted?page=${page}&size=${size}`;
             break;
         case 2: // Muted
-            url = `http://8.219.96.109/api/v1/posts/muted?page=${page}&size=${size}`;
+            url = `https://vnthread.com/api/v1/posts/muted?page=${page}&size=${size}`;
             break;
         default: // Chronology (Ordered by ID)
-            url = `http://8.219.96.109/api/v1/posts/orderById?limit=1000`;
+            url = `https://vnthread.com/api/v1/posts/orderById?limit=1000`;
             break;
     }
 

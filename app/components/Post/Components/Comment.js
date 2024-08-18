@@ -21,7 +21,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
     useEffect(() => {
       // Fetch initial comments
       if(postId){
-        axios.get('http://8.219.96.109/api/v1/comments/post/'+postId+'/before/10000000?limit=10')
+        axios.get('https://vnthread.com/api/v1/comments/post/'+postId+'/before/10000000?limit=10')
             .then(response => {
                 if(response.data.length < 10){
                     setDisplayLoadMoreComment(false);
@@ -36,7 +36,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
 
     const handleLoadMoreComments = () =>{
         setLoadMoreComment(true);
-        axios.get(`http://8.219.96.109/api/v1/comments/post/${postId}/before/${comments[comments.length - 1].id}?limit=10`)
+        axios.get(`https://vnthread.com/api/v1/comments/post/${postId}/before/${comments[comments.length - 1].id}?limit=10`)
          .then(response => {
             if(response.data.length < 10){
                 setDisplayLoadMoreComment(false);
@@ -52,14 +52,14 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
     const handleShowReplies = (commentId) => {
       if (!replies[commentId]) {
         // Fetch replies for the first time
-        axios.get(`http://8.219.96.109/api/v1/comments/${commentId}/replies/after/0?limit=10`)
+        axios.get(`https://vnthread.com/api/v1/comments/${commentId}/replies/after/0?limit=10`)
           .then(response => setReplies(prev => ({ ...prev, [commentId]: response.data })))
           .catch(error => console.error(error));
       }
     };
   
     const handleLoadMoreReplies = (commentId, lastReplyId) => {
-      axios.get(`http://8.219.96.109/api/v1/comments/${commentId}/replies/after/${lastReplyId}?limit=10`)
+      axios.get(`https://vnthread.com/api/v1/comments/${commentId}/replies/after/${lastReplyId}?limit=10`)
         .then(response => setReplies(prev => ({
           ...prev,
           [commentId]: [...prev[commentId], ...response.data]
@@ -72,7 +72,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
         if (token) {
             try {
                 const response = await axios.post(
-                    `http://8.219.96.109/api/v1/comments/reply/post/${postId}/parent/${parentId}`,
+                    `https://vnthread.com/api/v1/comments/reply/post/${postId}/parent/${parentId}`,
                     { content: newReplies[parentId] },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -97,7 +97,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
             return;
         }
 
-        const apiUrl = `http://8.219.96.109/api/v1/comments/delete/${commentId}`;
+        const apiUrl = `https://vnthread.com/api/v1/comments/delete/${commentId}`;
         try {
             const response = await axios.delete(apiUrl, {
                 headers: {

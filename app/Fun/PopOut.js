@@ -26,7 +26,7 @@ export default class {
             setTimeout(async () => {
                 try {
                     const token = Cookies.get('token');
-                    const response = await axios.post(`http://8.219.96.109/api/v1/users/toggle-ban/${this.idMember}`, {}, {
+                    const response = await axios.post(`https://vnthread.com/api/v1/users/toggle-ban/${this.idMember}`, {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export default class {
             setTimeout(async () => {
                 try {
                     const token = Cookies.get('token');
-                    const response = await axios.post(`http://8.219.96.109/api/v1/users/toggle-ban/${this.idMember}`, {}, {
+                    const response = await axios.post(`https://vnthread.com/api/v1/users/toggle-ban/${this.idMember}`, {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ export default class {
                 setTimeout(async () => {
                     try {
                         const token = Cookies.get('token');
-                        const response = await axios.post('http://8.219.96.109/api/v1/blocks/block?blockedId=' + this.idMember, {}
+                        const response = await axios.post('https://vnthread.com/api/v1/blocks/block?blockedId=' + this.idMember, {}
                             ,{
                                 headers: {
                                   'Authorization': `Bearer ${token}`,
@@ -110,7 +110,7 @@ export default class {
             setTimeout(async () => {
                 try {
                     const token = Cookies.get('token');
-                    const response = await axios.delete(`http://8.219.96.109/api/v1/blocks/unblock?blockedId=${this.idMember}`, {
+                    const response = await axios.delete(`https://vnthread.com/api/v1/blocks/unblock?blockedId=${this.idMember}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ export default class {
             setTimeout(async () => {
                 try {
                     const token = Cookies.get('token');
-                    const response = await axios.post(`http://8.219.96.109/api/v1/users/role/admin/${this.idMember}`, {}, {
+                    const response = await axios.post(`https://vnthread.com/api/v1/users/role/admin/${this.idMember}`, {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'

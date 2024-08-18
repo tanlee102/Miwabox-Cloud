@@ -31,7 +31,7 @@ function useWindowDimensions() {
 }
 
 async function getNotification( userId) {
-    const res = await fetch('http://8.219.96.109/api/v1/notification/users/'+userId+'/unread-count');
+    const res = await fetch('https://vnthread.com/api/v1/notification/users/'+userId+'/unread-count');
     if (!res.ok) {
         console.log('Failed to fetch data');
         return null;
@@ -41,7 +41,7 @@ async function getNotification( userId) {
 }
 
 async function getUnreadMessages(userId) {
-    const res = await fetch('http://8.219.96.109/api/conversations/unread/count?userId='+userId);
+    const res = await fetch('https://vnthread.com/api/conversations/unread/count?userId='+userId);
     if (!res.ok) {
         console.log('Failed to fetch data');
         return null;

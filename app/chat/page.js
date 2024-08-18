@@ -36,7 +36,7 @@ const page = () => {
 
   const loadConversations = async (userId) => {
     try {
-      const response = await axios.get('http://8.219.96.109/api/conversations?userId=' + userId);
+      const response = await axios.get('https://vnthread.com/api/conversations?userId=' + userId);
       const myTempList = response.data;
       setListConversations(response.data);
       if(chater == null){
@@ -51,8 +51,8 @@ const page = () => {
   const loadMessages = async (conversationId, size, lastMessageId) => {
     try {
       const url = lastMessageId 
-      ? `http://8.219.96.109/api/v1/messages?conversationId=${conversationId}&size=${size}&lastMessageId=${lastMessageId}`
-      : `http://8.219.96.109/api/v1/messages?conversationId=${conversationId}&size=${size}`;
+      ? `https://vnthread.com/api/v1/messages?conversationId=${conversationId}&size=${size}&lastMessageId=${lastMessageId}`
+      : `https://vnthread.com/api/v1/messages?conversationId=${conversationId}&size=${size}`;
       const response = await axios.get(url);
       let fetchedMessages = response.data.map(msg => ({
         type: msg.senderId === userData.id ? 'outgoing' : 'incoming',
@@ -98,7 +98,7 @@ const page = () => {
     const userId = userData?.id;
 
     const connect = () => {
-      const socket = new SockJS('http://8.219.96.109/ws');
+      const socket = new SockJS('https://vnthread.com/ws');
       stompClient.current = Stomp.over(socket);
       stompClient.current.connect({}, function (frame) {
         console.log('Connected: ' + frame);

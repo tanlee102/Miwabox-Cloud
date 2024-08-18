@@ -14,7 +14,7 @@ const PostInputComment = ({ setComments, comments, isUsingFull=true, postId }) =
             setLoadSending(true);
             try {
                 const response = await axios.post(
-                    'http://8.219.96.109/api/v1/comments/post/'+postId,
+                    'https://vnthread.com/api/v1/comments/post/'+postId,
                     { content: newComment },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
