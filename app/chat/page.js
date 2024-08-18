@@ -98,7 +98,7 @@ const page = () => {
     const userId = userData?.id;
 
     const connect = () => {
-      const socket = new SockJS('https://hoifancuongonepiece.site/ws');
+      const socket = new SockJS('http://8.219.96.109:80/ws');
       stompClient.current = Stomp.over(socket);
       stompClient.current.connect({}, function (frame) {
         console.log('Connected: ' + frame);

@@ -3,9 +3,6 @@ export const env_variable = {
     URL_HOST: 'https://apx.vnthread.com', //SET DOMAIN FOR API
     URL_CLOUD: 'https://cloud.vnthread.com', //SET DOMAIN FOR API IMAGE
     URL_IMAGE_CLOUD: 'https://cloud.vnthread.com', //SET DOMAIN FOR CLOUD IMAGE
-    // URL_HOST: 'http://localhost:2312',
-    // URL_CLOUD: 'http://localhost:1200',
-    // URL_IMAGE_CLOUD: 'http://localhost:7700',
 
     HOST_COOKIE_NAME: '.vnthread.com',
     // HOST_COOKIE_NAME: 'localhost',
