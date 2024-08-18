@@ -42,9 +42,9 @@ export default function RootLayout({ children }) {
         <body>
           <LayoutProvider>
             <Suspense>
-            <WindowProvider>
-                {children}
-            </WindowProvider>
+              <WindowProvider>
+                  {children}
+              </WindowProvider>
             </Suspense>
           </LayoutProvider>
         </body>
