@@ -19,7 +19,7 @@ const checkType = _width =>
     5;
 
 function useWindowDimensions() {
-    const [width, setWidth] = useState(window?.innerWidth);
+    const [width, setWidth] = useState();
     const updateWidth = () => {
         setWidth(window?.innerWidth);
     };

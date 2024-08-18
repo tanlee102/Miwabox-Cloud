@@ -31,6 +31,7 @@ import "./styles/Other/PopOutMemberPanel.css"
 import WindowProvider from "./context/WindowContext";
 import LayoutProvider from "./context/LayoutContext";
 import { Suspense } from "react";
+import MainProvider from "./context/MainContext";
 
 
 export default function RootLayout({ children }) {
@@ -40,13 +41,15 @@ export default function RootLayout({ children }) {
           <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"/>
         </head>
         <body>
+        <Suspense>
           <LayoutProvider>
-            <Suspense>
               <WindowProvider>
+                <MainProvider>
                   {children}
+                </MainProvider>
               </WindowProvider>
-            </Suspense>
           </LayoutProvider>
+          </Suspense>
         </body>
     </html>
   );
