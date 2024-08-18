@@ -7,7 +7,7 @@ import { WindowContext } from '@/app/context/WindowContext';
 
 const getData = async (userId, typeFollow, setMyData) => {
 
-  const token = Cookies.get('token');
+  let token = Cookies.get('token');
   if (!token) {
     token="null"
     // alert('No authentication token found');
