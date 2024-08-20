@@ -267,7 +267,7 @@ const page = () => {
             ))}
           </div>
 
-          {chater && chater.blocked == false && (
+          {true && (
           <div className="chat-input">
             <div className="contain-input-thread">
               <div className="input-thread">
@@ -285,7 +285,7 @@ const page = () => {
           </div>
           )}
 
-          {chater?.blocked == true ? 
+          {false ? 
           <div className="info-block-two-chat">The conversation between the two users have been blocked.</div>
           : ""}
 
