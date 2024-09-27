@@ -36,7 +36,7 @@ const Members = ({ sortingIndex }) => {
                         <Link href={'/' + ite.username}>
                             <div className="ava-item-tab">
                                 <a href="">
-                                    <img src={ite.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + ite.profileImageUrl : '/avatar.jpeg'} alt="" />
+                                    <img src={ite.profileImageUrl ? 'https://image.adumikimio.workers.dev/?id=' + ite.profileImageUrl : '/avatar.jpeg'} alt="" />
                                 </a>
                             </div>
                         </Link>

@@ -130,7 +130,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
             <div class="item-comment">
                 <Link href={"/" + comment.userCommentDTO.username}>
                     <span class="fr-image-item-comment">
-                        <img src={(comment.userCommentDTO.profileUrl ? 'https://image.lehienthanh.workers.dev/?id='+comment.userCommentDTO.profileUrl : "/avatar.jpeg")} alt=""/>
+                        <img src={(comment.userCommentDTO.profileUrl ? 'https://image.adumikimio.workers.dev/?id='+comment.userCommentDTO.profileUrl : "/avatar.jpeg")} alt=""/>
                     </span>
                 </Link>
                 <span class="fr-text-item-comment">
@@ -181,7 +181,7 @@ const Comment = ({postId, setComments, comments, isMuted=false }) => {
                             <div class="item-comment item-reply-comment">
                                 <Link href={"/"+reply.userCommentDTO.username}>
                                     <span class="fr-image-item-comment">
-                                        <img src={(reply.userCommentDTO.profileUrl ? 'https://image.lehienthanh.workers.dev/?id='+reply.userCommentDTO.profileUrl : "/avatar.jpeg")} alt=""/>
+                                        <img src={(reply.userCommentDTO.profileUrl ? 'https://image.adumikimio.workers.dev/?id='+reply.userCommentDTO.profileUrl : "/avatar.jpeg")} alt=""/>
                                     </span>
                                 </Link>
                                 <span class="fr-text-item-comment">

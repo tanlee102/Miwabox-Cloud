@@ -71,7 +71,7 @@ const ProfileHeader = ({dataProfile}) => {
   return (
     <div className='profile-header'>
         <div className='profile-avatar-container'>
-            <img src={dataProfile.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id='+dataProfile.profileImageUrl : "/avatar.jpeg"} />
+            <img src={dataProfile.profileImageUrl ? 'https://image.adumikimio.workers.dev/?id='+dataProfile.profileImageUrl : "/avatar.jpeg"} />
         </div>
 
         <div className='profile-name-container'>

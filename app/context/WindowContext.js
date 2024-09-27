@@ -65,7 +65,7 @@ const WindowProvider = ({ children }) => {
           .then(response => {
             const myData = response.data;
             const username = myData.username;
-            let thumbnailUrl = 'https://image.lehienthanh.workers.dev/?id='+myData.profileImageUrl;
+            let thumbnailUrl = 'https://image.adumikimio.workers.dev/?id='+myData.profileImageUrl;
             if(!(response.data.profileImageUrl)){
                 thumbnailUrl="/avatar.jpeg";
             }

@@ -223,7 +223,7 @@ const page = () => {
                 router.push('/chat?conversation=' + listConversations[index].id)
               }} className={`chat-item ${chater?.id == conversation.id ? "con-reading" : ""}`}>
                 <div className='avatar-chat-item'>
-                  <img src={conversation.otherUser.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + conversation.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
+                  <img src={conversation.otherUser.profileImageUrl ? 'https://image.adumikimio.workers.dev/?id=' + conversation.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
                 </div>
                 <div className='content-chat-item'>
                   <div>{conversation.otherUser.username}</div>
@@ -253,7 +253,7 @@ const page = () => {
           <div className="chat-messages" ref={chatMessagesRef} onScroll={handleScroll}>
             {chater?
             <div className='info-user-start-chat'>
-              <img src={chater?.otherUser?.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + chater.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
+              <img src={chater?.otherUser?.profileImageUrl ? 'https://image.adumikimio.workers.dev/?id=' + chater.otherUser.profileImageUrl : '/avatar.jpeg'} alt="" />
               <div className='name-info-start-chat'>{chater?.otherUser?.username}</div>
               <div>{chater?.otherUser?.bio}</div>
             </div>
@@ -267,7 +267,7 @@ const page = () => {
             ))}
           </div>
 
-          {true && (
+          {chater && chater.blocked == false && (
           <div className="chat-input">
             <div className="contain-input-thread">
               <div className="input-thread">
@@ -285,7 +285,7 @@ const page = () => {
           </div>
           )}
 
-          {false ? 
+          {chater?.blocked == true ? 
           <div className="info-block-two-chat">The conversation between the two users have been blocked.</div>
           : ""}
 

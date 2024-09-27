@@ -46,7 +46,7 @@ const PostInfo = ({ postData }) => {
     <div className='post-info'>
       <div className='post-user-info'>
         <span onClick={() => { router.push("/" + postData?.user?.username) }} className='post-avatar-user'>
-          <img src={postData?.user?.userProfile?.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + postData?.user?.userProfile?.profileImageUrl : "/avatar.jpeg"} />
+          <img src={postData?.user?.userProfile?.profileImageUrl ? 'https://image.adumikimio.workers.dev/?id=' + postData?.user?.userProfile?.profileImageUrl : "/avatar.jpeg"} />
         </span>
         <span className='contain-post-name-user'>
           <div onClick={() => { router.push("/" + postData?.user?.username) }} className='post-name-user'>{postData?.user?.username}</div>

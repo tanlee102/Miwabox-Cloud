@@ -72,7 +72,7 @@ const NotificationAccount = () => {
                     <Link href={"/" + notification.actorDetails[0].username}>
                         <div className="ava-notification-tab">
                             <span>
-                                <img src={notification.actorDetails[0].profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id=' + notification.actorDetails[0].profileImageUrl : '/avatar.jpeg'} alt="" />
+                                <img src={notification.actorDetails[0].profileImageUrl ? 'https://image.adumikimio.workers.dev/?id=' + notification.actorDetails[0].profileImageUrl : '/avatar.jpeg'} alt="" />
                             </span>
                         </div>
                     </Link>

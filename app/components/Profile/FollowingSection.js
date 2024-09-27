@@ -87,7 +87,7 @@ const FollowingSection = ({ userId }) => {
             <div className="item-tab member-tab">
               <div className="content-member-tab">
                 <div className="ava-item-tab">
-                  <img src={user?.profileImageUrl ? 'https://image.lehienthanh.workers.dev/?id='+user?.profileImageUrl : "/avatar.jpeg"} alt="" />
+                  <img src={user?.profileImageUrl ? 'https://image.adumikimio.workers.dev/?id='+user?.profileImageUrl : "/avatar.jpeg"} alt="" />
                 </div>
                 <div className="content-item-tab">
                   <div className="title-item-tab set-bold">{user.username}</div>

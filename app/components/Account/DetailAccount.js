@@ -103,7 +103,7 @@ const DetailAccount = () => {
         }
       })
       .then(response => {
-        const newThumbnailUrl = 'https://image.lehienthanh.workers.dev/?id='+response.data.id;
+        const newThumbnailUrl = 'https://image.adumikimio.workers.dev/?id='+response.data.id;
         const expirationDays = 7; // Set the expiration days as needed
         Cookies.set('thumbnail', newThumbnailUrl, { expires: expirationDays });
         setUserData((prevUserData) => ({
