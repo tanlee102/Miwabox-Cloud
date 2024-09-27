@@ -77,7 +77,7 @@ const PostContent = ({postData}) => {
                     <div className='post-content-media'>
                         {media.mediaType === "video"
                             ? <video controls src={`https://video.iuhito102.workers.dev?ciphertext=${media.url}`} />
-                            : <img src={`https://image.lehienthanh1.workers.dev/?id=${media.url}`} alt={media.content} />
+                            : <img src={`https://image.adumikimio.workers.dev/?id=${media.url}`} alt={media.content} />
                         }
                     </div>
                     <div className='post-content-media-description'>

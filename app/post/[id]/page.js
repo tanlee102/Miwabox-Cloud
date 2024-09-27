@@ -87,7 +87,7 @@ const page = ({params}) => {
             {randomPosts.map(post => (
                 <div onClick={() => {router.push('/post/'+post.id)}} className='item-suggestion-post' key={post.id}>
                     <div className='image-suggestion-post'>
-                        <img src={post.media[0]?.mediaType==="video" ? 'https://image.lehienthanh1.workers.dev/?id='+post.media[0].thumb_url : 'https://image.lehienthanh1.workers.dev/?id='+post.media[0]?.url } alt="Post Image" />
+                        <img src={post.media[0]?.mediaType==="video" ? 'https://image.adumikimio.workers.dev/?id='+post.media[0].thumb_url : 'https://image.adumikimio.workers.dev/?id='+post.media[0]?.url } alt="Post Image" />
                     </div>
                     <div className='text-suggestion-post'>
                         <p>

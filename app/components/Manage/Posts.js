@@ -55,8 +55,8 @@ const Posts = ({ sortingIndex }) => {
                         <img
                             src={
                                 item.media[0].mediaType === 'video'
-                                    ? 'https://image.lehienthanh1.workers.dev/?id=' + item.media[0].thumb_url
-                                    : 'https://image.lehienthanh1.workers.dev/?id=' + item.media[0].url
+                                    ? 'https://image.adumikimio.workers.dev/?id=' + item.media[0].thumb_url
+                                    : 'https://image.adumikimio.workers.dev/?id=' + item.media[0].url
                             }
                             alt="Post Image"
                         />
