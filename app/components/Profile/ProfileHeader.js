@@ -19,10 +19,10 @@ const ProfileHeader = ({dataProfile}) => {
 
         let url = null;
         if(follow){
-            url = 'https://hoifancuongonepiece.site/api/v1/followers/unfollow';
+            url = 'https://socialmediajavaapi.onrender.com/api/v1/followers/unfollow';
             setFollow(false);
         }else{
-            url = 'https://hoifancuongonepiece.site/api/v1/followers/follow';
+            url = 'https://socialmediajavaapi.onrender.com/api/v1/followers/follow';
             setFollow(true);
         }
 
@@ -52,7 +52,7 @@ const ProfileHeader = ({dataProfile}) => {
 
     const gettingConversation = async () => {
         try {
-            const response = await fetch(`https://hoifancuongonepiece.site/api/conversation?userId1=${userData.id}&userId2=${dataProfile.id}`, {
+            const response = await fetch(`https://socialmediajavaapi.onrender.com/api/conversation?userId1=${userData.id}&userId2=${dataProfile.id}`, {
                 method: 'GET',
             });
 
